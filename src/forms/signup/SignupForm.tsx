@@ -67,7 +67,7 @@ const SignupForm = () => {
             Student Name
           </label>
           <div
-            className={`relative py-1.5 transition-all outline outline-purple-300 ${focusAndUnfocusStyle(
+            className={`relative py-2 transition-all outline outline-purple-300 ${focusAndUnfocusStyle(
               "studentName"
             )} px-3 bg-zinc-50 ps-8 text-sm tracking-widest text-[#333] rounded`}
           >
@@ -97,7 +97,7 @@ const SignupForm = () => {
             Email
           </label>
           <div
-            className={`relative py-1.5 transition-all outline outline-purple-300  ${focusAndUnfocusStyle(
+            className={`relative py-2 transition-all outline outline-purple-300  ${focusAndUnfocusStyle(
               "email"
             )} px-3 bg-zinc-50 ps-8 text-sm tracking-widest text-[#333] rounded`}
           >
@@ -127,7 +127,7 @@ const SignupForm = () => {
             Password
           </label>
           <div
-            className={`relative py-1.5 transition-all outline outline-purple-300 ${focusAndUnfocusStyle(
+            className={`relative py-2 transition-all outline outline-purple-300 ${focusAndUnfocusStyle(
               "password"
             )} px-3 bg-zinc-50 ps-8 text-sm tracking-widest text-[#333] rounded`}
           >
@@ -155,7 +155,7 @@ const SignupForm = () => {
             Confirm Password
           </label>
           <div
-            className={`relative py-1.5 transition-all outline outline-purple-300 ${focusAndUnfocusStyle(
+            className={`relative py-2 transition-all outline outline-purple-300 ${focusAndUnfocusStyle(
               "confirmPassword"
             )} px-3 bg-zinc-50 ps-8 text-sm tracking-widest text-[#333] rounded`}
           >
@@ -187,7 +187,7 @@ const SignupForm = () => {
               Student Code
             </label>
             <div
-              className={`relative py-1.5 transition-all outline outline-purple-300 ${focusAndUnfocusStyle(
+              className={`relative py-2 transition-all outline outline-purple-300 ${focusAndUnfocusStyle(
                 "studentCode"
               )} px-3 bg-zinc-50 ps-8 text-sm tracking-widest text-[#333] rounded`}
             >
@@ -215,7 +215,7 @@ const SignupForm = () => {
               Group
             </label>
             <div
-              className={`relative py-1.5 transition-all outline outline-purple-300 ${focusAndUnfocusStyle(
+              className={`relative py-2 transition-all outline outline-purple-300 ${focusAndUnfocusStyle(
                 "studentGroup"
               )} px-3 bg-zinc-50 ps-8 text-sm tracking-widest text-[#333] rounded`}
             >
@@ -245,7 +245,7 @@ const SignupForm = () => {
               Section Number
             </label>
             <div
-              className={`relative py-1.5 transition-all outline outline-purple-300 ${focusAndUnfocusStyle(
+              className={`relative py-2 transition-all outline outline-purple-300 ${focusAndUnfocusStyle(
                 "studentSection"
               )} px-3 bg-zinc-50 ps-8 text-sm tracking-widest text-[#333] rounded`}
             >

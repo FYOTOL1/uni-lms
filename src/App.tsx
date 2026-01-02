@@ -1,6 +1,6 @@
 import { createBrowserRouter, RouterProvider } from "react-router";
 import SignupPage from "./pages/auth/SignupPage";
-import WelcomePage from "./pages/auth/WelcomePage";
+import WelcomePage from "./pages/WelcomePage";
 
 const App = () => {
   const router = createBrowserRouter([

@@ -281,7 +281,7 @@ const SignupForm = () => {
           </div>
 
           {/* Submit Button */}
-          <button className="py-2 text-sm bg-purple-600 h-fit mt-auto rounded text-white cursor-pointer transition-all hover:bg-purple-700">
+          <button className="py-3 text-sm bg-purple-600 h-fit mt-auto rounded text-white cursor-pointer transition-all hover:bg-purple-700">
             Sign Up
           </button>
         </form>

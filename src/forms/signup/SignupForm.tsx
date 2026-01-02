@@ -64,7 +64,8 @@ const SignupForm = () => {
             <i className="fa-solid fa-building-columns"></i>
           </div>
           <h2 className="text-[#333] text-xs">
-            This is System Has No Relationship With <br /> SGU Management
+            There is no connection between this system and the <br />
+            administration of SGU University.
           </h2>
         </div>
 

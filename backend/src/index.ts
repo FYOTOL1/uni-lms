@@ -4,13 +4,16 @@ import authRoute from "./routes/authRoute";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import connectdb from "./connectdb";
+import de from "dotenv";
+
+de.config();
 
 const app = express();
 app.use(express.json());
 app.use(cookieParser());
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: process.env.CLIENT_URI || "http://localhost:5173",
     credentials: true,
   })
 );

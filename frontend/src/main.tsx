@@ -8,10 +8,10 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import axios, { AxiosError } from "axios";
 import { Toaster } from "react-hot-toast";
 
-axios.defaults.withCredentials = true
+axios.defaults.withCredentials = true;
 
 export const api = axios.create({
-  baseURL: "http://localhost:3000",
+  baseURL: import.meta.env.VITE_API_URI,
 });
 
 type BackendResponseError = {
@@ -26,7 +26,6 @@ api.interceptors.response.use(
     return Promise.reject(new Error(message));
   }
 );
-
 
 const queryClient = new QueryClient();
 

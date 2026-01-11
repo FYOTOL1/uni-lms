@@ -1,10 +1,11 @@
 import mongoose from "mongoose";
+import de from "dotenv";
+
+de.config();
 
 const connect = async () => {
   try {
-    await mongoose.connect(
-      "mongodb+srv://fyotol:fyotol2008@cluster0.9i2rytx.mongodb.net/lms-uni?appName=Cluster0"
-    );
+    await mongoose.connect(process.env.DB_URI!);
     console.log("Connected to MongoDB ✅");
   } catch (error) {
     console.error("MongoDB connection failed ❌:" + error);

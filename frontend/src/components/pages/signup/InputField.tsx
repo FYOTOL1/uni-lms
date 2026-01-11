@@ -1,16 +1,16 @@
 import React from "react";
-import type { TInitialInputsFormValues } from "../../../types/form/Signup";
+import type { TInitialInputsAuthFormValues } from "../../../types/form/formTypes";
 
 type Props = {
   setFieldValue: (key: string, value: string | number) => void;
   handleBlur: (e: React.FocusEvent<HTMLInputElement>) => void;
   setFocusedFieldName: (value: string | null) => void;
   focusAndUnfocusStyle: (value: string) => void;
-  values: TInitialInputsFormValues;
+  values: TInitialInputsAuthFormValues;
   inputPlaceholder: string;
   fieldName: string;
   inputType?: "text" | "number" | "email" | "password";
-  inputName: keyof TInitialInputsFormValues;
+  inputName: keyof TInitialInputsAuthFormValues;
   iconClass?: string;
 };
 

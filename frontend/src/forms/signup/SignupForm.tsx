@@ -25,14 +25,14 @@ const SignupForm = () => {
   });
 
   const initialFormValues: TInitialInputsAuthFormValues = {
-    studentName: "ahmed",
-    studentCode: 251818,
-    studentGroup: "m",
-    studentSection: 4,
-    email: "ahmed@gmail.com",
-    password: "ahmed2008",
-    confirmPassword: "ahmed2008",
-    phoneNumber: 10233342,
+    studentName: "",
+    studentCode: null,
+    studentGroup: "",
+    studentSection: null,
+    email: "",
+    password: "",
+    confirmPassword: "",
+    phoneNumber: null,
   };
 
   const { handleBlur, handleSubmit, setFieldValue, touched, values, errors } =

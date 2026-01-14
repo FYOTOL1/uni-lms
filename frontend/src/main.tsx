@@ -16,10 +16,10 @@ export const api = axios.create({
 
 type BackendResponseError = {
   message?: string;
-  missedFields: { field: string; message: string }[];
+  missedFields?: { field: string; message: string }[];
 };
 
-api.interceptors.response.use(
+api.interceptors?.response.use(
   (res) => res,
   (error: AxiosError<BackendResponseError>) => {
     const message = error?.response?.data.message;

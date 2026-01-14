@@ -2,7 +2,6 @@ import { useQuery } from "@tanstack/react-query";
 import { checkAuthed } from "../api/authApi";
 
 const useAuth = () => {
-
   const { data, error, isLoading, refetch } = useQuery({
     queryKey: ["auth"],
     queryFn: checkAuthed,
@@ -10,11 +9,11 @@ const useAuth = () => {
   });
 
   return {
-    student: data?.student,
-    error,
     isLogged: !!data?.student,
+    student: data?.student,
     isLoading,
     refetch,
+    error,
   };
 };
 

@@ -19,6 +19,7 @@ const signupValidationSchema = yup.object().shape({
     .oneOf([yup.ref("password")], "Confirm Password Must Be Same The Password")
     .required("Conform Password is Required!"),
   phoneNumber: yup.number().required("Phone Number is Required!"),
+  gender: yup.string().oneOf(["male", "female"]),
 });
 
 export default signupValidationSchema;

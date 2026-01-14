@@ -32,12 +32,12 @@ const InputField = ({
         {fieldName}
       </label>
       <div
-        className={`relative py-2 transition-all outline outline-purple-300 ${focusAndUnfocusStyle(
+        className={`relative py-2 h-9 transition-all outline outline-purple-300 ${focusAndUnfocusStyle(
           inputName
         )} px-3 bg-zinc-50 ps-8 text-sm tracking-widest text-[#333] rounded`}
       >
         <i
-          className={`absolute left-2 top-1/2 translate-y-[-50%] text-purple-500 text-sm ${iconClass}`}
+          className={`absolute left-2 top-1/2 translate-y-[-45%] text-purple-500 text-sm ${iconClass}`}
         ></i>
         <input
           onChange={(e) =>

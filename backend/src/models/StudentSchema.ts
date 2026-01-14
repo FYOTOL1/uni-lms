@@ -21,6 +21,7 @@ const Student = new Schema<IStudentSchema>(
     },
     password: { type: String, required: true },
     phoneNumber: { type: Number, required: true },
+    gender: { type: String, required: true, enum: ["male", "female"] },
     role: {
       type: String,
       enum: ["student", "subadmin", "admin"],

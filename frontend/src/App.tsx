@@ -1,13 +1,20 @@
-import { createBrowserRouter, RouterProvider } from "react-router";
+import { createBrowserRouter, Navigate, RouterProvider } from "react-router";
 import SignupPage from "./pages/auth/SignupPage";
 import WelcomePage from "./pages/WelcomePage";
 import LoginPage from "./pages/auth/LoginPage";
+import useAuth from "./hooks/useAuth";
 
 const App = () => {
+  const { isLogged } = useAuth();
+
   const router = createBrowserRouter([
     {
       path: "*",
-      element: <WelcomePage />,
+      element: isLogged ? (
+        <WelcomePage />
+      ) : (
+        <Navigate to={"/auth/login"} replace />
+      ),
     },
     {
       path: "/auth/signup",
@@ -19,11 +26,7 @@ const App = () => {
     },
   ]);
 
-  return (
-    <>
-      <RouterProvider router={router} />
-    </>
-  );
+  return <RouterProvider router={router} />;
 };
 
 export default App;

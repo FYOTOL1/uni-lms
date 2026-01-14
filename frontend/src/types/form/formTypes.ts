@@ -7,4 +7,5 @@ export type TInitialInputsAuthFormValues = {
   password?: string;
   confirmPassword?: string;
   phoneNumber?: number | null;
+  gender?: "male" | "female" | null;
 };

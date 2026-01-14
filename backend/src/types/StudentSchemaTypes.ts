@@ -7,5 +7,6 @@ export interface IStudentSchema {
   email: string;
   password: string;
   phoneNumber: number;
+  gender: "male" | "female";
   role: "student" | "subadmin" | "admin";
 }

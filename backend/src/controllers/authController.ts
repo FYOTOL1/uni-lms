@@ -1,29 +1,15 @@
 import { Request, Response } from "express";
 import { IStudentSchema } from "../types/StudentSchemaTypes";
 import argon2 from "argon2";
-import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 import StudentSchema from "../models/StudentSchema";
+import {
+  accessTokenGenerator,
+  refreshTokenGenerator,
+  sendTokenCookie,
+} from "../middlewares/authMiddleware";
 
 dotenv.config();
-
-const tokenGenerator = (
-  _id: string,
-  role: "student" | "subadmin" | "admin"
-) => {
-  const token = jwt.sign(
-    {
-      _id,
-      role,
-    },
-    process.env.JWT_SECRET!,
-    {
-      expiresIn: "1d",
-    }
-  );
-
-  return token;
-};
 
 const signupStudent = async (
   req: Request,
@@ -42,26 +28,30 @@ const signupStudent = async (
       studentCode: body.studentCode,
     });
 
-    if (getStudentByEmail || getStudentByCode) {
+    if (getStudentByEmail || getStudentByCode)
       return res
         .status(409)
         .json({ message: "email or student code already exists!" });
-    } else {
-      const createdStudent: IStudentSchema = await StudentSchema.create(body);
-      const token = tokenGenerator(createdStudent._id, createdStudent.role);
 
-      res.cookie("token", token, {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
-        sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
-        maxAge: 1000 * 60 * 60 * 24,
-      });
+    const createdStudent: IStudentSchema = await StudentSchema.create(body);
 
-      return res.status(201).json({
-        message: "Student created successfully",
-        student: { studentName: createdStudent.studentName },
-      });
-    }
+    const accessToken = accessTokenGenerator(
+      createdStudent._id,
+      createdStudent.role
+    );
+
+    const refreshToken = refreshTokenGenerator(
+      createdStudent._id,
+      createdStudent.role
+    );
+
+    sendTokenCookie(res, "refreshToken", refreshToken);
+    sendTokenCookie(res, "accessToken", accessToken);
+
+    return res.status(201).json({
+      message: "Student created successfully",
+      student: { studentName: createdStudent.studentName },
+    });
   } catch (error: any) {
     console.log("authControllerFile: " + error);
 
@@ -88,14 +78,11 @@ const loginStudent = async (
       if (!verifyPassword)
         return res.status(400).json({ message: "Incorrect Password!" });
 
-      const token = tokenGenerator(findUser._id, findUser.role);
+      const refreshToken = refreshTokenGenerator(findUser._id, findUser.role);
+      const accessToken = accessTokenGenerator(findUser._id, findUser.role);
 
-      res.cookie("token", token, {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
-        sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
-        maxAge: 1000 * 60 * 60 * 24,
-      });
+      sendTokenCookie(res, "refreshToken", refreshToken);
+      sendTokenCookie(res, "accessToken", accessToken);
 
       return res.status(200).json({ message: "Logged Successfully!" });
     }
@@ -109,10 +96,15 @@ const loginStudent = async (
 };
 
 const logoutStudent = async (req: Request, res: Response) => {
-  res.clearCookie("token", {
+  res.clearCookie("accessToken", {
     httpOnly: true,
- secure: process.env.NODE_ENV === "production",
-        sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+    secure: process.env.NODE_ENV === "production",
+    sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+  });
+  res.clearCookie("refreshToken", {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
   });
 
   return res.status(200).json({ message: "logged out successfully!" });
@@ -120,7 +112,7 @@ const logoutStudent = async (req: Request, res: Response) => {
 
 const getStudentData = (req: Request, res: Response) => {
   if (!req.student) {
-    return res.status(401).json({ message: "Unauthorized" });
+    return res.status(401).json({ message: "unauthorized" });
   }
 
   return res.status(200).json({

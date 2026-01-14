@@ -19,7 +19,7 @@ const LoginForm = () => {
     password: "",
   };
 
-  const { mutateAsync } = useMutation({
+  const { mutateAsync, isPending } = useMutation({
     mutationFn: loginFn,
     retry: false,
     onSuccess: (res) => {
@@ -37,7 +37,7 @@ const LoginForm = () => {
       initialValues: initialFormValues,
       validationSchema: loginValidationSchema,
       onSubmit: () => {
-        mutateAsync(values);
+        if (!isPending) mutateAsync(values);
       },
     });
 
@@ -100,7 +100,7 @@ const LoginForm = () => {
 
           {/* Submit Button */}
           <button className="py-2 text-[16px] bg-purple-600 h-fit mt-auto rounded text-white cursor-pointer transition-all hover:bg-purple-700 focus:bg-purple-700">
-            Login
+            {isPending ? "Loading..." : "Login"}
           </button>
           <hr className="text-gray-300" />
           <div className="flex justify-center w-full gap-2 text-sm">

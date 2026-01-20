@@ -15,7 +15,7 @@ const Header = ({ student }: { student: TMeRequest }) => {
   });
 
   const [pathName, setPathName] = useState<string>(
-    location.pathname.split("/")[1]
+    location.pathname.split("/")[1],
   );
 
   const [isActiveAvatarBar, setIsActiveAvatarBar] = useState<boolean>();
@@ -28,7 +28,8 @@ const Header = ({ student }: { student: TMeRequest }) => {
     if (student?.studentName) {
       if (student?.studentName?.split(" ").length >= 2) {
         setShortAvatarName(
-          student?.studentName?.split(" ")[0] + student.studentName.split(" ")[1]
+          student?.studentName?.split(" ")[0] +
+            student.studentName.split(" ")[1],
         );
       }
 
@@ -106,15 +107,15 @@ const Header = ({ student }: { student: TMeRequest }) => {
               </Link>
             </li>
           </ul>
-        </div>
 
-        <div className="flex items-center gap-2">
-          <button
-            onClick={() => setIsActiveAvatarBar(!isActiveAvatarBar)}
-            className="flex justify-center items-center uppercase text-sm text-white size-8 transition-all rounded-full bg-linear-to-r from-purple-400 to-pink-400 cursor-pointer hover:from-purple-500 hover:to-pink-500"
-          >
-            {shortAvatarName}
-          </button>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => setIsActiveAvatarBar(!isActiveAvatarBar)}
+              className="flex justify-center items-center uppercase text-sm text-white size-8 transition-all rounded-full bg-linear-to-r from-purple-400 to-pink-400 cursor-pointer hover:from-purple-500 hover:to-pink-500"
+            >
+              {shortAvatarName}
+            </button>
+          </div>
         </div>
       </div>
     </>

@@ -12,6 +12,7 @@ import de from "dotenv";
 de.config();
 
 const app = express();
+app.set("Etag", false);
 app.use(express.json());
 app.use(cookieParser());
 app.use(

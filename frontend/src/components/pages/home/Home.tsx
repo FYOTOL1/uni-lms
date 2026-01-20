@@ -67,7 +67,7 @@ const Home = ({ student }: { student: TMeRequest }) => {
 
   return (
     <>
-      <div className="grid md:grid-cols-1 lg:grid-cols-3 gap-5 w-full max-w-[1440px] mx-auto  mt-8 px-2">
+      <div className="grid md:grid-cols-1 lg:grid-cols-3 gap-5 w-full max-w-[1440px] mx-auto mt-8 px-2">
         {/* L Other Components*/}
         <div className="lg:col-span-2">
           {/* Welcome Message */}

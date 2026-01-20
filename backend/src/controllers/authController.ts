@@ -13,7 +13,7 @@ dotenv.config();
 
 const signupStudent = async (
   req: Request,
-  res: Response
+  res: Response,
 ): Promise<Response<any, Record<string, any>>> => {
   try {
     const body: IStudentSchema = req.body;
@@ -38,13 +38,13 @@ const signupStudent = async (
     const accessToken = accessTokenGenerator(
       createdStudent._id,
       createdStudent.studentName,
-      createdStudent.role
+      createdStudent.role,
     );
 
     const refreshToken = refreshTokenGenerator(
       createdStudent._id,
       createdStudent.studentName,
-      createdStudent.role
+      createdStudent.role,
     );
 
     sendTokenCookie(res, "refreshToken", refreshToken);
@@ -63,7 +63,7 @@ const signupStudent = async (
 
 const loginStudent = async (
   req: Request,
-  res: Response
+  res: Response,
 ): Promise<Response<any, Record<string, any>>> => {
   try {
     const { studentCode, password }: { studentCode: number; password: string } =
@@ -83,12 +83,12 @@ const loginStudent = async (
       const refreshToken = refreshTokenGenerator(
         findUser._id,
         findUser.studentName,
-        findUser.role
+        findUser.role,
       );
       const accessToken = accessTokenGenerator(
         findUser._id,
         findUser.studentName,
-        findUser.role
+        findUser.role,
       );
 
       sendTokenCookie(res, "refreshToken", refreshToken);

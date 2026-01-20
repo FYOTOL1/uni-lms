@@ -6,7 +6,8 @@ const useAuth = () => {
   const { data, error, isLoading, isSuccess, refetch } = useQuery({
     queryKey: ["auth"],
     queryFn: checkAuthed,
-    retry: false,
+    retry: true,
+    staleTime: 1000 * 3,
   });
 
   return {

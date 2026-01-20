@@ -1,6 +1,6 @@
 import { useFormik } from "formik";
 import { useState } from "react";
-import InputField from "../../components/pages/signup/InputField";
+import InputField from "../../components/pages/auth/InputField";
 import signupValidationSchema from "./Validation";
 import { useMutation } from "@tanstack/react-query";
 import { signupFn } from "../../api/authApi";

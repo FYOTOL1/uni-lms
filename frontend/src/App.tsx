@@ -1,19 +1,39 @@
 import { createBrowserRouter, Navigate, RouterProvider } from "react-router";
 import SignupPage from "./pages/auth/SignupPage";
-import WelcomePage from "./pages/WelcomePage";
 import LoginPage from "./pages/auth/LoginPage";
 import useAuth from "./hooks/useAuth";
+import HomePage from "./pages/home/HomePage";
 
 const App = () => {
-  const { isLogged } = useAuth();
+  const { isLoading, isLogged, student } = useAuth();
 
   const router = createBrowserRouter([
     {
       path: "*",
-      element: isLogged ? (
-        <WelcomePage />
-      ) : (
-        <Navigate to={"/auth/login"} replace />
+      element: (
+        <>
+          {!isLoading && isLogged && (
+            <>
+              <HomePage student={student} />
+            </>
+          )}
+
+          {!isLoading && !isLogged && <Navigate to={"/auth/login"} />}
+        </>
+      ),
+    },
+    {
+      path: "/",
+      element: (
+        <>
+          {!isLoading && isLogged && (
+            <>
+              <HomePage student={student} />
+            </>
+          )}
+
+          {!isLoading && !isLogged && <Navigate to={"/auth/login"} />}
+        </>
       ),
     },
     {

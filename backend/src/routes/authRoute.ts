@@ -5,8 +5,8 @@ import {
   logoutStudent,
   signupStudent,
 } from "../controllers/authController";
-import signupValidationMiddleware from "../middlewares/signupValidationMiddleware";
-import loginValidationMiddleware from "../middlewares/loginValidationMiddleware";
+import signupValidationMiddleware from "../middlewares/validations/signupValidationMiddleware";
+import loginValidationMiddleware from "../middlewares/validations/loginValidationMiddleware";
 import authMiddleware from "../middlewares/authMiddleware";
 
 const router = express.Router();

@@ -1,6 +1,6 @@
 import { useFormik } from "formik";
 import { useState } from "react";
-import InputField from "../../components/pages/signup/InputField";
+import InputField from "../../components/pages/auth/InputField";
 import { Link, useNavigate } from "react-router";
 import type { TInitialInputsAuthFormValues } from "../../types/form/formTypes";
 import loginValidationSchema from "./Validation";
@@ -23,8 +23,8 @@ const LoginForm = () => {
     mutationFn: loginFn,
     retry: false,
     onSuccess: (res) => {
-      queryClient.setQueryData(["auth"], null);
       navigate("/");
+      queryClient.setQueryData(["auth"], null);
       toast.success(String(res.message).toLowerCase());
     },
     onError: (err) => {

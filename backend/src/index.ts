@@ -1,6 +1,9 @@
 import express from "express";
-import studentRoute from "./routes/studentRoute";
+
 import authRoute from "./routes/authRoute";
+import studentRoute from "./routes/studentRoute";
+import subjectRoute from "./routes/subjectRoute";
+
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import connectdb from "./connectdb";
@@ -13,14 +16,19 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(
   cors({
-    origin: [process.env.CLIENT_URI!, "http://localhost:5173"],
+    origin: [
+      process.env.CLIENT_URI!,
+      "http://localhost:5174",
+      "http://localhost:5173",
+    ],
     credentials: true,
-  })
+  }),
 );
 connectdb();
 
+app.use("/auth", authRoute);
 app.use("/students", studentRoute);
-app.use("/auth/", authRoute);
+app.use("/subjects", subjectRoute);
 
 app.listen(3000, () => {
   console.log("Connected To Port ✅");

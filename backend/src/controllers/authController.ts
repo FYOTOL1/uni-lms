@@ -37,11 +37,13 @@ const signupStudent = async (
 
     const accessToken = accessTokenGenerator(
       createdStudent._id,
+      createdStudent.studentName,
       createdStudent.role
     );
 
     const refreshToken = refreshTokenGenerator(
       createdStudent._id,
+      createdStudent.studentName,
       createdStudent.role
     );
 
@@ -78,8 +80,16 @@ const loginStudent = async (
       if (!verifyPassword)
         return res.status(400).json({ message: "Incorrect Password!" });
 
-      const refreshToken = refreshTokenGenerator(findUser._id, findUser.role);
-      const accessToken = accessTokenGenerator(findUser._id, findUser.role);
+      const refreshToken = refreshTokenGenerator(
+        findUser._id,
+        findUser.studentName,
+        findUser.role
+      );
+      const accessToken = accessTokenGenerator(
+        findUser._id,
+        findUser.studentName,
+        findUser.role
+      );
 
       sendTokenCookie(res, "refreshToken", refreshToken);
       sendTokenCookie(res, "accessToken", accessToken);

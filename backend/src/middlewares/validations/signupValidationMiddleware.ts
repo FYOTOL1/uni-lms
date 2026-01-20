@@ -1,10 +1,10 @@
 import { NextFunction, Request, Response } from "express";
-import signupValidation from "../validations/signupValidation";
+import signupValidation from "../../validations/signupValidation";
 
 const signupValidationMiddleware = async (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ) => {
   try {
     await signupValidation.validate(req.body, { abortEarly: false });

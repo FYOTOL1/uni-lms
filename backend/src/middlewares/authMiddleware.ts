@@ -5,7 +5,11 @@ import { IStudentSchema } from "../types/StudentSchemaTypes";
 
 de.config();
 
-type TStudentRequest = { _id: string; role: "admin" | "subadmin" | "student" };
+type TStudentRequest = {
+  _id: string;
+  studentName: string;
+  role: "admin" | "subadmin" | "student";
+};
 
 declare global {
   namespace Express {
@@ -17,11 +21,13 @@ declare global {
 
 export const accessTokenGenerator = (
   _id: string,
+  studentName: string,
   role: "student" | "subadmin" | "admin"
 ) => {
   const token = jwt.sign(
     {
       _id,
+      studentName,
       role,
     },
     process.env.JWT_ACCESS_SECRET!,
@@ -35,11 +41,13 @@ export const accessTokenGenerator = (
 
 export const refreshTokenGenerator = (
   _id: string,
+  studentName: string,
   role: "student" | "subadmin" | "admin"
 ) => {
   const token = jwt.sign(
     {
       _id,
+      studentName,
       role,
     },
     process.env.JWT_REFRESH_SECRET!,
@@ -96,6 +104,7 @@ const authMiddleware = async (
       if (error instanceof jwt.TokenExpiredError) {
         const newAccessToken = accessTokenGenerator(
           decodeRefreshToken._id,
+          decodeRefreshToken.studentName,
           decodeRefreshToken.role
         );
         sendTokenCookie(res, "accessToken", newAccessToken);

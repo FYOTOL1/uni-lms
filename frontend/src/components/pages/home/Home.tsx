@@ -75,7 +75,7 @@ const Home = ({ student }: { student: TMeRequest }) => {
             <h1 className="text-4xl font-semibold text-[#333]">
               Welcome back,{" "}
               <span className="capitalize bg-linear-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent">
-                {student?.studentName.split(" ")[0]}!
+                {student && student?.studentName?.split(" ")[0]}!
               </span>
             </h1>
 

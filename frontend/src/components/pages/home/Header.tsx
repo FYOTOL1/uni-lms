@@ -26,9 +26,9 @@ const Header = ({ student }: { student: TMeRequest }) => {
     setPathName(location.pathname.split("/")[1]);
 
     if (student?.studentName) {
-      if (student.studentName.split(" ").length >= 2) {
+      if (student?.studentName?.split(" ").length >= 2) {
         setShortAvatarName(
-          student.studentName.split(" ")[0] + student.studentName.split(" ")[1]
+          student?.studentName?.split(" ")[0] + student.studentName.split(" ")[1]
         );
       }
 

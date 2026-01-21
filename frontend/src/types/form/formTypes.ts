@@ -1,8 +1,8 @@
 export type TInitialInputsAuthFormValues = {
-  studentName?: string;
-  studentCode?: number | null;
-  studentGroup?: string;
-  studentSection?: number | null;
+  userName?: string;
+  userCode?: number | null;
+  userGroup?: string;
+  userSection?: number | null;
   email?: string;
   password?: string;
   confirmPassword?: string;

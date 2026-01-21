@@ -6,13 +6,14 @@ const useAuth = () => {
   const { data, error, isLoading, isSuccess, refetch } = useQuery({
     queryKey: ["auth"],
     queryFn: checkAuthed,
-    retry: true,
-    staleTime: 1000 * 3,
+    staleTime: 1000 * 10,
+
+    retry: false,
   });
 
   return {
-    isLogged: !!data?.student,
-    student: data?.student as TMeRequest,
+    isLogged: !!data?.user,
+    user: data?.user as TMeRequest,
     isLoading,
     isSuccess,
     refetch,

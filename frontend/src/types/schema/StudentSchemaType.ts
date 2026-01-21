@@ -1,9 +1,9 @@
-export interface IStudentSchema {
+export interface IUserSchema {
   _id: string;
-  studentName: string;
-  studentCode: number;
-  studentGroup: string;
-  studentSection: number;
+  userName: string;
+  userCode: number;
+  userGroup: string;
+  userSection: number;
   email: string;
   password: string;
   phoneNumber: number;

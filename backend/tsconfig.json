@@ -9,6 +9,7 @@
     "skipLibCheck": true,
     "outDir": "dist",
     "resolveJsonModule": true,
+    "erasableSyntaxOnly": false
   },
   "include": ["src/**/*"]
 }

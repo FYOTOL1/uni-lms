@@ -1,13 +1,17 @@
 import Header from "../../components/pages/home/Header";
 import Home from "../../components/pages/home/Home";
-import type { TMeRequest } from "../../types/auth/meTypes";
+import ProtectedUserRoute from "../../secureRoutes/ProtectedUserRoute";
 
-const HomePage = ({ student }: { student: TMeRequest }) => {
+const HomePage = () => {
   return (
-    <>
-      <Header student={student} />
-      <Home student={student} />
-    </>
+    <ProtectedUserRoute>
+      {(user) => (
+        <>
+          <Header user={user} />
+          <Home user={user} />
+        </>
+      )}
+    </ProtectedUserRoute>
   );
 };
 

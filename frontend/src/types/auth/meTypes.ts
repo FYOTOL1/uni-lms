@@ -1,5 +1,5 @@
 export type TMeRequest = {
   _id: string;
-  studentName: string;
+  userName: string;
   role: "student" | "subadmin" | "admin";
 };

@@ -1,17 +1,17 @@
 import mongoose, { Schema } from "mongoose";
-import { IStudentSchema } from "../types/StudentSchemaTypes";
+import { IUserSchema } from "../types/UserSchemaTypes";
 
-const Student = new Schema<IStudentSchema>(
+const User = new Schema<IUserSchema>(
   {
-    studentName: { type: String, required: true },
-    studentCode: { type: Number, required: true, unique: true },
-    studentGroup: {
+    userName: { type: String, required: true },
+    userCode: { type: Number, required: true, unique: true },
+    userGroup: {
       type: String,
       required: true,
       lowercase: true,
       enum: ["a", "b", "c", "d"],
     },
-    studentSection: { type: Number, required: true },
+    userSection: { type: Number, required: true },
     email: {
       type: String,
       required: true,
@@ -30,8 +30,8 @@ const Student = new Schema<IStudentSchema>(
   },
   {
     timestamps: true,
-  }
+  },
 );
 
-export default mongoose.model<IStudentSchema>("Student", Student) ||
-  mongoose.models.Student;
+export default mongoose.model<IUserSchema>("User", User) ||
+  mongoose.models.User;

@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
-import StudentSchema from "../models/StudentSchema";
+import StudentSchema from "../models/UserSchema";
 
 const getAllStudents = async (
   req: Request,
-  res: Response
+  res: Response,
 ): Promise<Response<any, Record<string, any>>> => {
   try {
     const getStudent = await StudentSchema.find();

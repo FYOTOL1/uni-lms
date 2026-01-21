@@ -15,11 +15,7 @@ const getAllSubjects = async (req: Request, res: Response) => {
 
 const postSubject = async (req: Request, res: Response) => {
   try {
-    if (
-      req.student?.role == "admin" ||
-      req.student?.role == "subadmin" ||
-      true
-    ) {
+    if (req.user?.role == "admin" || req.user?.role == "subadmin" || true) {
       const requestBody = req.body;
 
       const createSubject = await SubjectSchema.create(requestBody);

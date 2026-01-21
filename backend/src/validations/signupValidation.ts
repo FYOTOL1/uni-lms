@@ -1,14 +1,14 @@
 import * as yup from "yup";
 
 const signupValidation = yup.object().shape({
-  studentName: yup.string().required("Student name is required!"),
-  studentCode: yup.number().required("Student code is required!"),
-  studentGroup: yup
+  userName: yup.string().required("Student name is required!"),
+  userCode: yup.number().required("Student code is required!"),
+  userGroup: yup
     .string()
     .oneOf(["a", "b", "c", "d"])
     .lowercase()
     .required("Student group is required!"),
-  studentSection: yup.number().required("Student section is required!"),
+  userSection: yup.number().required("Student section is required!"),
   email: yup.string().email("Invalid email").required("Email is required!"),
   password: yup.string().required(),
   phoneNumber: yup

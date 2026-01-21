@@ -15,7 +15,7 @@ const LoginForm = () => {
   const [focusedFieldName, setFocusedFieldName] = useState<string | null>(null);
 
   const initialFormValues: TInitialInputsAuthFormValues = {
-    studentCode: null,
+    userCode: null,
     password: "",
   };
 
@@ -28,7 +28,7 @@ const LoginForm = () => {
       toast.success(String(res.message).toLowerCase());
     },
     onError: (err) => {
-      toast.error(String(err.message).toLowerCase());
+      toast.error(String(err.message).toLowerCase() || "something went wrong!");
     },
   });
 
@@ -81,7 +81,7 @@ const LoginForm = () => {
             handleBlur={handleBlur}
             inputPlaceholder="student code..."
             fieldName="student code"
-            inputName="studentCode"
+            inputName="userCode"
             values={values}
           />
 

@@ -1,24 +1,16 @@
-import { createBrowserRouter, Navigate, RouterProvider } from "react-router";
+import { createBrowserRouter, RouterProvider } from "react-router";
 import SignupPage from "./pages/auth/SignupPage";
 import LoginPage from "./pages/auth/LoginPage";
-import useAuth from "./hooks/useAuth";
 import HomePage from "./pages/home/HomePage";
+import Header from "./components/pages/home/Header";
 
 const App = () => {
-  const { isLoading, isLogged, student } = useAuth();
-
   const router = createBrowserRouter([
     {
       path: "*",
       element: (
         <>
-          {!isLoading && isLogged && (
-            <>
-              <HomePage student={student} />
-            </>
-          )}
-
-          {!isLoading && !isLogged && <Navigate to={"/auth/login"} />}
+          <Header />
         </>
       ),
     },
@@ -26,13 +18,7 @@ const App = () => {
       path: "/",
       element: (
         <>
-          {!isLoading && isLogged && (
-            <>
-              <HomePage student={student} />
-            </>
-          )}
-
-          {!isLoading && !isLogged && <Navigate to={"/auth/login"} />}
+          <HomePage />
         </>
       ),
     },

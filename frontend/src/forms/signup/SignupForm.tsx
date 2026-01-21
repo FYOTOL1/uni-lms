@@ -27,10 +27,10 @@ const SignupForm = () => {
   });
 
   const initialFormValues: TInitialInputsAuthFormValues = {
-    studentName: "",
-    studentCode: null,
-    studentGroup: "",
-    studentSection: null,
+    userName: "",
+    userCode: null,
+    userGroup: "",
+    userSection: null,
     email: "",
     password: "",
     confirmPassword: "",
@@ -87,7 +87,7 @@ const SignupForm = () => {
             handleBlur={handleBlur}
             inputPlaceholder="like: Ahmed Abdo..."
             fieldName="student name"
-            inputName="studentName"
+            inputName="userName"
             values={values}
           />
 
@@ -156,7 +156,7 @@ const SignupForm = () => {
               handleBlur={handleBlur}
               inputPlaceholder="like: 251234"
               fieldName="student code"
-              inputName="studentCode"
+              inputName="userCode"
               inputType="number"
               values={values}
               iconClass="fa-solid fa-hashtag"
@@ -173,7 +173,7 @@ const SignupForm = () => {
               handleBlur={handleBlur}
               inputPlaceholder="like: a,b,c,d"
               fieldName="group"
-              inputName="studentGroup"
+              inputName="userGroup"
               inputType="text"
               values={values}
               iconClass="fa-solid fa-people-group"
@@ -187,7 +187,7 @@ const SignupForm = () => {
               handleBlur={handleBlur}
               inputPlaceholder="like: 4"
               fieldName="section number"
-              inputName="studentSection"
+              inputName="userSection"
               inputType="number"
               values={values}
               iconClass="fa-solid fa-user-group"

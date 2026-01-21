@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
-import type { IStudentSchema } from "../../types/schema/StudentSchemaType";
+import type { IUserSchema } from "../../types/schema/StudentSchemaType";
 
-const initialState: IStudentSchema | null = null;
+const initialState: IUserSchema | null = null;
 
 const authSlice = createSlice({
   name: "auth",

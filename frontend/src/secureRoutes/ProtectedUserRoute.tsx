@@ -9,7 +9,7 @@ const ProtectedUserRoute = ({
   children: (user: TMeRequest) => ReactNode;
 }) => {
   const navigate = useNavigate();
-  const { user, isLoading, isLogged } = useAuth();
+  const { user, isLoading, isLogged, error } = useAuth();
 
   if (isLoading)
     return (
@@ -21,6 +21,8 @@ const ProtectedUserRoute = ({
         <div className="z-10">{children(user)}</div>
       </div>
     );
+
+  if (error) return navigate("/auth/login", { replace: true });
 
   if (!isLogged) return navigate("/auth/login", { replace: true });
 

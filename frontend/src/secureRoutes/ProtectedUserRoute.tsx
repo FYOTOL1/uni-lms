@@ -24,7 +24,7 @@ const ProtectedUserRoute = ({
 
   console.log(error, isError);
 
-  if (error) return navigate("/auth/login", { replace: true });
+  if (error || isError) return navigate("/auth/login", { replace: true });
 
   if (!isLogged) return navigate("/auth/login", { replace: true });
 

@@ -3,7 +3,7 @@ import { checkAuthed } from "../api/authApi";
 import type { TMeRequest } from "../types/auth/meTypes";
 
 const useAuth = () => {
-  const { data, error, isLoading, isSuccess, refetch } = useQuery({
+  const { data, error, isLoading, isSuccess, isError, refetch } = useQuery({
     queryKey: ["auth"],
     queryFn: checkAuthed,
     staleTime: 1000 * 10,
@@ -16,8 +16,9 @@ const useAuth = () => {
     user: data?.user as TMeRequest,
     isLoading,
     isSuccess,
-    refetch,
+    isError,
     error,
+    refetch,
   };
 };
 

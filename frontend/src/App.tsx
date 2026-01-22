@@ -3,6 +3,7 @@ import SignupPage from "./pages/auth/SignupPage";
 import LoginPage from "./pages/auth/LoginPage";
 import HomePage from "./pages/home/HomePage";
 import Header from "./components/pages/home/Header";
+import ProtectedUserRoute from "./secureRoutes/ProtectedUserRoute";
 
 const App = () => {
   const router = createBrowserRouter([
@@ -10,7 +11,9 @@ const App = () => {
       path: "*",
       element: (
         <>
-          <Header />
+          <ProtectedUserRoute>
+            {(user)=> <Header user={user}/>}
+          </ProtectedUserRoute>
         </>
       ),
     },

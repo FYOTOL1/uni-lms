@@ -1,18 +1,18 @@
 const Calendar = () => {
-  const calendarData = [
-    {
-      _id: "1",
-      dayName: "sunday",
-      lectures: [
-        {
-          _id: "42",
-          subjectName: "math1",
-          doctorName: "Mohammed Kamel",
-          time: new Date(),
-        },
-      ],
-    },
-  ];
+  // const calendarData = [
+  //   {
+  //     _id: "1",
+  //     dayName: "sunday",
+  //     lectures: [
+  //       {
+  //         _id: "42",
+  //         subjectName: "math1",
+  //         doctorName: "Mohammed Kamel",
+  //         time: new Date(),
+  //       },
+  //     ],
+  //   },
+  // ];
 
   return (
     <>

@@ -11,7 +11,7 @@ const ProtectedUserRoute = ({
   const navigate = useNavigate();
   const { user, isLoading, isLogged } = useAuth();
 
-  if (isLoading)
+  if (isLoading && isLogged)
     return (
       <div className="relative h-screen w-full">
         <div className="absolute h-full w-full bg-black opacity-50 z-20"></div>

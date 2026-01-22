@@ -11,7 +11,7 @@ const ProtectedUserRoute = ({
   const navigate = useNavigate();
   const { user, isLoading, isLogged } = useAuth();
 
-  if (isLoading && isLogged)
+  if (isLoading && user) {
     return (
       <div className="relative h-screen w-full">
         <div className="absolute h-full w-full bg-black opacity-50 z-20"></div>
@@ -21,10 +21,9 @@ const ProtectedUserRoute = ({
         <div className="z-10">{children(user)}</div>
       </div>
     );
-
-  if (!isLogged) return navigate("/auth/login", { replace: true });
-
-  return children(user);
+  } else if (!isLogged) {
+    navigate("/auth/login", { replace: true });
+  } else return children(user);
 };
 
 export default ProtectedUserRoute;

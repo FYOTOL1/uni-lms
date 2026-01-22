@@ -1,12 +1,12 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useNavigate } from "react-router";
 import useAuth from "../hooks/useAuth";
-import { type ReactNode } from "react";
 import type { TMeRequest } from "../types/auth/meTypes";
 
 const ProtectedUserRoute = ({
   children,
 }: {
-  children: (user: TMeRequest) => ReactNode;
+  children: (user: TMeRequest) => any;
 }) => {
   const navigate = useNavigate();
   const { user, isLoading, isLogged } = useAuth();

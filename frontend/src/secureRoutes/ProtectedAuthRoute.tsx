@@ -11,7 +11,6 @@ const ProtectedAuthRoute = ({ children }: { children: React.ReactNode }) => {
         <div className="absolute left-1/2 top-1/2 -translate-y-1/2 -translate-x-1/2 z-30 text-2xl">
           Loading...
         </div>
-        <div className="z-10">{children}</div>
       </div>
     );
 

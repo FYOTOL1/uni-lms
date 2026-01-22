@@ -2,11 +2,12 @@
 import { Navigate } from "react-router";
 import useAuth from "../hooks/useAuth";
 import type { TMeRequest } from "../types/auth/meTypes";
+import type { ReactNode } from "react";
 
 const ProtectedUserRoute = ({
   children,
 }: {
-  children: (user: TMeRequest) => any | void;
+  children: (user: TMeRequest) => ReactNode;
 }) => {
   const { user, isLoading, isLogged } = useAuth();
 

@@ -6,7 +6,7 @@ import type { TMeRequest } from "../types/auth/meTypes";
 const ProtectedUserRoute = ({
   children,
 }: {
-  children: (user: TMeRequest) => any;
+  children: (user: TMeRequest) => any | void;
 }) => {
   const navigate = useNavigate();
   const { user, isLoading, isLogged } = useAuth();

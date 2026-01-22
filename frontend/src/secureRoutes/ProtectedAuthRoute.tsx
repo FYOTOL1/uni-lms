@@ -15,7 +15,7 @@ const ProtectedAuthRoute = ({ children }: { children: React.ReactNode }) => {
       </div>
     );
 
-  if (isLogged) <Navigate to={"/"} replace />;
+  if (isLogged) return <Navigate to={"/"} replace />;
 
   return !isLogged && children;
 };

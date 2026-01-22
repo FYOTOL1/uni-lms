@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Navigate } from "react-router";
 import useAuth from "../hooks/useAuth";
 import type { TMeRequest } from "../types/auth/meTypes";

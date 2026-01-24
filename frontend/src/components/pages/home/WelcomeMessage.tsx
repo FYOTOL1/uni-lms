@@ -1,4 +1,4 @@
-import type { TMeRequest } from "../../../types/auth/meTypes";
+import type { TMeRequest } from "../../../types/auth/authTypes";
 
 const WelcomeMessage = ({ user }: { user: TMeRequest }) => {
   return (

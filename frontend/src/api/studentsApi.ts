@@ -1,5 +1,5 @@
 import axios from "axios";
-import type { IUserSchema } from "../types/schema/StudentSchemaType";
+import type { IUserSchema } from "../types/schema/UserSchemaType";
 
 const getAllStudentsFn = async (): Promise<IUserSchema[]> => {
   const getAllStudentsReq = await axios.get<IUserSchema[]>(

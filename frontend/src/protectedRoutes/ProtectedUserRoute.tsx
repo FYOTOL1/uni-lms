@@ -1,6 +1,6 @@
 import { Navigate } from "react-router";
 import useAuth from "../hooks/useAuth";
-import type { TMeRequest } from "../types/auth/meTypes";
+import type { TMeRequest } from "../types/auth/authTypes";
 import type { ReactNode } from "react";
 
 const ProtectedUserRoute = ({

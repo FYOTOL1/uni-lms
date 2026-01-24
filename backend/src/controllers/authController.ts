@@ -11,27 +11,27 @@ import { IUserSchema } from "../types/UserSchemaTypes";
 
 dotenv.config();
 
-const signupStudent = async (
+const signupUser = async (
   req: Request,
   res: Response,
 ): Promise<Response<any, Record<string, any>>> => {
   try {
     const body: IUserSchema = req.body;
 
-    const hashedStudentPassword = await argon2.hash(body.password);
-    body.password = hashedStudentPassword;
+    const hashedUserPassword = await argon2.hash(body.password);
+    body.password = hashedUserPassword;
 
-    const getStudentByEmail = await UserSchema.findOne({
+    const getUserByEmail = await UserSchema.findOne({
       email: body.email,
     });
-    const getStudentByCode = await UserSchema.findOne({
+    const getUserByCode = await UserSchema.findOne({
       userCode: body.userCode,
     });
 
-    if (getStudentByEmail || getStudentByCode)
+    if (getUserByEmail || getUserByCode)
       return res
         .status(409)
-        .json({ message: "email or student code already exists!" });
+        .json({ message: "email or User code already exists!" });
 
     const createUser: IUserSchema = await UserSchema.create(body);
 
@@ -39,29 +39,35 @@ const signupStudent = async (
       createUser._id,
       createUser.userName,
       createUser.role,
+      createUser.userGroup,
+      createUser.permissions,
     );
 
     const refreshToken = refreshTokenGenerator(
       createUser._id,
       createUser.userName,
       createUser.role,
+      createUser.userGroup,
+      createUser.permissions,
     );
 
     sendTokenCookie(res, "refreshToken", refreshToken);
     sendTokenCookie(res, "accessToken", accessToken);
 
     return res.status(201).json({
-      message: "Student created successfully",
-      student: { userName: createUser.userName },
+      message: "User created successfully",
+      User: { userName: createUser.userName },
     });
   } catch (error: any) {
-    console.log("authControllerFile: " + error);
+    console.log("authControllerFile: " + error.message + " req: ");
 
-    return res.status(500).json({ message: "internal server error" });
+    return res
+      .status(500)
+      .json({ message: "internal server error", req: req.body });
   }
 };
 
-const loginStudent = async (
+const loginUser = async (
   req: Request,
   res: Response,
 ): Promise<Response<any, Record<string, any>>> => {
@@ -84,11 +90,15 @@ const loginStudent = async (
         findUser._id,
         findUser.userName,
         findUser.role,
+        findUser.userGroup,
+        findUser.permissions,
       );
       const accessToken = accessTokenGenerator(
         findUser._id,
         findUser.userName,
         findUser.role,
+        findUser.userGroup,
+        findUser.permissions,
       );
 
       sendTokenCookie(res, "refreshToken", refreshToken);
@@ -97,7 +107,7 @@ const loginStudent = async (
       return res.status(200).json({ message: "Logged Successfully!" });
     }
 
-    return res.status(404).json({ message: "student code incorrect!" });
+    return res.status(404).json({ message: "User code incorrect!" });
   } catch (error) {
     console.log("authControllerFile: " + error);
 
@@ -105,7 +115,7 @@ const loginStudent = async (
   }
 };
 
-const logoutStudent = async (req: Request, res: Response) => {
+const logoutUser = async (req: Request, res: Response) => {
   res.clearCookie("accessToken", {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
@@ -120,7 +130,7 @@ const logoutStudent = async (req: Request, res: Response) => {
   return res.status(200).json({ message: "logged out successfully!" });
 };
 
-const getStudentData = (req: Request, res: Response) => {
+const getUserData = (req: Request, res: Response) => {
   if (!req.user) {
     return res.status(401).json({ message: "unauthorized!" });
   }
@@ -130,4 +140,4 @@ const getStudentData = (req: Request, res: Response) => {
   });
 };
 
-export { signupStudent, loginStudent, logoutStudent, getStudentData };
+export { signupUser, loginUser, logoutUser, getUserData };

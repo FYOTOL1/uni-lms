@@ -1,5 +1,5 @@
 import LoginForm from "../../forms/login/LoginForm";
-import ProtectedAuthRoute from "../../secureRoutes/ProtectedAuthRoute";
+import ProtectedAuthRoute from "../../protectedRoutes/ProtectedAuthRoute";
 
 const LoginPage = () => {
   return (

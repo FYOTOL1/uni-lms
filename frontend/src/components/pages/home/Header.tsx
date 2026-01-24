@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router";
-import type { TMeRequest } from "../../../types/auth/meTypes";
+import type { TMeRequest } from "../../../types/auth/authTypes";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { logoutFn } from "../../../api/authApi";
 
@@ -38,43 +38,43 @@ const Header = ({ user }: { user: TMeRequest }) => {
 
   return (
     <>
-      <div className="relative flex items-center gap-4 w-full h-12 bg-purple-100 shadow-sm shadow-zinc-300">
-        {/* Popup */}
-        {isActiveAvatarBar && (
-          <div className="absolute right-2.5 top-full flex flex-col gap-2 mt-1.5 rounded text-sm bg-zinc-50 p-1 outline outline-purple-300">
-            {/* userName */}
-            <div className="flex items-center gap-1 py-1 px-1.5 mt-1">
-              <i className="fa-solid fa-user text-xs text-purple-500"></i>
-              <p>
-                {user?.userName?.length >= 16
-                  ? user?.userName.slice(0, 16) + "..."
-                  : user?.userName}
-              </p>
+      <div className="flex items-center gap-4 w-full h-12 bg-purple-100 shadow-sm shadow-zinc-300">
+        <div className="relative flex items-center justify-between w-full max-w-[1440px] mx-auto px-2">
+          {/* Popup */}
+          {isActiveAvatarBar && (
+            <div className="absolute right-2.5 top-full z-30 flex flex-col gap-2 mt-1.5 rounded text-sm bg-zinc-50 p-1 outline outline-purple-300">
+              {/* userName */}
+              <div className="flex items-center gap-1 py-1 px-1.5 mt-1">
+                <i className="fa-solid fa-user text-xs text-purple-500"></i>
+                <p>
+                  {user?.userName?.length >= 16
+                    ? user?.userName.slice(0, 16) + "..."
+                    : user?.userName}
+                </p>
+              </div>
+
+              <hr className="text-gray-300" />
+
+              <Link
+                to={"/profile"}
+                className="flex items-baseline justify-between gap-10 text-sm px-2 w-44 py-1.5 rounded transition-all hover:bg-purple-100"
+              >
+                <p>profile</p>
+                <i className="fa-regular fa-address-card text-zinc-800"></i>
+              </Link>
+
+              <hr className="text-gray-200 mx-2" />
+
+              <button
+                onClick={() => mutateAsync()}
+                className="flex items-baseline justify-between gap-10 text-sm px-2 w-44 py-1.5 rounded transition-all hover:bg-red-100 cursor-pointer"
+              >
+                <p className="text-red-400">Logout</p>
+                <i className="fa-solid fa-arrow-right-from-bracket text-red-400"></i>
+              </button>
             </div>
+          )}
 
-            <hr className="text-gray-300" />
-
-            <Link
-              to={"/profile"}
-              className="flex items-baseline justify-between gap-10 text-sm px-2 w-44 py-1.5 rounded transition-all hover:bg-purple-100"
-            >
-              <p>profile</p>
-              <i className="fa-regular fa-address-card text-zinc-800"></i>
-            </Link>
-
-            <hr className="text-gray-200 mx-2" />
-
-            <button
-              onClick={() => mutateAsync()}
-              className="flex items-baseline justify-between gap-10 text-sm px-2 w-44 py-1.5 rounded transition-all hover:bg-red-100 cursor-pointer"
-            >
-              <p className="text-red-400">Logout</p>
-              <i className="fa-solid fa-arrow-right-from-bracket text-red-400"></i>
-            </button>
-          </div>
-        )}
-
-        <div className="flex items-center justify-between w-full max-w-[1440px] mx-auto px-2">
           {/* Icon & Paths*/}
           <div className="flex items-center">
             <Link to={"/"} className="flex items-center gap-2">

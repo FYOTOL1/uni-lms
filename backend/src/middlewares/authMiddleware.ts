@@ -2,19 +2,14 @@ import { NextFunction, Request, Response } from "express";
 import * as jwt from "jsonwebtoken";
 import de from "dotenv";
 import { IUserSchema } from "../types/UserSchemaTypes";
+import { TMeRequest, TPermissions } from "../types/AuthTypes";
 
 de.config();
-
-type TStudentRequest = {
-  _id: string;
-  userName: string;
-  role: "admin" | "subadmin" | "student";
-};
 
 declare global {
   namespace Express {
     interface Request {
-      user?: TStudentRequest;
+      user?: TMeRequest;
     }
   }
 }
@@ -22,13 +17,17 @@ declare global {
 export const accessTokenGenerator = (
   _id: string,
   userName: string,
-  role: "student" | "subadmin" | "admin",
+  role: "admin" | "subadmin" | "student",
+  userGroup: string,
+  permissions: TPermissions,
 ) => {
   const token = jwt.sign(
     {
       _id,
       userName,
       role,
+      userGroup,
+      permissions,
     },
     process.env.JWT_ACCESS_SECRET!,
     {
@@ -42,13 +41,17 @@ export const accessTokenGenerator = (
 export const refreshTokenGenerator = (
   _id: string,
   userName: string,
-  role: "student" | "subadmin" | "admin",
+  role: "admin" | "subadmin" | "student",
+  userGroup: string,
+  permissions: TPermissions,
 ) => {
   const token = jwt.sign(
     {
       _id,
       userName,
       role,
+      userGroup,
+      permissions,
     },
     process.env.JWT_REFRESH_SECRET!,
     {
@@ -98,7 +101,7 @@ const authMiddleware = async (
         accessToken,
         process.env.JWT_ACCESS_SECRET!,
       );
-      req.user = decodeAccessToken as TStudentRequest;
+      req.user = decodeAccessToken as TMeRequest;
       next();
     } catch (error) {
       if (error instanceof jwt.TokenExpiredError) {
@@ -106,6 +109,8 @@ const authMiddleware = async (
           decodeRefreshToken._id,
           decodeRefreshToken.userName,
           decodeRefreshToken.role,
+          decodeRefreshToken.userGroup,
+          decodeRefreshToken.permissions,
         );
         sendTokenCookie(res, "accessToken", newAccessToken);
         next();

@@ -3,7 +3,7 @@ import SignupPage from "./pages/auth/SignupPage";
 import LoginPage from "./pages/auth/LoginPage";
 import HomePage from "./pages/home/HomePage";
 import Header from "./components/pages/home/Header";
-import ProtectedUserRoute from "./secureRoutes/ProtectedUserRoute";
+import ProtectedUserRoute from "./protectedRoutes/ProtectedUserRoute";
 
 const App = () => {
   const router = createBrowserRouter([
@@ -12,7 +12,7 @@ const App = () => {
       element: (
         <>
           <ProtectedUserRoute>
-            {(user)=> <Header user={user}/>}
+            {(user) => <Header user={user} />}
           </ProtectedUserRoute>
         </>
       ),

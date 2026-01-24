@@ -1,6 +1,12 @@
 import mongoose, { Schema } from "mongoose";
 import { IUserSchema } from "../types/UserSchemaTypes";
 
+const permissionsActionsSchema = {
+  canCreate: { type: Boolean, default: false },
+  canEdit: { type: Boolean, default: false },
+  canDelete: { type: Boolean, default: false },
+};
+
 const User = new Schema<IUserSchema>(
   {
     userName: { type: String, required: true },
@@ -22,10 +28,23 @@ const User = new Schema<IUserSchema>(
     password: { type: String, required: true },
     phoneNumber: { type: Number, required: true },
     gender: { type: String, required: true, enum: ["male", "female"] },
+    year: {
+      type: String,
+      enum: ["first", "second", "third", "fourth"],
+      required: true,
+    },
     role: {
       type: String,
       enum: ["student", "subadmin", "admin"],
       default: "student",
+    },
+    permissions: {
+      users: permissionsActionsSchema,
+      subjects: permissionsActionsSchema,
+      calendar: permissionsActionsSchema,
+      assignments: permissionsActionsSchema,
+      lectures: permissionsActionsSchema,
+      sections: permissionsActionsSchema,
     },
   },
   {

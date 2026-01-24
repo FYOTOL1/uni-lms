@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { checkAuthed } from "../api/authApi";
-import type { TMeRequest } from "../types/auth/meTypes";
+import type { TMeRequest } from "../types/auth/authTypes";
 
 const useAuth = () => {
   const { data, error, isLoading, isSuccess, isError, refetch } = useQuery({

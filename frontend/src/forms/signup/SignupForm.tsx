@@ -7,11 +7,10 @@ import { signupFn } from "../../api/authApi";
 import { Link, useNavigate } from "react-router";
 import type { TInitialInputsAuthFormValues } from "../../types/form/formTypes";
 import toast from "react-hot-toast";
+import Select from "../../components/pages/shared/FormSelect";
 
 const SignupForm = () => {
   const [focusedFieldName, setFocusedFieldName] = useState<string | null>(null);
-  const [isActiveGenderPopup, setIsActiveGenderPopup] =
-    useState<boolean>(false);
 
   const navigate = useNavigate();
 
@@ -43,6 +42,8 @@ const SignupForm = () => {
       initialValues: initialFormValues,
       validationSchema: signupValidationSchema,
       onSubmit: async () => {
+        console.log(values);
+
         if (!mutation.isPending) mutation.mutateAsync(values);
       },
     });
@@ -114,7 +115,7 @@ const SignupForm = () => {
             inputPlaceholder="like: ahmed_2026"
             fieldName="password"
             inputName="password"
-            inputType="text"
+            inputType="password"
             values={values}
             iconClass="fa-solid fa-lock"
           />
@@ -128,7 +129,7 @@ const SignupForm = () => {
             inputPlaceholder="like: ahmed_2026"
             fieldName="confirm password"
             inputName="confirmPassword"
-            inputType="text"
+            inputType="password"
             values={values}
             iconClass="fa-solid fa-unlock"
           />
@@ -143,7 +144,7 @@ const SignupForm = () => {
               inputPlaceholder="like: 01012345678"
               fieldName="phone number"
               inputName="phoneNumber"
-              inputType="text"
+              inputType="number"
               values={values}
               iconClass="fa-solid fa-phone"
             />
@@ -164,7 +165,7 @@ const SignupForm = () => {
           </div>
 
           {/* Student Group & Section & Submit Button */}
-          <div className="grid grid-cols-1 items-end sm:grid-cols-3 gap-2">
+          <div className="grid grid-cols-1 items-end md:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-2">
             {/* Student Group*/}
             <InputField
               focusAndUnfocusStyle={focusAndUnfocusStyle}
@@ -193,40 +194,21 @@ const SignupForm = () => {
               iconClass="fa-solid fa-user-group"
             />
 
-            <div className="relative h-9 rounded text-[14px] capitalize bg-zinc-50 outline outline-purple-300">
-              <div
-                onClick={() => setIsActiveGenderPopup(!isActiveGenderPopup)}
-                className="flex items-baseline-last justify-between px-3 py-2 w-full h-full cursor-pointer"
-              >
-                <p>{values.gender ? values.gender : "gender"}</p>
-                <i className="fa-solid fa-chevron-down text-purple-500"></i>
-              </div>
+            {/* Gender */}
+            <Select
+              choiceList={["male", "female"]}
+              setFieldValue={setFieldValue}
+              values={values}
+              defaultValue={"gender"}
+            />
 
-              <div
-                className={`absolute flex flex-col gap-1 mt-1 w-full rounded ${
-                  !isActiveGenderPopup && "hidden"
-                } bg-zinc-50 outline outline-gray-300`}
-              >
-                <div
-                  onClick={() => {
-                    setFieldValue("gender", "male");
-                    setIsActiveGenderPopup(false);
-                  }}
-                  className="w-full py-1.5 px-3 transition-all hover:bg-zinc-200 cursor-pointer "
-                >
-                  Male
-                </div>
-                <div
-                  onClick={() => {
-                    setFieldValue("gender", "female");
-                    setIsActiveGenderPopup(false);
-                  }}
-                  className="w-full py-1.5 px-3 transition-all hover:bg-zinc-200 cursor-pointer "
-                >
-                  Female
-                </div>
-              </div>
-            </div>
+            {/* Year */}
+            <Select
+              choiceList={["first", "second", "third", "fourth"]}
+              setFieldValue={setFieldValue}
+              values={values}
+              defaultValue={"year"}
+            />
           </div>
 
           {/* Submit Button */}

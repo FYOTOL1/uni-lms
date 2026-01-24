@@ -1,23 +1,17 @@
 import type { AssignmentSchemaType } from "../../../types/schema/AssignmentSchemaType";
-import type { TMeRequest } from "../../../types/auth/meTypes";
-import { useQuery } from "@tanstack/react-query";
-import { getAllSubjectsFn } from "../../../api/subjectApi";
+import type { TMeRequest } from "../../../types/auth/authTypes";
 import AssignmentsBar from "./AssignmentsBar";
 import WelcomeMessage from "./WelcomeMessage";
 import Subjects from "./Subjects";
 import Calendar from "./Calendar";
 import { useEffect } from "react";
 import toast from "react-hot-toast";
+import { useFetchSubjects } from "../../../hooks/useSubjects";
 
 const Home = ({ user }: { user: TMeRequest }) => {
-  const { data, isLoading, isError, error } = useQuery({
-    queryKey: ["subjects"],
-    queryFn: getAllSubjectsFn,
-    staleTime: 1000 * 10 * 30,
-    refetchOnMount: false,
-    refetchOnWindowFocus: false,
-    retry: false,
-  });
+  const { subjects, isLoading, isError, error } = useFetchSubjects();
+
+  console.log(subjects);
 
   const assignments: AssignmentSchemaType[] = [
     {
@@ -72,7 +66,7 @@ const Home = ({ user }: { user: TMeRequest }) => {
 
   useEffect(() => {
     if (isError) {
-      toast.error(error.message || "something went wrong!");
+      toast.error(error?.message || "something went wrong!");
     }
   }, [error, isError]);
 
@@ -85,10 +79,10 @@ const Home = ({ user }: { user: TMeRequest }) => {
           <WelcomeMessage user={user} />
 
           {/* Subjects */}
-          <Subjects data={data} isLoading={isLoading} />
+          <Subjects subjects={subjects} isLoading={isLoading} />
 
           {/* Calendar */}
-          <Calendar />
+          <Calendar user={user} />
         </div>
 
         {/* R Assignments Notifications Bar*/}

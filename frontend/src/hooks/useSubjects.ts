@@ -5,8 +5,7 @@ const useFetchSubjects = () => {
   const { data, isLoading, isSuccess, isError, error } = useQuery({
     queryKey: ["subjects"],
     queryFn: getAllSubjectsFn,
-    staleTime: import.meta.env.VITE_MODE != "dev" ? 1000 * 60 * 30 : 1000,
-    retry: false,
+    staleTime: import.meta.env.VITE_MODE != "dev" ? 1000 * 60 * 30 : 1000 * 10,
   });
 
   return { subjects: data?.subjects, isSuccess, isLoading, isError, error };
@@ -14,12 +13,11 @@ const useFetchSubjects = () => {
 
 const useFetchOneSubject = (subjectCode: string) => {
   const { data, isLoading, isSuccess, isError, error } = useQuery({
-    queryKey: ["subjects"],
+    queryKey: ["subjects", subjectCode],
     queryFn: () => getOneSubjectsFn(subjectCode),
-    staleTime: import.meta.env.VITE_MODE != "dev" ? 1000 * 60 * 30 : 1000,
+    staleTime: import.meta.env.VITE_MODE != "dev" ? 1000 * 60 * 30 : 1000 * 10,
     refetchOnMount: false,
     refetchOnWindowFocus: false,
-    retry: false,
   });
 
   return { subject: data?.subject, isSuccess, isLoading, isError, error };

@@ -6,7 +6,11 @@ const useAuth = () => {
   const { data, error, isLoading, isSuccess, isError, refetch } = useQuery({
     queryKey: ["auth"],
     queryFn: checkAuthed,
-    retry: false,
+    retry: (failureCount, error) => {
+      if (error?.response?.status == 404) return false;
+      if (failureCount >= 3) return false;
+      return true;
+    },
   });
 
   return {

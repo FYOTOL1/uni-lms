@@ -15,7 +15,6 @@ const Calendar = ({ user }: { user: TMeRequest }) => {
     day: "",
     type: "",
     group: user?.userGroup || "all",
-    isWorkingNow: false,
   };
 
   const { setFieldValue, values } = useFormik({

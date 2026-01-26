@@ -1,9 +1,8 @@
-import { createBrowserRouter, RouterProvider } from "react-router";
+import { createBrowserRouter, Navigate, RouterProvider } from "react-router";
 import SignupPage from "./pages/auth/SignupPage";
 import LoginPage from "./pages/auth/LoginPage";
 import HomePage from "./pages/home/HomePage";
-import Header from "./components/pages/home/Header";
-import ProtectedUserRoute from "./protectedRoutes/ProtectedUserRoute";
+import SubjectPage from "./pages/subject/SubjectPage";
 
 const App = () => {
   const router = createBrowserRouter([
@@ -11,9 +10,7 @@ const App = () => {
       path: "*",
       element: (
         <>
-          <ProtectedUserRoute>
-            {(user) => <Header user={user} />}
-          </ProtectedUserRoute>
+          <Navigate to={"/"} />
         </>
       ),
     },
@@ -22,6 +19,14 @@ const App = () => {
       element: (
         <>
           <HomePage />
+        </>
+      ),
+    },
+    {
+      path: "/subjects/:subjectCode",
+      element: (
+        <>
+          <SubjectPage />
         </>
       ),
     },

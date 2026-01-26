@@ -6,4 +6,10 @@ const getAllSubjectsFn = async () => {
   return getSubjects.data;
 };
 
-export { getAllSubjectsFn };
+const getOneSubjectsFn = async (subjectCode: string) => {
+  const getSubjects = await api.post(`/subjects/${subjectCode}`);
+
+  return getSubjects.data;
+};
+
+export { getAllSubjectsFn, getOneSubjectsFn };

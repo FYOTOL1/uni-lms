@@ -13,6 +13,25 @@ const getAllSubjects = async (req: Request, res: Response) => {
   }
 };
 
+const getOneSubject = async (req: Request, res: Response) => {
+  try {
+    const subjectCode = req.params.subjectCode;
+
+    const findOneSubject = await SubjectSchema.findOne({ subjectCode });
+
+    if (findOneSubject)
+      return res
+        .status(200)
+        .json({ message: "Successfully!", subject: findOneSubject });
+
+    return res.status(400).json({ message: "Failed" });
+  } catch (error: any) {
+    res
+      .status(500)
+      .json({ message: "internal server error!", error: error.message });
+  }
+};
+
 const postSubject = async (req: Request, res: Response) => {
   try {
     if (req.user?.role == "admin" || req.user?.role == "subadmin" || true) {
@@ -43,4 +62,4 @@ const postSubject = async (req: Request, res: Response) => {
   }
 };
 
-export { postSubject, getAllSubjects };
+export { postSubject, getAllSubjects, getOneSubject };

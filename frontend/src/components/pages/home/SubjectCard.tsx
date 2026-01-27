@@ -47,7 +47,7 @@ const SubjectCard = ({
         {/* Info row */}
         <div className="mt-3 flex items-center justify-between text-sm">
           <div className="flex items-center gap-1 text-gray-400 font-medium">
-            <i className="fa-solid fa-graduation-cap "></i>
+            <i className="fa-solid fa-graduation-cap"></i>
             <p> lectures: {lectures?.length}</p>
           </div>
           <div className="flex items-center gap-1 text-gray-400 font-medium">

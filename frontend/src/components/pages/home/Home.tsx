@@ -11,8 +11,6 @@ import { useFetchSubjects } from "../../../hooks/useSubjects";
 const Home = ({ user }: { user: TMeRequest }) => {
   const { subjects, isLoading, isError, error } = useFetchSubjects();
 
-  console.log(subjects);
-
   const assignments: AssignmentSchemaType[] = [
     {
       _id: "121",

@@ -2,9 +2,7 @@ import { Link } from "react-router";
 import type { TSubjectSchemaType } from "../../../types/schema/SubjectSchemaType";
 
 const subject = ({ subject }: { subject: TSubjectSchemaType }) => {
-  
-  
-  return subject && (
+  return (
     <>
       <div className="flex flex-col gap-4 h-full w-full">
         <div>

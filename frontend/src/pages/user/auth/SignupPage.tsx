@@ -1,5 +1,5 @@
-import SignupForm from "../../forms/signup/SignupForm";
-import ProtectedAuthRoute from "../../protectedRoutes/ProtectedAuthRoute";
+import SignupForm from "../../../forms/signup/SignupForm";
+import ProtectedAuthRoute from "../../../protectedRoutes/ProtectedAuthRoute";
 
 const SignupPage = () => {
   return (

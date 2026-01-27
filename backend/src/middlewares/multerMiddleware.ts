@@ -1,5 +1,5 @@
-import multer from "multer";
+import multer, { Multer } from "multer";
 
-const upload = multer({ dest: "uploads/" });
+const upload: Multer = multer({ storage: multer.memoryStorage() });
 
 export default upload;

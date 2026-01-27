@@ -1,5 +1,5 @@
 import { Types } from "mongoose";
-import { AssignmentSchemaType } from "./AssignmentSchemaTypes";
+import { TAssignmentSchemaType } from "./AssignmentSchemaTypes";
 
 export type TSubjectSchemaType = {
   _id: string;
@@ -7,8 +7,8 @@ export type TSubjectSchemaType = {
   subjectCode: string;
   subjectDesc: string;
   subjectHours: number;
-  doctorName: string;
   assignments: AssignmentSchemaType[] & Types.ObjectId;
+  doctorsNames: string[];
   lectures: string[];
   sections: string[];
   book: string;

@@ -1,9 +1,10 @@
 import express from "express";
 
-import updateSchemaRoute from "./routes/updateSchemaRoute";
+import updateSchemaRoute from "./routes/updateRoute";
 import calendarRoute from "./routes/calendarRoute";
 import studentRoute from "./routes/studentRoute";
 import subjectRoute from "./routes/subjectRoute";
+import lectureRoute from "./routes/lectureRoute";
 import authRoute from "./routes/authRoute";
 
 import cookieParser from "cookie-parser";
@@ -32,8 +33,9 @@ connectdb();
 app.use("/auth", authRoute);
 app.use("/students", studentRoute);
 app.use("/subjects", subjectRoute);
+app.use("/lectures", lectureRoute);
 app.use("/calendars", calendarRoute);
-app.use("/updateSchema", updateSchemaRoute);
+app.use("/update-schema", updateSchemaRoute);
 
 app.listen(3000, () => {
   console.log("Connected To Port ✅");

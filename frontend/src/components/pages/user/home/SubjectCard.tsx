@@ -1,5 +1,5 @@
 import { Link } from "react-router";
-import type { TSubjectSchemaType } from "../../../types/schema/SubjectSchemaType";
+import type { TSubjectSchemaType } from "../../../../types/schema/SubjectSchemaType";
 
 const SubjectCard = ({
   _id,
@@ -7,7 +7,7 @@ const SubjectCard = ({
   subjectCode,
   subjectDesc,
   subjectHours,
-  doctorName,
+  doctorsNames,
   lectures,
   sections,
 }: TSubjectSchemaType) => {
@@ -39,9 +39,13 @@ const SubjectCard = ({
         <h2 className="text-sm text-gray-700 leading-snug">{subjectDesc}</h2>
 
         {/* Subtitle */}
-        <div className="flex items-baseline gap-1 mt-2">
+        <div className="flex items-baseline gap-1 mt-2 capitalize">
           <i className="fa-solid fa-chalkboard-user text-sm text-purple-500"></i>
-          <p className="mt-1 text-sm text-gray-500">by {doctorName}</p>
+          <p className="mt-1 text-sm text-gray-500">
+            {doctorsNames?.map(
+              (m, i) => "Dr." + m + (i != doctorsNames.length - 1 ? ", " : ""),
+            )}
+          </p>
         </div>
 
         {/* Info row */}

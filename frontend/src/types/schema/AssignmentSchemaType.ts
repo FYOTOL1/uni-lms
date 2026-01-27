@@ -1,12 +1,14 @@
-type AssignmentSchemaType = {
+import type { TSubjectSchemaType } from "./SubjectSchemaType";
+
+type TAssignmentSchemaType = {
   _id: string;
-  subjectId: string;
-  subjectName: string;
+  subject: TSubjectSchemaType;
   assignmentTitle: string;
   assignmentDesc: string;
-  imgUrl: string;
+  attachmentUrl?: string;
   deadline: Date;
-  isDone: boolean;
+  createdAt: Date;
+  updatedAt: Date;
 };
 
-export type { AssignmentSchemaType };
+export type { TAssignmentSchemaType };

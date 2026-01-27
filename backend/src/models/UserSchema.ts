@@ -41,7 +41,7 @@ const User = new Schema<IUserSchema>(
     permissions: {
       users: permissionsActionsSchema,
       subjects: permissionsActionsSchema,
-      calendar: permissionsActionsSchema,
+      calendars: permissionsActionsSchema,
       assignments: permissionsActionsSchema,
       lectures: permissionsActionsSchema,
       sections: permissionsActionsSchema,

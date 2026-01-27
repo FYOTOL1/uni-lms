@@ -1,13 +1,13 @@
 import { useFormik } from "formik";
 import { useState } from "react";
-import InputField from "../../components/pages/auth/InputField";
+import InputField from "../../components/pages/user/auth/InputField";
 import signupValidationSchema from "./Validation";
 import { useMutation } from "@tanstack/react-query";
 import { signupFn } from "../../api/authApi";
 import { Link, useNavigate } from "react-router";
 import type { TInitialInputsAuthFormValues } from "../../types/form/formTypes";
 import toast from "react-hot-toast";
-import Select from "../../components/pages/shared/FormSelect";
+import Select from "../../components/pages/user/shared/FormSelect";
 
 const SignupForm = () => {
   const [focusedFieldName, setFocusedFieldName] = useState<string | null>(null);

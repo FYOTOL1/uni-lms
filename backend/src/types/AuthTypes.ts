@@ -3,7 +3,7 @@ import { TPermissionsActionsSchemaType } from "./UserSchemaTypes";
 export type TPermissions = {
   users: TPermissionsActionsSchemaType;
   subjects: TPermissionsActionsSchemaType;
-  calendar: TPermissionsActionsSchemaType;
+  calendars: TPermissionsActionsSchemaType;
   assignments: TPermissionsActionsSchemaType;
   lectures: TPermissionsActionsSchemaType;
   sections: TPermissionsActionsSchemaType;

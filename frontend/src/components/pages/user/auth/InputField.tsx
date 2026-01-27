@@ -1,5 +1,5 @@
 import React from "react";
-import type { TInitialInputsAuthFormValues } from "../../../types/form/formTypes";
+import type { TInitialInputsAuthFormValues } from "../../../../types/form/formTypes";
 
 type Props = {
   setFieldValue: (key: string, value: string | number) => void;
@@ -33,7 +33,7 @@ const InputField = ({
       </label>
       <div
         className={`relative py-2 h-9 transition-all outline outline-purple-300 ${focusAndUnfocusStyle(
-          inputName
+          inputName,
         )} px-3 bg-zinc-50 ps-8 text-sm tracking-widest text-[#333] rounded`}
       >
         <i
@@ -45,7 +45,7 @@ const InputField = ({
               inputName,
               inputType == "text" || inputType == "email"
                 ? e.target.value.toLowerCase()
-                : e.target.value
+                : e.target.value,
             )
           }
           value={values[inputName] || ""}

@@ -19,7 +19,7 @@ export interface IUserSchema {
   permissions: {
     users: TPermissionsActionsSchemaType;
     subjects: TPermissionsActionsSchemaType;
-    calendar: TPermissionsActionsSchemaType;
+    calendars: TPermissionsActionsSchemaType;
     assignments: TPermissionsActionsSchemaType;
     lectures: TPermissionsActionsSchemaType;
     sections: TPermissionsActionsSchemaType;

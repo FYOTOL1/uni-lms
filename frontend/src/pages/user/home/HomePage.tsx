@@ -1,6 +1,6 @@
-import Header from "../../components/pages/home/Header";
-import Home from "../../components/pages/home/Home";
-import ProtectedUserRoute from "../../protectedRoutes/ProtectedUserRoute";
+import Header from "../../../components/pages/user/home/Header";
+import Home from "../../../components/pages/user/home/Home";
+import ProtectedUserRoute from "../../../protectedRoutes/ProtectedUserRoute";
 
 const HomePage = () => {
   return (

@@ -1,12 +1,12 @@
-import { useFetchCalendars } from "../../../hooks/useCalendar";
+import { useFetchCalendars } from "../../../../hooks/useCalendar";
 import FromSelect from "../shared/FormSelect";
 import { useFormik } from "formik";
-import type { TMeRequest } from "../../../types/auth/authTypes";
+import type { TMeRequest } from "../../../../types/auth/authTypes";
 import type {
   TCalendarSchemaType,
   TLectureCalendar,
   TSectionCalendar,
-} from "../../../types/schema/CalendarSchemaType";
+} from "../../../../types/schema/CalendarSchemaType";
 
 const Calendar = ({ user }: { user: TMeRequest }) => {
   const { calendars } = useFetchCalendars();
@@ -56,7 +56,7 @@ const Calendar = ({ user }: { user: TMeRequest }) => {
 
   return (
     <>
-      <div className="w-full bg-white p-6 mt-8 rounded-lg">
+      <div className="w-full bg-white p-6 mt-8 rounded-lg outline outline-gray-100 shadow-md">
         <h1 className="font-semibold text-xl">Calendar</h1>
         {/* Filtration */}
         <div className="flex items-center justify-end gap-3 mt-4">

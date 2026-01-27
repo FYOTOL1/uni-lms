@@ -1,14 +1,13 @@
 import { Types } from "mongoose";
 import { TSubjectSchemaType } from "./SubjectSchemaTypes";
 
-export type TAssignmentSchemaType = {
-  _id: string;
+export type TLectureSchemaType = {
+  _id?: string;
+  lectureName: string;
+  lectureDesc: string;
   subject: TSubjectSchemaType & Types.ObjectId;
-  assignmentTitle: string;
-  assignmentDesc: string;
   attachmentUrl: string;
-  attachmentType: "file" | "image";
-  deadline: Date;
+  attachmentType: "pdf" | "png" | "jpg" | string;
   createdAt: Date;
   updatedAt: Date;
 };

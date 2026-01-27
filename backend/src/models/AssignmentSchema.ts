@@ -1,13 +1,13 @@
 import mongoose, { Schema } from "mongoose";
-import { AssignmentSchemaType } from "../types/AssignmentSchemaTypes";
+import { TAssignmentSchemaType } from "../types/AssignmentSchemaTypes";
 
-const Assignment = new Schema<AssignmentSchemaType>(
+const Assignment = new Schema<TAssignmentSchemaType>(
   {
-    subjectId: { type: Schema.Types.ObjectId, ref: "Subject", required: true },
     assignmentTitle: { type: String, required: true },
     assignmentDesc: { type: String, required: true },
     attachmentUrl: { type: String, required: true },
     deadline: { type: Date, required: true },
+    subject: { type: Schema.Types.ObjectId, ref: "Subject", required: true },
   },
   { timestamps: true },
 );

@@ -5,9 +5,9 @@ const Subject = new Schema<TSubjectSchemaType>(
   {
     subjectName: { type: String, required: true, unique: true },
     subjectCode: { type: String, required: true, unique: true },
-    doctorName: { type: String, required: true, unique: true },
     subjectDesc: { type: String, required: true },
     subjectHours: { type: Number, required: true },
+    doctorsNames: { type: [String], required: true, unique: true },
     lectures: { type: [String], default: [] },
     sections: { type: [String], default: [] },
     assignments: [{ type: Types.ObjectId, ref: "Assignment", default: [] }],

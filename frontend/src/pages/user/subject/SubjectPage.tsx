@@ -1,8 +1,8 @@
 import { useParams } from "react-router";
-import Header from "../../components/pages/home/Header";
-import Subject from "../../components/pages/subject/Subject";
-import ProtectedUserRoute from "../../protectedRoutes/ProtectedUserRoute";
-import { useFetchOneSubject } from "../../hooks/useSubjects";
+import Header from "../../../components/pages/user/home/Header";
+import Subject from "../../../components/pages/user/subject/Subject";
+import ProtectedUserRoute from "../../../protectedRoutes/ProtectedUserRoute";
+import { useFetchOneSubject } from "../../../hooks/useSubjects";
 
 const SubjectPage = () => {
   const subjectCode = useParams().subjectCode;

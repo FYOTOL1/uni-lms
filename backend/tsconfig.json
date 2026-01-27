@@ -11,5 +11,5 @@
     "resolveJsonModule": true,
     "erasableSyntaxOnly": false
   },
-  "include": ["src/**/*"]
+  "include": ["src/**/*", "src/middlewares/hasPermissionsMiddleware.ts"]
 }

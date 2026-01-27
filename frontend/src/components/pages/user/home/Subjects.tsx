@@ -1,4 +1,4 @@
-import type { TSubjectSchemaType } from "../../../types/schema/SubjectSchemaType";
+import type { TSubjectSchemaType } from "../../../../types/schema/SubjectSchemaType";
 import SubjectCard from "./SubjectCard";
 
 type TSubjectResponse = TSubjectSchemaType[];

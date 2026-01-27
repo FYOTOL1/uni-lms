@@ -1,20 +1,20 @@
-import type { AssignmentSchemaType } from "../../../types/schema/AssignmentSchemaType";
-import type { TMeRequest } from "../../../types/auth/authTypes";
+import type { TAssignmentSchemaType } from "../../../../types/schema/AssignmentSchemaType";
+import type { TMeRequest } from "../../../../types/auth/authTypes";
 import AssignmentsBar from "./AssignmentsBar";
 import WelcomeMessage from "./WelcomeMessage";
 import Subjects from "./Subjects";
 import Calendar from "./Calendar";
 import { useEffect } from "react";
 import toast from "react-hot-toast";
-import { useFetchSubjects } from "../../../hooks/useSubjects";
+import { useFetchSubjects } from "../../../../hooks/useSubjects";
+import type { TSubjectSchemaType } from "../../../../types/schema/SubjectSchemaType";
 
 const Home = ({ user }: { user: TMeRequest }) => {
   const { subjects, isLoading, isError, error } = useFetchSubjects();
-
-  const assignments: AssignmentSchemaType[] = [
+  const assignments: TAssignmentSchemaType[] = [
     {
       _id: "121",
-      subjectId: "",
+      subjectId: {} as TSubjectSchemaType,
       subjectName: "math1",
       assignmentTitle: "assignment-1",
       assignmentDesc:
@@ -26,7 +26,7 @@ const Home = ({ user }: { user: TMeRequest }) => {
     },
     {
       _id: "121",
-      subjectId: "",
+      subjectId: {} as TSubjectSchemaType,
       subjectName: "physics",
       assignmentTitle: "assignment-4",
       assignmentDesc:
@@ -38,7 +38,7 @@ const Home = ({ user }: { user: TMeRequest }) => {
     },
     {
       _id: "121",
-      subjectId: "",
+      subjectId: {} as TSubjectSchemaType,
       subjectName: "oop",
       assignmentTitle: "assignment-2",
       assignmentDesc:
@@ -50,7 +50,7 @@ const Home = ({ user }: { user: TMeRequest }) => {
     },
     {
       _id: "121",
-      subjectId: "",
+      subjectId: {} as TSubjectSchemaType,
       subjectName: "english",
       assignmentTitle: "assignment-1",
       assignmentDesc:

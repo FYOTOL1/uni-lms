@@ -1,6 +1,6 @@
 import { useFormik } from "formik";
 import { useState } from "react";
-import InputField from "../../components/pages/auth/InputField";
+import InputField from "../../components/pages/user/auth/InputField";
 import { Link, useNavigate } from "react-router";
 import type { TInitialInputsAuthFormValues } from "../../types/form/formTypes";
 import loginValidationSchema from "./Validation";

@@ -1,24 +1,12 @@
 import { Link } from "react-router";
-import type { AssignmentSchemaType } from "../../../types/schema/AssignmentSchemaType";
+import type { TAssignmentSchemaType } from "../../../../types/schema/AssignmentSchemaType";
+import { getDeadLine } from "../shared/Functions";
 
 const AssignmentCard = ({
   assignment,
 }: {
-  assignment: AssignmentSchemaType;
+  assignment: TAssignmentSchemaType;
 }) => {
-  const getDeadLine = (assignmentCreatedDate: Date) => {
-    const leftDays = assignmentCreatedDate.getDay() - new Date().getDay();
-    if (leftDays >= 2) {
-      return leftDays.toString() + "d";
-    } else if (leftDays == 1) {
-      return "tomorrow";
-    } else if (leftDays >= 0 && leftDays < 1) {
-      return "today";
-    } else {
-      return "done";
-    }
-  };
-
   return (
     <>
       <div className="relative overflow-hidden rounded-2xl bg-linear-to-br p-4 border border-purple-100 shadow-sm hover:shadow-lg transition-all">
@@ -27,10 +15,10 @@ const AssignmentCard = ({
 
         {/* Subject */}
         <Link
-          to={`/subjects/${assignment.subjectName}`}
+          to={`/subjects/${assignment?.subjectId?.subjectCode}`}
           className="text-xs font-medium uppercase tracking-wide text-purple-600 hover:underline"
         >
-          {assignment.subjectName}
+          {assignment?.subjectId?.subjectCode}
         </Link>
 
         {/* Title */}

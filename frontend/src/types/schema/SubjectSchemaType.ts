@@ -1,4 +1,4 @@
-import type { AssignmentSchemaType } from "./AssignmentSchemaType";
+import type { TAssignmentSchemaType } from "./AssignmentSchemaType";
 
 export type TSubjectSchemaType = {
   _id: string;
@@ -6,8 +6,8 @@ export type TSubjectSchemaType = {
   subjectCode: string;
   subjectDesc: string;
   subjectHours: number;
-  doctorName: string;
-  assignments?: AssignmentSchemaType[];
+  doctorsNames: string[];
+  assignments?: TAssignmentSchemaType[];
   lectures?: string[];
   sections?: string[];
   book?: string;

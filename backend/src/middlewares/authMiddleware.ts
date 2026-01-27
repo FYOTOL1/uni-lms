@@ -3,6 +3,7 @@ import * as jwt from "jsonwebtoken";
 import de from "dotenv";
 import { IUserSchema } from "../types/UserSchemaTypes";
 import { TMeRequest, TPermissions } from "../types/AuthTypes";
+import UserSchema from "../models/UserSchema";
 
 de.config();
 
@@ -31,7 +32,7 @@ export const accessTokenGenerator = (
     },
     process.env.JWT_ACCESS_SECRET!,
     {
-      expiresIn: "10m",
+      expiresIn: "30m",
     },
   );
 
@@ -83,12 +84,12 @@ const authMiddleware = async (
   const refreshToken = req.cookies?.refreshToken;
   const accessToken = req.cookies?.accessToken;
 
-  if (!refreshToken)
-    return res.status(401).json({ message: "no refresh token passed!" });
-
   if (!accessToken) {
-    return res.status(401).json({ message: "no access token passed!" });
+    return res.status(401).json({ message: "not authenticated " });
   }
+
+  if (!refreshToken)
+    return res.status(401).json({ message: "not authenticated " });
 
   try {
     const decodeRefreshToken = jwt.verify(
@@ -105,22 +106,24 @@ const authMiddleware = async (
       next();
     } catch (error) {
       if (error instanceof jwt.TokenExpiredError) {
+        const user = await UserSchema.findOne({ _id: decodeRefreshToken._id });
+        if (!user) return res.status(404).json({ message: "User Not Found!" });
         const newAccessToken = accessTokenGenerator(
-          decodeRefreshToken._id,
-          decodeRefreshToken.userName,
-          decodeRefreshToken.role,
-          decodeRefreshToken.userGroup,
-          decodeRefreshToken.permissions,
+          user._id,
+          user.userName,
+          user.role,
+          user.userGroup,
+          user.permissions,
         );
         sendTokenCookie(res, "accessToken", newAccessToken);
         next();
       } else {
-        res.status(500).json({ message: "server internal!" });
+        res.status(500).json({ message: "server internal error!" });
       }
     }
   } catch (error) {
     if (error instanceof jwt.TokenExpiredError) {
-      res.status(401).json({ message: "unauthorized student!" });
+      res.status(401).json({ message: "unauthorized user!" });
     } else {
       res.status(500).json({ message: "server internal!" });
     }

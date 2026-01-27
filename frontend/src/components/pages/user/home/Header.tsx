@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router";
-import type { TMeRequest } from "../../../types/auth/authTypes";
+import type { TMeRequest } from "../../../../types/auth/authTypes";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { logoutFn } from "../../../api/authApi";
+import { logoutFn } from "../../../../api/authApi";
 
 const Header = ({ user }: { user: TMeRequest }) => {
   const queryClient = useQueryClient();

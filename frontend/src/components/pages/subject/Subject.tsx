@@ -8,11 +8,11 @@ const subject = ({ subject }: { subject: TSubjectSchemaType }) => {
         <div>
           <div className="flex flex-col items-center justify-center gap-2 px-2 text-gray-100 bg-purple-600 w-full h-96">
             <h1 className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-5xl font-semibold capitalize">
-              {subject.subjectName}
+              {subject?.subjectName}
             </h1>
             <div className="flex items-center gap-1.5 px-4 py-1 bg-purple-700 rounded-full">
               <i className="fa-solid fa-chalkboard-user" />
-              <p>Dr.{subject.doctorName}</p>
+              <p>Dr.{subject?.doctorName}</p>
             </div>
           </div>
 
@@ -20,34 +20,34 @@ const subject = ({ subject }: { subject: TSubjectSchemaType }) => {
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 place-items-center gap-3 px-2 py-2 bg-purple-500 text-white shadow-sm outline-gray-300 w-full">
               <div className="flex items-baseline gap-0.5">
                 <i className="fa-solid fa-hashtag" />
-                <p className="capitalize">{subject.subjectCode}</p>
+                <p className="capitalize">{subject?.subjectCode}</p>
               </div>
               <div className="flex items-baseline gap-1">
                 <i className="fa-solid fa-chalkboard-user" />
-                <p>Dr. {subject.doctorName}</p>
+                <p>Dr. {subject?.doctorName}</p>
               </div>
               <div className="flex items-baseline gap-1">
                 <i className="fa-regular fa-clock" />
-                <p>Hours: {subject.subjectHours}</p>
+                <p>Hours: {subject?.subjectHours}</p>
               </div>
               <div className="flex items-baseline gap-1">
                 <i className="fa-solid fa-graduation-cap" />
-                <p>Lectures: {subject.lectures?.length}</p>
+                <p>Lectures: {subject?.lectures?.length}</p>
               </div>
               <div className="flex items-baseline gap-1">
                 <i className="fa-solid fa-file-zipper" />
-                <p>Sections: {subject.sections?.length}</p>
+                <p>Sections: {subject?.sections?.length}</p>
               </div>
               <div className="flex items-baseline gap-1">
                 <i className="fa-solid fa-file-zipper" />
-                <p>Assignments: {subject.assignments?.length}</p>
+                <p>Assignments: {subject?.assignments?.length}</p>
               </div>
             </div>
 
             <hr className="text-purple-400" />
 
             <div className="capitalize text-center text-wrap w-full px-2 py-2 text-white bg-purple-500">
-              {subject.subjectDesc}
+              {subject?.subjectDesc}
             </div>
           </div>
         </div>

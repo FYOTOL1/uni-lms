@@ -7,7 +7,7 @@ export type TSubjectSchemaType = {
   subjectCode: string;
   subjectDesc: string;
   subjectHours: number;
-  assignments: AssignmentSchemaType[] & Types.ObjectId;
+  assignments: TAssignmentSchemaType[] & Types.ObjectId;
   doctorsNames: string[];
   lectures: string[];
   sections: string[];

@@ -14,57 +14,114 @@ const Home = ({ user }: { user: TMeRequest }) => {
   const assignments: TAssignmentSchemaType[] = [
     {
       _id: "121",
-      subjectId: {} as TSubjectSchemaType,
-      subjectName: "math1",
+      subject: {
+        _id: "121",
+        subjectName: "mathematics1",
+        subjectCode: "math-1",
+        subjectDesc: "mathematics description",
+        subjectHours: 3,
+        doctorsNames: ["mahmoud", "mohammed"],
+        lectures: [],
+        assignments: [],
+        sections: [],
+        book: "",
+      } as TSubjectSchemaType,
       assignmentTitle: "assignment-1",
       assignmentDesc:
         "b cdo this and this and a b cdo this and this and a b cdo this and this and a b cdo this and this and a b cdo this and this and a b cdo this and this and a b cdo this and this and a b cdo this and this and a b cdo this and this and a b c",
-      imgUrl:
+      attachmentUrl:
         "https://i.pinimg.com/1200x/23/87/ac/2387ac839b319df509d2a9b0c75c52da.jpg",
       deadline: new Date(),
-      isDone: false,
     },
     {
       _id: "121",
-      subjectId: {} as TSubjectSchemaType,
-      subjectName: "physics",
-      assignmentTitle: "assignment-4",
-      assignmentDesc:
-        "b cdo this and this and a b cdo this and this and a b cdo this and this and a b cdo this and this and a b cdo this and this and a b cdo this and this and a b cdo this and this and a b cdo this and this and a b cdo this and this and a b c",
-      imgUrl:
-        "https://i.pinimg.com/1200x/23/87/ac/2387ac839b319df509d2a9b0c75c52da.jpg",
-      deadline: new Date(),
-      isDone: false,
-    },
-    {
-      _id: "121",
-      subjectId: {} as TSubjectSchemaType,
-      subjectName: "oop",
-      assignmentTitle: "assignment-2",
-      assignmentDesc:
-        "do this and this and a b c do this and this and a b cdo this and this and a b cdo this and this and a b cdo this and this and a b cdo this and this and a b cdo this and this and a b cdo this and this and a b cdo this and this and a b cdo this and this and a b cdo this and this and a b c",
-      imgUrl:
-        "https://i.pinimg.com/1200x/23/87/ac/2387ac839b319df509d2a9b0c75c52da.jpg",
-      deadline: new Date(),
-      isDone: false,
-    },
-    {
-      _id: "121",
-      subjectId: {} as TSubjectSchemaType,
-      subjectName: "english",
+      subject: {
+        _id: "121",
+        subjectName: "mathematics1",
+        subjectCode: "math-1",
+        subjectDesc: "mathematics description",
+        subjectHours: 3,
+        doctorsNames: ["mahmoud", "mohammed"],
+        lectures: [],
+        assignments: [],
+        sections: [],
+        book: "",
+      } as TSubjectSchemaType,
       assignmentTitle: "assignment-1",
       assignmentDesc:
-        "do this and this and a b c do this and this and a b cdo this and this and a b cdo this and this and a b cdo this and this and a b cdo this and this and a b cdo this and this and a b cdo this and this and a b cdo this and this and a b cdo this and this and a b cdo this and this and a b c",
-      imgUrl:
+        "b cdo this and this and a b cdo this and this and a b cdo this and this and a b cdo this and this and a b cdo this and this and a b cdo this and this and a b cdo this and this and a b cdo this and this and a b cdo this and this and a b c",
+      attachmentUrl:
         "https://i.pinimg.com/1200x/23/87/ac/2387ac839b319df509d2a9b0c75c52da.jpg",
       deadline: new Date(),
-      isDone: false,
+    },
+    {
+      _id: "121",
+      subject: {
+        _id: "121",
+        subjectName: "mathematics1",
+        subjectCode: "math-1",
+        subjectDesc: "mathematics description",
+        subjectHours: 3,
+        doctorsNames: ["mahmoud", "mohammed"],
+        lectures: [],
+        assignments: [],
+        sections: [],
+        book: "",
+      } as TSubjectSchemaType,
+      assignmentTitle: "assignment-1",
+      assignmentDesc:
+        "b cdo this and this and a b cdo this and this and a b cdo this and this and a b cdo this and this and a b cdo this and this and a b cdo this and this and a b cdo this and this and a b cdo this and this and a b cdo this and this and a b c",
+      attachmentUrl:
+        "https://i.pinimg.com/1200x/23/87/ac/2387ac839b319df509d2a9b0c75c52da.jpg",
+      deadline: new Date(),
+    },
+    {
+      _id: "121",
+      subject: {
+        _id: "121",
+        subjectName: "mathematics1",
+        subjectCode: "math-1",
+        subjectDesc: "mathematics description",
+        subjectHours: 3,
+        doctorsNames: ["mahmoud", "mohammed"],
+        lectures: [],
+        assignments: [],
+        sections: [],
+        book: "",
+      } as TSubjectSchemaType,
+      assignmentTitle: "assignment-1",
+      assignmentDesc:
+        "b cdo this and this and a b cdo this and this and a b cdo this and this and a b cdo this and this and a b cdo this and this and a b cdo this and this and a b cdo this and this and a b cdo this and this and a b cdo this and this and a b c",
+      attachmentUrl:
+        "https://i.pinimg.com/1200x/23/87/ac/2387ac839b319df509d2a9b0c75c52da.jpg",
+      deadline: new Date(),
+    },
+    {
+      _id: "121",
+      subject: {
+        _id: "121",
+        subjectName: "mathematics1",
+        subjectCode: "math-1",
+        subjectDesc: "mathematics description",
+        subjectHours: 3,
+        doctorsNames: ["mahmoud", "mohammed"],
+        lectures: [],
+        assignments: [],
+        sections: [],
+        book: "",
+      } as TSubjectSchemaType,
+      assignmentTitle: "assignment-1",
+      assignmentDesc:
+        "b cdo this and this and a b cdo this and this and a b cdo this and this and a b cdo this and this and a b cdo this and this and a b cdo this and this and a b cdo this and this and a b cdo this and this and a b cdo this and this and a b c",
+      attachmentUrl:
+        "https://i.pinimg.com/1200x/23/87/ac/2387ac839b319df509d2a9b0c75c52da.jpg",
+      deadline: new Date(),
     },
   ];
 
   useEffect(() => {
     if (isError) {
-      toast.error(error?.message || "something went wrong!");
+      toast.error(error?.message || "Failed To Get Subjects!");
     }
   }, [error, isError]);
 

@@ -7,8 +7,8 @@ type TAssignmentSchemaType = {
   assignmentDesc: string;
   attachmentUrl?: string;
   deadline: Date;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt?: Date;
+  updatedAt?: Date;
 };
 
 export type { TAssignmentSchemaType };

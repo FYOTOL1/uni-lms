@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { getAllSubjectsFn, getOneSubjectsFn } from "../api/subjectApi";
+import { staleTimeLimit } from "../configs/ReactQuery";
 
 const useFetchSubjects = () => {
   const { data, isLoading, isSuccess, isError, error } = useQuery({
@@ -15,7 +16,7 @@ const useFetchOneSubject = (subjectCode: string) => {
   const { data, isLoading, isSuccess, isError, error } = useQuery({
     queryKey: ["subjects", subjectCode],
     queryFn: () => getOneSubjectsFn(subjectCode),
-    staleTime: import.meta.env.VITE_MODE != "dev" ? 1000 * 60 * 30 : 1000 * 10,
+    staleTime: staleTimeLimit,
     refetchOnMount: false,
     refetchOnWindowFocus: false,
   });

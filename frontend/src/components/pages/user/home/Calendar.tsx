@@ -7,9 +7,11 @@ import type {
   TLectureCalendar,
   TSectionCalendar,
 } from "../../../../types/schema/CalendarSchemaType";
+import { useEffect } from "react";
+import toast from "react-hot-toast";
 
 const Calendar = ({ user }: { user: TMeRequest }) => {
-  const { calendars } = useFetchCalendars();
+  const { calendars, isError, error } = useFetchCalendars();
 
   const initialValues = {
     day: "",
@@ -53,6 +55,12 @@ const Calendar = ({ user }: { user: TMeRequest }) => {
 
       return { ...e, lectures: sortedLectures, sections: sortedSections };
     });
+
+      useEffect(() => {
+    if (isError) {
+      toast.error(error?.message || "Failed To Get Subjects!");
+    }
+  }, [error, isError]);
 
   return (
     <>

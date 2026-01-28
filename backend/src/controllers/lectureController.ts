@@ -1,8 +1,7 @@
 import { Request, Response } from "express";
 import LectureSchema from "../models/LectureSchema";
 import streamUpload from "../shared/uploadStream";
-import { UploadApiErrorResponse, UploadApiResponse } from "cloudinary";
-import { TLectureSchemaType } from "../types/LectureSchemaTypes";
+import { UploadApiResponse } from "cloudinary";
 
 const getAllLectures = async (req: Request, res: Response) => {
   try {
@@ -29,13 +28,13 @@ const postLecture = async (req: Request, res: Response) => {
     if (!fileUrl)
       return res.status(400).json({ message: "Failed Upload File!" });
 
-    const createLecture = (await LectureSchema.create({
+    const createLecture = await LectureSchema.create({
       lectureName,
       lectureDesc,
       attachmentUrl: fileUrl,
       attachmentType: fileType,
       subject,
-    })) as TLectureSchemaType;
+    });
 
     if (!createLecture)
       return res.status(400).json({ message: "something went wrong!" });

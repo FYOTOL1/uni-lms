@@ -15,10 +15,10 @@ const AssignmentCard = ({
 
         {/* Subject */}
         <Link
-          to={`/subjects/${assignment?.subjectId?.subjectCode}`}
+          to={`/subjects/${assignment?.subject?.subjectCode}`}
           className="text-xs font-medium uppercase tracking-wide text-purple-600 hover:underline"
         >
-          {assignment?.subjectId?.subjectCode}
+          {assignment?.subject?.subjectCode}
         </Link>
 
         {/* Title */}

@@ -7,16 +7,18 @@ import type {
   TLectureCalendar,
   TSectionCalendar,
 } from "../../../../types/schema/CalendarSchemaType";
-import { useEffect } from "react";
-import toast from "react-hot-toast";
 
 const Calendar = ({ user }: { user: TMeRequest }) => {
-  const { calendars, isError, error } = useFetchCalendars();
+  const { calendars } = useFetchCalendars();
 
   const initialValues = {
     day: "",
     type: "",
-    group: user?.userGroup || "all",
+    group:
+      user?.userGroup &&
+      calendars?.filter((f: TCalendarSchemaType) => f.group == user?.userGroup)
+        ? user?.userGroup
+        : "all",
   };
 
   const { setFieldValue, values } = useFormik({
@@ -39,7 +41,7 @@ const Calendar = ({ user }: { user: TMeRequest }) => {
       values.day && values.day != "all" ? f.dayName == values.day : f,
     )
     ?.filter((f: TCalendarSchemaType) =>
-      values.group != "all" ? f.group == values.group : f,
+      values?.group != "all" ? f?.group == values?.group : f,
     )
     ?.sort((a: TCalendarSchemaType, b: TCalendarSchemaType) => {
       return daysOrder.indexOf(a.dayName) - daysOrder.indexOf(b.dayName);
@@ -55,12 +57,6 @@ const Calendar = ({ user }: { user: TMeRequest }) => {
 
       return { ...e, lectures: sortedLectures, sections: sortedSections };
     });
-
-      useEffect(() => {
-    if (isError) {
-      toast.error(error?.message || "Failed To Get Subjects!");
-    }
-  }, [error, isError]);
 
   return (
     <>

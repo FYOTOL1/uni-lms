@@ -131,13 +131,17 @@ const logoutUser = async (req: Request, res: Response) => {
 };
 
 const getUserData = (req: Request, res: Response) => {
-  if (!req.user) {
+ try {
+   if (!req.user) {
     return res.status(401).json({ message: "unauthorized!" });
   }
 
   return res.status(200).json({
     user: req.user,
   });
+ } catch (error) {
+  return res.status(500).json({message: "server internal error"})
+ }
 };
 
 export { signupUser, loginUser, logoutUser, getUserData };

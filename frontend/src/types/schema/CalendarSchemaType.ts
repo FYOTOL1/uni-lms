@@ -1,6 +1,6 @@
 import type { TSubjectSchemaType } from "./SubjectSchemaType";
 
-export type TLectureCalendar = {
+export type TLectureCalendarType = {
   subjectId: TSubjectSchemaType;
   doctorName: string;
   hallCode: string;
@@ -8,7 +8,7 @@ export type TLectureCalendar = {
   endTime: string;
 };
 
-export type TSectionCalendar = {
+export type TSectionCalendarType = {
   subjectId: TSubjectSchemaType;
   assistantName: string;
   sectionCode: string;
@@ -31,8 +31,8 @@ export type TCalendarSchemaType = {
   year: "first" | "second" | "third" | "fourth";
   semester: 1 | 2;
   group: string;
-  lectures: TLectureCalendar[];
-  sections: TSectionCalendar[];
+  lectures: TLectureCalendarType[];
+  sections: TSectionCalendarType[];
   createdAt: Date;
   updatedAt: Date;
 };

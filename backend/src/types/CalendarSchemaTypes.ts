@@ -1,6 +1,6 @@
 import { Types } from "mongoose";
 
-type TLectureCalendar = {
+type TLectureCalendarType = {
   subjectId: Types.ObjectId;
   doctorName: string;
   hallCode: string;
@@ -8,7 +8,7 @@ type TLectureCalendar = {
   endTime: string;
 };
 
-type TSectionCalendar = {
+type TSectionCalendarType = {
   subjectId: Types.ObjectId;
   assistantName: string;
   sectionCode: string;

@@ -4,7 +4,7 @@ export type TPermissionsActionsSchemaType = {
   canDelete: boolean;
 };
 
-export interface IUserSchema {
+export type TUserSchema = {
   _id: string;
   userName: string;
   userCode: number;
@@ -24,4 +24,4 @@ export interface IUserSchema {
     lectures: TPermissionsActionsSchemaType;
     sections: TPermissionsActionsSchemaType;
   };
-}
+};

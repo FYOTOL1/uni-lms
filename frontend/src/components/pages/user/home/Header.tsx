@@ -1,18 +1,11 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router";
 import type { TMeRequest } from "../../../../types/auth/authTypes";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { logoutFn } from "../../../../api/authApi";
+import { useAppDispatch } from "../../../../hooks/reduxHook";
+import { logoutAuth } from "../../../../store/slices/AuthSlice";
 
 const Header = ({ user }: { user: TMeRequest }) => {
-  const queryClient = useQueryClient();
-
-  const { mutateAsync } = useMutation({
-    mutationFn: logoutFn,
-    onSuccess: async () => {
-      await queryClient.setQueryData(["auth"], null);
-    },
-  });
+  const dispatch = useAppDispatch();
 
   const [pathName, setPathName] = useState<string>(
     location.pathname.split("/")[1],
@@ -52,7 +45,7 @@ const Header = ({ user }: { user: TMeRequest }) => {
               </Link>
 
               <button
-                onClick={() => mutateAsync()}
+                onClick={() => dispatch(logoutAuth())}
                 className="flex items-baseline gap-3 text-sm px-2 w-44 py-1.5 rounded transition-all hover:bg-red-100 cursor-pointer"
               >
                 <i className="fa-solid fa-arrow-right-from-bracket"></i>

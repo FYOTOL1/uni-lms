@@ -1,16 +1,16 @@
 import { useFormik } from "formik";
 import { useState } from "react";
 import InputField from "../../components/pages/user/auth/InputField";
-import { Link, useNavigate } from "react-router";
+import { Link } from "react-router";
 import type { TInitialInputsAuthFormValues } from "../../types/form/formTypes";
 import loginValidationSchema from "./Validation";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { loginFn } from "../../api/authApi";
-import toast from "react-hot-toast";
+import { useAppDispatch, useAppSelector } from "../../hooks/reduxHook";
+import { loginAuth } from "../../store/slices/AuthSlice";
 
 const LoginForm = () => {
-  const queryClient = useQueryClient();
-  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+
+  const { status } = useAppSelector((state) => state.auth);
 
   const [focusedFieldName, setFocusedFieldName] = useState<string | null>(null);
 
@@ -18,26 +18,17 @@ const LoginForm = () => {
     userCode: null,
     password: "",
   };
-
-  const { mutateAsync, isPending } = useMutation({
-    mutationFn: loginFn,
-    retry: false,
-    onSuccess: (res) => {
-      navigate("/");
-      queryClient.setQueryData(["auth"], null);
-      toast.success(String(res.message).toLowerCase());
-    },
-    onError: (err) => {
-      toast.error(String(err.message).toLowerCase() || "something went wrong!");
-    },
-  });
-
   const { handleBlur, handleSubmit, setFieldValue, touched, values, errors } =
     useFormik({
       initialValues: initialFormValues,
       validationSchema: loginValidationSchema,
       onSubmit: () => {
-        if (!isPending) mutateAsync(values);
+        dispatch(
+          loginAuth({
+            userCode: values.userCode!,
+            password: values.password!,
+          }),
+        );
       },
     });
 
@@ -100,7 +91,7 @@ const LoginForm = () => {
 
           {/* Submit Button */}
           <button className="py-2 text-[16px] bg-purple-600 h-fit mt-auto rounded text-white cursor-pointer transition-all hover:bg-purple-700 focus:bg-purple-700">
-            {isPending ? "Loading..." : "Login"}
+            {status == "loading" ? "Loading..." : "Login"}
           </button>
           <hr className="text-gray-300" />
           <div className="flex justify-center w-full gap-2 text-sm">

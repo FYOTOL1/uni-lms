@@ -21,7 +21,10 @@ const FromSelect = <T extends Record<string, any>>({
 
   return (
     <>
-      <div className="relative h-9 rounded text-[14px] capitalize bg-zinc-50 outline outline-purple-300">
+      <div
+        key={defaultValue as string}
+        className="relative h-9 rounded text-[14px] capitalize bg-zinc-50 outline outline-purple-300"
+      >
         <div
           onClick={() => setIsActiveGenderPopup(!isActiveGenderPopup)}
           className={`flex items-baseline-last justify-between px-3 py-2 ${

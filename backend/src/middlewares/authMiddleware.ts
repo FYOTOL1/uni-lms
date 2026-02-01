@@ -118,7 +118,7 @@ const authMiddleware = async (
         sendTokenCookie(res, "accessToken", newAccessToken);
         next();
       } else {
-        res.status(500).json({ message: "server internal error!" });
+        return res.status(500).json({ message: "server internal error!" });
       }
     }
   } catch (error) {

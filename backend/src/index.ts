@@ -2,7 +2,7 @@ import express from "express";
 
 import updateSchemaRoute from "./routes/updateRoute";
 import calendarRoute from "./routes/calendarRoute";
-import studentRoute from "./routes/studentRoute";
+import userRoute from "./routes/userRoute";
 import subjectRoute from "./routes/subjectRoute";
 import lectureRoute from "./routes/lectureRoute";
 import authRoute from "./routes/authRoute";
@@ -31,7 +31,7 @@ app.use(
 connectdb();
 
 app.use("/auth", authRoute);
-app.use("/students", studentRoute);
+app.use("/users", userRoute);
 app.use("/subjects", subjectRoute);
 app.use("/lectures", lectureRoute);
 app.use("/calendars", calendarRoute);

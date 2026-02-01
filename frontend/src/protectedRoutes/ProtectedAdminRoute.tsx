@@ -1,16 +1,22 @@
 import { Navigate } from "react-router";
-import useAuth from "../hooks/useAuth";
 import type { TMeRequest } from "../types/auth/authTypes";
-import type { ReactNode } from "react";
+import { useEffect, type ReactNode } from "react";
+import { useAppDispatch, useAppSelector } from "../hooks/reduxHook";
+import { fetchAuth } from "../store/slices/AuthSlice";
 
 const ProtectedAdminRoute = ({
   children,
 }: {
   children: (user: TMeRequest) => ReactNode;
 }) => {
-  const { user, isLoading, isLogged } = useAuth();
+  const { user, status } = useAppSelector((state) => state.auth);
+  const dispatch = useAppDispatch();
 
-  if (isLoading)
+  useEffect(() => {
+    if (status === "idle") dispatch(fetchAuth());
+  }, [dispatch, status]);
+
+  if (status == "loading")
     return (
       <div className="relative min-h-screen h-full w-full">
         <div className="absolute h-full w-full bg-black opacity-50 z-20"></div>
@@ -21,9 +27,9 @@ const ProtectedAdminRoute = ({
       </div>
     );
 
-  if (!isLogged) return <Navigate to={"/auth/login"} replace />;
+  if (!user) return <Navigate to={"/auth/login"} replace />;
 
-  if (isLogged && user.role === "student") return <Navigate to={"/"} replace />;
+  if (user && user.role === "student") return <Navigate to={"/"} replace />;
 
   return children(user);
 };

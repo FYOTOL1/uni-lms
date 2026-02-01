@@ -1,10 +1,19 @@
 import { Navigate } from "react-router";
-import useAuth from "../hooks/useAuth";
+import { useDispatch, useSelector } from "react-redux";
+import type { AppDispatch, RootState } from "../store/store";
+import { useEffect } from "react";
+import { fetchAuth } from "../store/slices/AuthSlice";
 
 const ProtectedAuthRoute = ({ children }: { children: React.ReactNode }) => {
-  const { isLoading, isLogged } = useAuth();
+  const dispatch = useDispatch<AppDispatch>();
 
-  if (isLoading)
+  const { user, status } = useSelector((state: RootState) => state.auth);
+
+  useEffect(() => {
+    if (status === "idle") dispatch(fetchAuth());
+  }, [dispatch, status]);
+
+  if (status == "loading")
     return (
       <div className="relative min-h-screen h-full w-full">
         <div className="absolute h-full w-full bg-black opacity-50 z-20"></div>
@@ -14,9 +23,9 @@ const ProtectedAuthRoute = ({ children }: { children: React.ReactNode }) => {
       </div>
     );
 
-  if (isLogged) return <Navigate to={"/"} replace />;
+  if (user) return <Navigate to={"/"} replace />;
 
-  return !isLogged && children;
+  return <>{children}</>;
 };
 
 export default ProtectedAuthRoute;

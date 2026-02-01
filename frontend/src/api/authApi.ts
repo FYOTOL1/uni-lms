@@ -1,3 +1,5 @@
+/* eslint-disable no-useless-catch */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { api } from "../main";
 import type { TInitialInputsAuthFormValues } from "../types/form/formTypes";
 
@@ -21,8 +23,12 @@ const logoutFn = async () => {
 };
 
 const checkAuthed = async () => {
-  const getStudentAuthedData = await api.get("/auth/me");
-  return getStudentAuthedData.data;
+  try {
+    const getStudentAuthedData = await api.get("/auth/me");
+    return getStudentAuthedData.data;
+  } catch (error: any) {
+    throw error;
+  }
 };
 
 export { signupFn, loginFn, logoutFn, checkAuthed };

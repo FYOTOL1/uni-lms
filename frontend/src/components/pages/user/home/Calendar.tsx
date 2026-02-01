@@ -4,8 +4,8 @@ import { useFormik } from "formik";
 import type { TMeRequest } from "../../../../types/auth/authTypes";
 import type {
   TCalendarSchemaType,
-  TLectureCalendar,
-  TSectionCalendar,
+  TLectureCalendarType,
+  TSectionCalendarType,
 } from "../../../../types/schema/CalendarSchemaType";
 
 const Calendar = ({ user }: { user: TMeRequest }) => {
@@ -103,7 +103,7 @@ const Calendar = ({ user }: { user: TMeRequest }) => {
             <>
               {/* Lectures */}
               {values.type != "sections" &&
-                e?.lectures?.map((l: TLectureCalendar) => (
+                e?.lectures?.map((l: TLectureCalendarType) => (
                   <div className="w-full mt-4">
                     <div className="flex flex-wrap items-center justify-between p-4 bg-white border border-gray-100 rounded-xl shadow-sm hover:shadow-md transition-shadow duration-200 border-l-4 border-l-purple-500">
                       {/* Date */}
@@ -167,7 +167,7 @@ const Calendar = ({ user }: { user: TMeRequest }) => {
 
               {/* Sections */}
               {values.type != "lectures" &&
-                e?.sections?.map((l: TSectionCalendar) => (
+                e?.sections?.map((l: TSectionCalendarType) => (
                   <div className="w-full mt-4">
                     <div className="flex flex-wrap items-center justify-between p-4 bg-white border border-gray-100 rounded-xl shadow-sm hover:shadow-md transition-shadow duration-200 border-l-4 border-l-blue-500">
                       {/* Date */}

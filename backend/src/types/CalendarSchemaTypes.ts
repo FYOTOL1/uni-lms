@@ -30,8 +30,8 @@ export type TCalendarSchemaType = {
   year: "first" | "second" | "third" | "fourth";
   semester: 1 | 2;
   group: string;
-  lectures: TLectureCalendar[];
-  sections: TSectionCalendar[];
+  lectures: TLectureCalendarType[];
+  sections: TSectionCalendarType[];
   createdAt: Date;
   updatedAt: Date;
 };

@@ -18,7 +18,7 @@ const Select = ({
 
   return (
     <>
-      <div className="relative h-9 rounded text-[14px] capitalize bg-zinc-50 outline outline-purple-300">
+      <div className="relative h-9 rounded text-[15px] capitalize bg-zinc-50 outline outline-purple-300">
         <div
           onClick={() => setIsActiveGenderPopup(!isActiveGenderPopup)}
           className="flex items-baseline-last justify-between w-24 px-3 py-2 h-full cursor-pointer"

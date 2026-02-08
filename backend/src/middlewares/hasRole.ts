@@ -18,7 +18,7 @@ const hasRole = (role: string[]) => {
       });
     } catch (error: any) {
       return res.status(500).json({
-        message: "Internal server error!",
+        message: "internal server error!",
         error: error.message,
       });
     }

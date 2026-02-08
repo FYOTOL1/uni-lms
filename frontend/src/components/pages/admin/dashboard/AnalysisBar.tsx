@@ -59,10 +59,13 @@ const AnalysisBar = ({
 
   return (
     <>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-6 gap-4 w-full my-6 px-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-6 gap-4 w-full">
         {analysisBarCards.map(
           (e: { name: string; length: number; icon: string }) => (
-            <div className="flex items-center gap-4 p-3 rounded-md bg-white outline outline-blue-200 shadow">
+            <div
+              key={e.icon}
+              className="flex items-center gap-4 p-3 rounded-md bg-white outline outline-blue-100 shadow"
+            >
               <div className="flex items-center justify-center text-white bg-linear-120 from-blue-400 to-blue-600 text-xl size-12 rounded-md">
                 <i className={e.icon} />
               </div>

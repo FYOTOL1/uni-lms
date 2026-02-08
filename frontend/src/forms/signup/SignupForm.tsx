@@ -2,28 +2,19 @@ import { useFormik } from "formik";
 import { useState } from "react";
 import InputField from "../../components/pages/user/auth/InputField";
 import signupValidationSchema from "./Validation";
-import { useMutation } from "@tanstack/react-query";
-import { signupFn } from "../../api/authApi";
 import { Link, useNavigate } from "react-router";
 import type { TInitialInputsAuthFormValues } from "../../types/form/formTypes";
-import toast from "react-hot-toast";
 import Select from "../../components/pages/user/shared/FormSelect";
+import { useAppDispatch, useAppSelector } from "../../hooks/reduxHook";
+import { signupAuth } from "../../store/slices/AuthSlice";
 
 const SignupForm = () => {
-  const [focusedFieldName, setFocusedFieldName] = useState<string | null>(null);
-
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
-  const mutation = useMutation({
-    mutationFn: signupFn,
-    onSuccess: () => {
-      navigate("/");
-      toast.success("signed up successfully!");
-    },
-    onError: (err) => {
-      toast.error(err.message);
-    },
-  });
+  const { user, status, error } = useAppSelector((state) => state.auth);
+
+  const [focusedFieldName, setFocusedFieldName] = useState<string | null>(null);
 
   const initialFormValues: TInitialInputsAuthFormValues = {
     userName: "",
@@ -35,6 +26,7 @@ const SignupForm = () => {
     confirmPassword: "",
     phoneNumber: null,
     gender: null,
+    year: null,
   };
 
   const { handleBlur, handleSubmit, setFieldValue, touched, values, errors } =
@@ -42,9 +34,10 @@ const SignupForm = () => {
       initialValues: initialFormValues,
       validationSchema: signupValidationSchema,
       onSubmit: async () => {
-        console.log(values);
-
-        if (!mutation.isPending) mutation.mutateAsync(values);
+        if (status != "loading")
+          dispatch(signupAuth(values)).then(
+            () => user && !error.signup && navigate("/"),
+          );
       },
     });
 
@@ -213,7 +206,7 @@ const SignupForm = () => {
 
           {/* Submit Button */}
           <button className="py-2 text-[16px] bg-purple-600 h-fit mt-auto rounded text-white cursor-pointer transition-all hover:bg-purple-700 focus:bg-purple-700">
-            {mutation.isPending && !mutation.isError ? "Loading..." : "Signup"}
+            {status == "loading" ? "Loading..." : "Signup"}
           </button>
           <hr className="text-gray-300" />
           <div className="flex justify-center w-full gap-2 text-sm">

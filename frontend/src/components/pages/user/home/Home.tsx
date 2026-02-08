@@ -4,16 +4,12 @@ import AssignmentsBar from "./AssignmentsBar";
 import WelcomeMessage from "./WelcomeMessage";
 import Subjects from "./Subjects";
 import Calendar from "./Calendar";
-import { useEffect } from "react";
-import toast from "react-hot-toast";
-import { useFetchSubjects } from "../../../../hooks/useSubjects";
 import type { TSubjectSchemaType } from "../../../../types/schema/SubjectSchemaType";
 
 const Home = ({ user }: { user: TMeRequest }) => {
-  const { subjects, isLoading, isError, error } = useFetchSubjects();
   const assignments: TAssignmentSchemaType[] = [
     {
-      _id: "121",
+      _id: "1245",
       subject: {
         _id: "121",
         subjectName: "mathematics1",
@@ -34,7 +30,7 @@ const Home = ({ user }: { user: TMeRequest }) => {
       deadline: new Date(),
     },
     {
-      _id: "121",
+      _id: "1231231",
       subject: {
         _id: "121",
         subjectName: "mathematics1",
@@ -55,7 +51,7 @@ const Home = ({ user }: { user: TMeRequest }) => {
       deadline: new Date(),
     },
     {
-      _id: "121",
+      _id: "12461",
       subject: {
         _id: "121",
         subjectName: "mathematics1",
@@ -76,7 +72,7 @@ const Home = ({ user }: { user: TMeRequest }) => {
       deadline: new Date(),
     },
     {
-      _id: "121",
+      _id: "1232312",
       subject: {
         _id: "121",
         subjectName: "mathematics1",
@@ -97,7 +93,7 @@ const Home = ({ user }: { user: TMeRequest }) => {
       deadline: new Date(),
     },
     {
-      _id: "121",
+      _id: "18621",
       subject: {
         _id: "121",
         subjectName: "mathematics1",
@@ -119,12 +115,6 @@ const Home = ({ user }: { user: TMeRequest }) => {
     },
   ];
 
-  useEffect(() => {
-    if (isError) {
-      toast.error(error?.message || "Failed To Get Subjects!");
-    }
-  }, [error, isError]);
-
   return (
     <>
       <div className="grid md:grid-cols-1 lg:grid-cols-3 gap-5 w-full max-w-[1440px] mx-auto mt-8 px-2">
@@ -134,7 +124,7 @@ const Home = ({ user }: { user: TMeRequest }) => {
           <WelcomeMessage user={user} />
 
           {/* Subjects */}
-          <Subjects subjects={subjects} isLoading={isLoading} />
+          <Subjects />
 
           {/* Calendar */}
           <Calendar user={user} />

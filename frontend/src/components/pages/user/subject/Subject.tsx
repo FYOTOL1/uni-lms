@@ -1,13 +1,40 @@
-import { Link } from "react-router";
-import type { TSubjectSchemaType } from "../../../../types/schema/SubjectSchemaType";
+import { Link, useNavigate, useParams } from "react-router";
+import { useAppDispatch, useAppSelector } from "../../../../hooks/reduxHook";
+import { useEffect } from "react";
+import { getOneSubject } from "../../../../store/slices/SubjectSlice";
 
-const subject = ({ subject }: { subject: TSubjectSchemaType }) => {
+const Subject = () => {
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const subjectCode = useParams().subjectCode;
+
+  const { subject, status } = useAppSelector((state) => state.subject);
+
+  useEffect(() => {
+    if (subjectCode) dispatch(getOneSubject(subjectCode));
+  }, [dispatch, subjectCode]);
+
+  if (status == "pending") return <div>Loading...</div>;
+
+  if (!subject || status == "failed") {
+    navigate("/");
+    return;
+  }
+
   return (
     <>
       <div key={subject._id} className="flex flex-col gap-4 h-full w-full">
         {/* Subject Details */}
         <div>
-          <div className="flex flex-col items-center justify-center gap-2 px-2 text-gray-100 bg-purple-600 w-full h-96">
+          <div className="relative flex flex-col items-center justify-center gap-2 px-2 text-gray-100 bg-purple-600 w-full h-96">
+            <Link
+              className="absolute top-3 left-3 flex items-baseline transition-all gap-1 hover:gap-2"
+              to={"/"}
+            >
+              <i className="fa-solid fa-arrow-left" />
+              <p>Back</p>
+            </Link>
+
             <h1 className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-5xl font-semibold capitalize">
               {subject?.subjectName}
             </h1>
@@ -27,7 +54,7 @@ const subject = ({ subject }: { subject: TSubjectSchemaType }) => {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 place-items-center gap-3 px-2 py-2 bg-purple-500 text-white shadow-sm outline-gray-300 w-full">
               <div className="flex items-baseline gap-1">
                 <i className="fa-regular fa-clock" />
-                <p>Doctors Count: {subject?.doctorsNames.length}</p>
+                <p>Doctors Count: {subject?.doctorsNames?.length}</p>
               </div>
               <div className="flex items-baseline gap-1">
                 <i className="fa-regular fa-clock" />
@@ -46,8 +73,7 @@ const subject = ({ subject }: { subject: TSubjectSchemaType }) => {
                 <p>Assignments: {subject?.assignments?.length}</p>
               </div>
               <a
-                href="/"
-                download={"/"}
+                href={subject?.book as string}
                 className="flex items-baseline gap-1 underline"
               >
                 <i className="fa-solid fa-download" />
@@ -131,4 +157,4 @@ const subject = ({ subject }: { subject: TSubjectSchemaType }) => {
   );
 };
 
-export default subject;
+export default Subject;

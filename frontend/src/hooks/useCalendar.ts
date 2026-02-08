@@ -16,7 +16,7 @@ const useFetchCalendars = () => {
 
   useEffect(() => {
     if (isFetched && error) {
-      toast.error(error?.message || "Failed To Get Subjects!");
+      toast.error(error.message || "Failed To Get Subjects!");
     }
   }, [error, isFetched]);
 

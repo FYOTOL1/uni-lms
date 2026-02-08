@@ -1,13 +1,14 @@
 import { useFormik } from "formik";
 import { useState } from "react";
 import InputField from "../../components/pages/user/auth/InputField";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import type { TInitialInputsAuthFormValues } from "../../types/form/formTypes";
 import loginValidationSchema from "./Validation";
 import { useAppDispatch, useAppSelector } from "../../hooks/reduxHook";
 import { loginAuth } from "../../store/slices/AuthSlice";
 
 const LoginForm = () => {
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
   const { status } = useAppSelector((state) => state.auth);
@@ -28,7 +29,7 @@ const LoginForm = () => {
             userCode: values.userCode!,
             password: values.password!,
           }),
-        );
+        ).then(() => navigate("/"));
       },
     });
 

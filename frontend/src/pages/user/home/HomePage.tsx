@@ -1,4 +1,4 @@
-import Header from "../../../components/pages/user/home/Header";
+import Header from "../../../components/pages/user/shared/Header";
 import Home from "../../../components/pages/user/home/Home";
 import ProtectedUserRoute from "../../../protectedRoutes/ProtectedUserRoute";
 

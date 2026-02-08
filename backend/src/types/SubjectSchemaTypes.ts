@@ -12,6 +12,8 @@ export type TSubjectSchemaType = {
   lectures: string[];
   sections: string[];
   book: string;
+  year: "first" | "second" | "third" | "fourth";
+  semester: 1 | 2;
   createdAt: Date;
   updatedAt: Date;
 };

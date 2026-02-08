@@ -14,5 +14,6 @@ export type TMeRequest = {
   userName: string;
   role: "admin" | "subadmin" | "student";
   userGroup: string;
+  year: "first" | "second" | "third" | "fourth";
   permissions: TPermissions;
 };

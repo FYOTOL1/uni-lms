@@ -100,11 +100,11 @@ const Calendar = ({ user }: { user: TMeRequest }) => {
 
         {sortedCalendars?.length ? (
           sortedCalendars?.map((e: TCalendarSchemaType) => (
-            <>
+            <div key={e._id}>
               {/* Lectures */}
               {values.type != "sections" &&
-                e?.lectures?.map((l: TLectureCalendarType) => (
-                  <div className="w-full mt-4">
+                e?.lectures?.map((l: TLectureCalendarType, i) => (
+                  <div key={i} className="w-full mt-4">
                     <div className="flex flex-wrap items-center justify-between p-4 bg-white border border-gray-100 rounded-xl shadow-sm hover:shadow-md transition-shadow duration-200 border-l-4 border-l-purple-500">
                       {/* Date */}
                       <div className="flex flex-col items-center justify-center px-4 border-r border-gray-100 min-w-[100px]">
@@ -167,8 +167,8 @@ const Calendar = ({ user }: { user: TMeRequest }) => {
 
               {/* Sections */}
               {values.type != "lectures" &&
-                e?.sections?.map((l: TSectionCalendarType) => (
-                  <div className="w-full mt-4">
+                e?.sections?.map((l: TSectionCalendarType, i) => (
+                  <div key={i} className="w-full mt-4">
                     <div className="flex flex-wrap items-center justify-between p-4 bg-white border border-gray-100 rounded-xl shadow-sm hover:shadow-md transition-shadow duration-200 border-l-4 border-l-blue-500">
                       {/* Date */}
                       <div className="flex flex-col items-center justify-center px-4 border-r border-gray-100 min-w-[100px]">
@@ -228,7 +228,7 @@ const Calendar = ({ user }: { user: TMeRequest }) => {
                     </div>
                   </div>
                 ))}
-            </>
+            </div>
           ))
         ) : (
           <div className="py-2 mt-8 text-center font-semibold text-gray-800 ">

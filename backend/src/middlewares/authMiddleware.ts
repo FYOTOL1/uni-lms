@@ -20,19 +20,21 @@ export const accessTokenGenerator = (
   userName: string,
   role: "admin" | "subadmin" | "student",
   userGroup: string,
+  year: "first" | "second" | "third" | "fourth",
   permissions: TPermissions,
 ) => {
   const token = jwt.sign(
     {
       _id,
       userName,
-      role,
       userGroup,
+      year,
+      role,
       permissions,
     },
     process.env.JWT_ACCESS_SECRET!,
     {
-      expiresIn: "30m",
+      expiresIn: process.env.NODE_ENV == "dev" ? "3s" : "10m",
     },
   );
 
@@ -44,6 +46,7 @@ export const refreshTokenGenerator = (
   userName: string,
   role: "admin" | "subadmin" | "student",
   userGroup: string,
+  year: "first" | "second" | "third" | "fourth",
   permissions: TPermissions,
 ) => {
   const token = jwt.sign(
@@ -52,6 +55,7 @@ export const refreshTokenGenerator = (
       userName,
       role,
       userGroup,
+      year,
       permissions,
     },
     process.env.JWT_REFRESH_SECRET!,
@@ -84,12 +88,12 @@ const authMiddleware = async (
   const refreshToken = req.cookies?.refreshToken;
   const accessToken = req.cookies?.accessToken;
 
-  if (!accessToken) {
-    return res.status(401).json({ message: "not authenticated " });
-  }
-
   if (!refreshToken)
     return res.status(401).json({ message: "not authenticated " });
+
+  if (!accessToken) {
+    return res.status(401).json({ message: "not authorized " });
+  }
 
   try {
     const decodeRefreshToken = jwt.verify(
@@ -113,9 +117,14 @@ const authMiddleware = async (
           user.userName,
           user.role,
           user.userGroup,
+          user.year,
           user.permissions,
         );
         sendTokenCookie(res, "accessToken", newAccessToken);
+        req.user = jwt.verify(
+          newAccessToken,
+          process.env.JWT_ACCESS_SECRET!,
+        ) as TMeRequest;
         next();
       } else {
         return res.status(500).json({ message: "server internal error!" });

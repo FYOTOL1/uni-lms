@@ -13,7 +13,7 @@ const ProtectedUserRoute = ({
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (status === "idle") dispatch(fetchAuth());
+    if (status == "idle") dispatch(fetchAuth());
   }, [dispatch, status]);
 
   if (status == "loading")
@@ -29,7 +29,7 @@ const ProtectedUserRoute = ({
 
   if (!user) return <Navigate to={"/auth/login"} replace />;
 
-  return children(user);
+  return user && <>{children(user)}</>;
 };
 
 export default ProtectedUserRoute;

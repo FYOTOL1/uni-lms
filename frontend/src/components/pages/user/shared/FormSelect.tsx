@@ -4,7 +4,7 @@ import { useState } from "react";
 type Props<T> = {
   setFieldValue: (key: keyof T, value: string) => void;
   values: T;
-  defaultValue: keyof T | "day";
+  defaultValue: keyof T | "day" | "sort by";
   choiceList: string[];
   styleWidth?: string;
 };
@@ -21,13 +21,10 @@ const FromSelect = <T extends Record<string, any>>({
 
   return (
     <>
-      <div
-        key={defaultValue as string}
-        className="relative h-9 rounded text-[14px] capitalize bg-zinc-50 outline outline-purple-300"
-      >
+      <div className="relative h-9 rounded text-[14px] capitalize bg-zinc-50 outline outline-purple-300">
         <div
           onClick={() => setIsActiveGenderPopup(!isActiveGenderPopup)}
-          className={`flex items-baseline-last justify-between px-3 py-2 ${
+          className={`flex items-baseline-last gap-1 justify-between px-3 py-2 ${
             styleWidth ? styleWidth : "w-full"
           }  h-full cursor-pointer`}
         >
@@ -42,10 +39,11 @@ const FromSelect = <T extends Record<string, any>>({
         <div
           className={`absolute flex flex-col gap-1 mt-1 w-full rounded ${
             !isActiveGenderPopup && "hidden"
-          } bg-zinc-50 outline outline-gray-300`}
+          } bg-zinc-50 outline outline-gray-300 z-20`}
         >
           {choiceList.map((e) => (
             <div
+              key={e}
               onClick={() => {
                 setFieldValue(defaultValue, e);
                 setIsActiveGenderPopup(false);

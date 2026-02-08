@@ -20,7 +20,10 @@ const postLecture = async (req: Request, res: Response) => {
     const { lectureName, lectureDesc, subject } = req.body;
     const file = req.file as Express.Multer.File;
 
-    const uploadFile = (await streamUpload(file.buffer)) as UploadApiResponse;
+    const uploadFile = (await streamUpload(
+      file.buffer,
+      "lectures",
+    )) as UploadApiResponse;
 
     const fileUrl = uploadFile?.secure_url;
     const fileType = uploadFile?.format;

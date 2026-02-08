@@ -31,7 +31,7 @@ const signupUser = async (
     if (getUserByEmail || getUserByCode)
       return res
         .status(409)
-        .json({ message: "email or User code already exists!" });
+        .json({ message: "Email or User Code already exists!" });
 
     const createUser: IUserSchema = await UserSchema.create(body);
 
@@ -40,6 +40,7 @@ const signupUser = async (
       createUser.userName,
       createUser.role,
       createUser.userGroup,
+      createUser.year,
       createUser.permissions,
     );
 
@@ -48,6 +49,8 @@ const signupUser = async (
       createUser.userName,
       createUser.role,
       createUser.userGroup,
+      createUser.year,
+
       createUser.permissions,
     );
 
@@ -56,7 +59,7 @@ const signupUser = async (
 
     return res.status(201).json({
       message: "User created successfully",
-      User: { userName: createUser.userName },
+      user: { userName: createUser.userName },
     });
   } catch (error: any) {
     console.log("authControllerFile: " + error.message + " req: ");
@@ -91,6 +94,7 @@ const loginUser = async (
         findUser.userName,
         findUser.role,
         findUser.userGroup,
+        findUser.year,
         findUser.permissions,
       );
       const accessToken = accessTokenGenerator(
@@ -98,13 +102,17 @@ const loginUser = async (
         findUser.userName,
         findUser.role,
         findUser.userGroup,
+        findUser.year,
         findUser.permissions,
       );
 
       sendTokenCookie(res, "refreshToken", refreshToken);
       sendTokenCookie(res, "accessToken", accessToken);
 
-      return res.status(200).json({ message: "Logged Successfully!" });
+      return res.status(200).json({
+        message: "Logged Successfully!",
+        user: findUser,
+      });
     }
 
     return res.status(404).json({ message: "User code incorrect!" });
@@ -131,17 +139,17 @@ const logoutUser = async (req: Request, res: Response) => {
 };
 
 const getUserData = (req: Request, res: Response) => {
- try {
-   if (!req.user) {
-    return res.status(401).json({ message: "unauthorized!" });
-  }
+  try {
+    if (!req.user) {
+      return res.status(401).json({ message: "unauthorized!" });
+    }
 
-  return res.status(200).json({
-    user: req.user,
-  });
- } catch (error) {
-  return res.status(500).json({message: "server internal error"})
- }
+    return res.status(200).json({
+      user: req.user,
+    });
+  } catch (error) {
+    return res.status(500).json({ message: "server internal error" });
+  }
 };
 
 export { signupUser, loginUser, logoutUser, getUserData };

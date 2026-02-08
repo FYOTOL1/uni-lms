@@ -1,10 +1,19 @@
+export type TPermissions = {
+  users: TPermissionsActionsSchemaType;
+  subjects: TPermissionsActionsSchemaType;
+  calendars: TPermissionsActionsSchemaType;
+  assignments: TPermissionsActionsSchemaType;
+  lectures: TPermissionsActionsSchemaType;
+  sections: TPermissionsActionsSchemaType;
+};
+
 export type TPermissionsActionsSchemaType = {
   canCreate: boolean;
   canEdit: boolean;
   canDelete: boolean;
 };
 
-export type TUserSchema = {
+export type TUserSchemaType = {
   _id: string;
   userName: string;
   userCode: number;
@@ -19,7 +28,7 @@ export type TUserSchema = {
   permissions: {
     users: TPermissionsActionsSchemaType;
     subjects: TPermissionsActionsSchemaType;
-    calendar: TPermissionsActionsSchemaType;
+    calendars: TPermissionsActionsSchemaType;
     assignments: TPermissionsActionsSchemaType;
     lectures: TPermissionsActionsSchemaType;
     sections: TPermissionsActionsSchemaType;

@@ -1,15 +1,16 @@
-import type { TSubjectSchemaType } from "../../../../types/schema/SubjectSchemaType";
+import { useEffect } from "react";
+import { useAppDispatch, useAppSelector } from "../../../../hooks/reduxHook";
 import SubjectCard from "./SubjectCard";
+import { getSubjects } from "../../../../store/slices/SubjectSlice";
 
-type TSubjectResponse = TSubjectSchemaType[];
+const Subjects = () => {
+  const { subjects, status } = useAppSelector((state) => state.subject);
+  const dispatch = useAppDispatch();
 
-const Subjects = ({
-  subjects,
-  isLoading,
-}: {
-  subjects: TSubjectResponse;
-  isLoading: boolean;
-}) => {
+  useEffect(() => {
+    if (status == "idle") dispatch(getSubjects());
+  }, [dispatch, status]);
+
   return (
     <>
       <div className="mt-12">
@@ -17,9 +18,9 @@ const Subjects = ({
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-2 lg:gap-4 mt-4">
           {Array.isArray(subjects) &&
-            !isLoading &&
-            subjects.map((e) => <SubjectCard {...e} />)}
-          {isLoading && <div>Loading...</div>}
+            status != "pending" &&
+            subjects.map((e) => <SubjectCard subject={e} />)}
+          {status == "pending" && <div>Loading...</div>}
         </div>
       </div>
     </>

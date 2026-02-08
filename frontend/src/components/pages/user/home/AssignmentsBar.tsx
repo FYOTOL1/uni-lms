@@ -20,7 +20,7 @@ const AssignmentsBar = ({
 
         <div className="flex flex-col gap-3">
           {assignments.slice(0, 6).map((e) => (
-            <AssignmentCard assignment={e} />
+            <AssignmentCard key={e._id} assignment={e} />
           ))}
         </div>
       </div>

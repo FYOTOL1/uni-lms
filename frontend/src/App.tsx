@@ -4,6 +4,7 @@ import LoginPage from "./pages/user/auth/LoginPage";
 import HomePage from "./pages/user/home/HomePage";
 import SubjectPage from "./pages/user/subject/SubjectPage";
 import DashboardPage from "./pages/admin/DashboardPage";
+import SubjectsPage from "./pages/admin/SubjectsPage";
 
 const App = () => {
   const router = createBrowserRouter([
@@ -15,6 +16,10 @@ const App = () => {
     {
       path: "/admin/dashboard",
       element: <DashboardPage />,
+    },
+    {
+      path: "/admin/subjects",
+      element: <SubjectsPage />,
     },
 
     // User

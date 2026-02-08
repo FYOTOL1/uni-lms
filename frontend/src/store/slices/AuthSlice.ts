@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   createAsyncThunk,
   createSlice,
@@ -6,11 +7,20 @@ import {
 import type { TMeRequest } from "../../types/auth/authTypes";
 import axios from "axios";
 import { api } from "../../main";
+import toast from "react-hot-toast";
+import type { TInitialInputsAuthFormValues } from "../../types/form/formTypes";
+import { persistor } from "../store";
+import type { TUserSchemaType } from "../../types/schema/UserSchemaType";
 
 type TAuthState = {
   user: TMeRequest | null;
   status: "idle" | "loading" | "succeeded" | "failed";
-  error: string | null;
+  error: {
+    login: string | null;
+    me: string | null;
+    signup: string | null;
+    logout: string | null;
+  };
 };
 
 export const loginAuth = createAsyncThunk(
@@ -22,24 +32,33 @@ export const loginAuth = createAsyncThunk(
     try {
       const loginReq = await api.post("/auth/login", formData);
       return loginReq.data;
-    } catch (error) {
-      if (axios.isAxiosError(error))
-        return rejectWithValue(error.response?.data.message || "Unauthorized");
-      return rejectWithValue("Something Went Wrong!");
+    } catch (error: any) {
+      return rejectWithValue(error.message);
+    }
+  },
+);
+
+export const signupAuth = createAsyncThunk(
+  "auth/signupAuth",
+  async (formData: TInitialInputsAuthFormValues, { rejectWithValue }) => {
+    try {
+      const signupReq = await api.post("/auth/signup", formData);
+      return signupReq.data;
+    } catch (error: any) {
+      return rejectWithValue(error.message);
     }
   },
 );
 
 export const fetchAuth = createAsyncThunk(
   "auth/fetchAuth",
-  async (_, { rejectWithValue }) => {
+  async (_, { dispatch, rejectWithValue }) => {
     try {
-      const getStudentAuthedData = await api.get("/auth/me");
-      return getStudentAuthedData.data.user;
-    } catch (error) {
-      if (axios.isAxiosError(error))
-        return rejectWithValue(error.response?.data.message || "Unauthorized");
-      return rejectWithValue("Something Went Wrong!");
+      const res = await api.get("/auth/me");
+      return res.data.user;
+    } catch (error: any) {
+      dispatch(logoutAuth());
+      return rejectWithValue(error.message);
     }
   },
 );
@@ -49,13 +68,11 @@ export const logoutAuth = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const logoutReq = await api.post("/auth/logout");
-
+      await persistor.purge();
       return logoutReq;
     } catch (error) {
       if (axios.isAxiosError(error))
-        return rejectWithValue(
-          error.response?.data.message || "something went wrong",
-        );
+        return rejectWithValue(error.message || "something went wrong");
       return rejectWithValue("something went wrong");
     }
   },
@@ -64,7 +81,12 @@ export const logoutAuth = createAsyncThunk(
 const initialState: TAuthState = {
   user: null,
   status: "idle",
-  error: null,
+  error: {
+    login: null,
+    me: null,
+    signup: null,
+    logout: null,
+  },
 };
 
 const authSlice = createSlice({
@@ -77,7 +99,7 @@ const authSlice = createSlice({
     builder
       .addCase(fetchAuth.pending, (state) => {
         state.status = "loading";
-        state.error = null;
+        state.error.me = null;
       })
       .addCase(
         fetchAuth.fulfilled,
@@ -88,37 +110,57 @@ const authSlice = createSlice({
       )
       .addCase(fetchAuth.rejected, (state, action) => {
         state.status = "failed";
-        state.error = action.payload as string;
+        state.error.me = action.payload as string;
+      })
+      // Signup Route
+      .addCase(signupAuth.pending, (state) => {
+        state.status = "loading";
+        state.error.signup = null;
+      })
+      .addCase(signupAuth.fulfilled, (state, { payload }) => {
+        state.status = "succeeded";
+        state.user = payload.user;
+        toast.success(`Welcome Eng.${payload.user.userName}`);
+      })
+      .addCase(signupAuth.rejected, (state, action) => {
+        state.status = "failed";
+        state.error.signup = action.payload as string;
+        toast.error(state.error.signup);
       })
       // Login Route
       .addCase(loginAuth.pending, (state) => {
         state.status = "loading";
-        state.error = null;
+        state.error.me = null;
       })
       .addCase(
         loginAuth.fulfilled,
-        (state, action: PayloadAction<TMeRequest>) => {
-          state.user = action.payload;
+        (
+          state,
+          action: PayloadAction<TMeRequest & { user: TUserSchemaType }>,
+        ) => {
+          state.user = action.payload.user;
           state.status = "succeeded";
+          toast.success("Logged in Successfully");
         },
       )
       .addCase(loginAuth.rejected, (state, action) => {
         state.status = "failed";
-        state.error = action.payload as string;
+        state.error.login = action.payload as string;
+        toast.error(state.error.login);
       })
       // Logout Route
       .addCase(logoutAuth.pending, (state) => {
         state.status = "loading";
-        state.error = null;
+        state.error.logout = null;
       })
       .addCase(logoutAuth.fulfilled, (state) => {
         state.status = "succeeded";
-        state.error = null;
+        state.error.logout = null;
         state.user = null;
       })
       .addCase(logoutAuth.rejected, (state, { payload }) => {
         state.status = "failed";
-        state.error = payload as string;
+        state.error.logout = payload as string;
       });
   },
 });

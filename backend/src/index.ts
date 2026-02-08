@@ -17,11 +17,14 @@ de.config();
 const app = express();
 app.set("Etag", false);
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(
   cors({
     origin: [
       process.env.CLIENT_URI!,
+      "http://localhost:5176",
+      "http://localhost:5175",
       "http://localhost:5174",
       "http://localhost:5173",
     ],

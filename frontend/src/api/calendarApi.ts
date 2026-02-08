@@ -2,13 +2,9 @@
 import { api } from "../main";
 
 const fetchCalendars = async () => {
-  try {
-    const getCalendars = await api.get("/calendars");
+  const getCalendars = await api.get("/calendars");
 
-    return getCalendars.data;
-  } catch (error: any) {
-    console.log(error.message);
-  }
+  return getCalendars.data;
 };
 
 export { fetchCalendars };

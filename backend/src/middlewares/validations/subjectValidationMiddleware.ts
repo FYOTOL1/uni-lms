@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import subjectValidation from "../../validations/subjectValidation";
+import { subjectValidation } from "../../validations/subjectValidation";
 
 const subjectValidationMiddleware = async (
   req: Request,
@@ -7,7 +7,10 @@ const subjectValidationMiddleware = async (
   next: NextFunction,
 ) => {
   try {
-    await subjectValidation.validate(req.body, { abortEarly: false });
+    await subjectValidation.validate(
+      { ...req.body, book: req.file },
+      { abortEarly: false },
+    );
     next();
   } catch (error: any) {
     const errors = error.inner.map((e: any) => ({
@@ -18,4 +21,4 @@ const subjectValidationMiddleware = async (
   }
 };
 
-export default subjectValidationMiddleware;
+export { subjectValidationMiddleware };

@@ -5,11 +5,13 @@ import { useEffect } from "react";
 import toast from "react-hot-toast";
 
 const useFetchSubjects = () => {
-  const { data, isLoading, isSuccess, isFetched, isError, error } = useQuery({
-    queryKey: ["subjects"],
-    queryFn: getAllSubjectsFn,
-    staleTime: import.meta.env.VITE_MODE != "dev" ? 1000 * 60 * 30 : 1000 * 10,
-  });
+  const { data, isLoading, isSuccess, isFetched, isError, error, refetch } =
+    useQuery({
+      queryKey: ["subjects"],
+      queryFn: getAllSubjectsFn,
+      staleTime:
+        import.meta.env.VITE_MODE != "dev" ? 1000 * 60 * 30 : 1000 * 10,
+    });
 
   useEffect(() => {
     if (isFetched && error) {
@@ -17,7 +19,14 @@ const useFetchSubjects = () => {
     }
   }, [error, isFetched]);
 
-  return { subjects: data?.subjects, isSuccess, isLoading, isError, error };
+  return {
+    subjects: data?.subjects,
+    isSuccess,
+    isLoading,
+    isError,
+    error,
+    refetch,
+  };
 };
 
 const useFetchOneSubject = (subjectCode: string) => {

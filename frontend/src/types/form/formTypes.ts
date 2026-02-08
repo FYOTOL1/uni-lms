@@ -8,7 +8,7 @@ export type TInitialInputsAuthFormValues = {
   confirmPassword?: string;
   phoneNumber?: number | null;
   gender?: "male" | "female" | null;
-  year?: "first" | "second" | "third" | "fourth";
+  year?: "first" | "second" | "third" | "fourth" | null;
 };
 
 export type TInitialInputsCalendarFilterForm = {

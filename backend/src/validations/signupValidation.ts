@@ -16,6 +16,7 @@ const signupValidation = yup.object().shape({
     .matches(/^\d+$/, "Phone number must be numeric")
     .required("Phone number is required!"),
   gender: yup.string().oneOf(["male", "female"]),
+  year: yup.string().oneOf(["first", "second", "third", "fourth"]),
 });
 
 export default signupValidation;

@@ -7,9 +7,9 @@ const getAllSubjectsFn = async () => {
 };
 
 const getOneSubjectsFn = async (subjectCode: string) => {
-  const getSubjects = await api.post(`/subjects/${subjectCode}`);
+  const getSubject = await api.post(`/subjects/${subjectCode}`);
 
-  return getSubjects.data;
+  return getSubject.data;
 };
 
 export { getAllSubjectsFn, getOneSubjectsFn };

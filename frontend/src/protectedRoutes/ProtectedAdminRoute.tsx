@@ -14,7 +14,7 @@ const ProtectedAdminRoute = ({
 
   useEffect(() => {
     if (status === "idle") dispatch(fetchAuth());
-  }, [dispatch, status]);
+  }, [dispatch, status, user]);
 
   if (status == "loading")
     return (
@@ -31,7 +31,7 @@ const ProtectedAdminRoute = ({
 
   if (user && user.role === "student") return <Navigate to={"/"} replace />;
 
-  return children(user);
+  return <>{children(user)}</>;
 };
 
 export default ProtectedAdminRoute;

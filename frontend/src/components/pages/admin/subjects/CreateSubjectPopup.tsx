@@ -5,7 +5,10 @@ import FromSelect from "../../user/shared/FormSelect";
 import type { TSubjectSchemaType } from "../../../../types/schema/SubjectSchemaType";
 import CreateSubjectValidation from "../../../../validation/CreateSubjectValidation";
 import { useAppDispatch } from "../../../../hooks/reduxHook";
-import { createSubject } from "../../../../store/slices/SubjectSlice";
+import {
+  createSubject,
+  getSubjects,
+} from "../../../../store/slices/SubjectSlice";
 
 type Props = {
   isActiveCreateSubjectPopup: boolean;
@@ -23,9 +26,12 @@ const CreateSubjectPopup = ({ setIsActiveCreateSubjectPopup }: Props) => {
     subjectName: "",
     subjectCode: "",
     subjectDesc: "",
-    subjectHours: 0,
+    subjectHours: null,
     doctorsNames: [],
-    book: "",
+    book: {
+      url: "",
+      public_id: "",
+    },
     year: "",
     semester: null,
   };
@@ -36,7 +42,6 @@ const CreateSubjectPopup = ({ setIsActiveCreateSubjectPopup }: Props) => {
       validationSchema: CreateSubjectValidation,
       onSubmit: () => {
         const formData = new FormData();
-        console.log(values);
 
         formData.append("subjectName", values.subjectName);
         formData.append("subjectCode", values.subjectCode);
@@ -45,11 +50,13 @@ const CreateSubjectPopup = ({ setIsActiveCreateSubjectPopup }: Props) => {
         values.doctorsNames.forEach((name) => {
           formData.append("doctorsNames[]", name);
         });
-        formData.append("book", values.book!);
-        formData.append("year", values.year);
+        formData.append("book", values.book.url);
         formData.append("semester", values.semester!);
-
-        dispatch(createSubject(formData));
+        formData.append("year", values.year!);
+        dispatch(createSubject(formData)).then(() => {
+          setIsActiveCreateSubjectPopup(false);
+          dispatch(getSubjects());
+        });
       },
     });
 
@@ -243,11 +250,13 @@ const CreateSubjectPopup = ({ setIsActiveCreateSubjectPopup }: Props) => {
             >
               <i className="fa-solid fa-upload" />
               <p>
-                {values.book instanceof File ? values.book.name : "Upload Book"}
+                {values.book.url instanceof File
+                  ? values.book.url.name
+                  : "Upload Book"}
               </p>
             </label>
             <input
-              onChange={(e) => setFieldValue("book", e.target.files?.[0])}
+              onChange={(e) => setFieldValue("book.url", e.target.files?.[0])}
               className="hidden"
               id="book"
               type="file"

@@ -73,7 +73,7 @@ const Subject = () => {
                 <p>Assignments: {subject?.assignments?.length}</p>
               </div>
               <a
-                href={subject?.book as string}
+                href={subject?.book?.url as string}
                 className="flex items-baseline gap-1 underline"
               >
                 <i className="fa-solid fa-download" />

@@ -47,7 +47,9 @@ const InputField = <T extends Record<string, any>>({
           id={String(inputName)}
           placeholder={inputPlaceholder}
           className="w-full h-full border-none outline-none"
-          value={(values[inputName] ?? "") as string | number}
+          value={
+            values[inputName] && ((values[inputName] ?? "") as string | number)
+          }
           onChange={(e) => {
             const value =
               inputType === "number" ? Number(e.target.value) : e.target.value;

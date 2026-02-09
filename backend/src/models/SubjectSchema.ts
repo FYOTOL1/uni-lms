@@ -21,7 +21,10 @@ const Subject = new Schema<TSubjectSchemaType>(
     lectures: { type: [String], default: [] },
     sections: { type: [String], default: [] },
     assignments: [{ type: Types.ObjectId, ref: "Assignment", default: [] }],
-    book: { type: String },
+    book: {
+      url: { type: String, required: true },
+      public_id: { type: String },
+    },
   },
   {
     timestamps: true,

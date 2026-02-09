@@ -1,7 +1,7 @@
 import { api } from "../main";
-import type { TUserSchema } from "../types/schema/UserSchemaType";
+import type { TUserSchemaType } from "../types/schema/UserSchemaType";
 
-const getAllUsersFn = async (): Promise<{ users: TUserSchema[] }> => {
+const getAllUsersFn = async (): Promise<{ users: TUserSchemaType[] }> => {
   const getAllStudentsReq = await api.get("/users");
   return getAllStudentsReq.data;
 };

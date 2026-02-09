@@ -1,23 +1,20 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from "react";
 
-type StringFieldKeys<T> = {
-  [K in keyof T]: T[K] extends string | number ? K : never;
-}[keyof T];
-
-type Props<T> = {
+type Props<T extends Record<string, any>> = {
   setFieldValue: (key: keyof T, value: string | number) => void;
   handleBlur: (e: React.FocusEvent<HTMLInputElement>) => void;
-  setFocusedFieldName: (value: string | null) => void;
-  focusAndUnfocusStyle: (value: keyof T) => void;
+  setFocusedFieldName: (value: keyof T | null) => void;
+  focusAndUnfocusStyle: (value: keyof T) => string;
   values: T;
   inputPlaceholder: string;
   fieldName: string;
   inputType?: "text" | "number" | "email" | "password";
-  inputName: StringFieldKeys<T>;
+  inputName: keyof T;
   iconClass?: string;
 };
 
-const InputField = <T,>({
+const InputField = <T extends Record<string, any>>({
   setFocusedFieldName,
   setFieldValue,
   handleBlur,
@@ -50,20 +47,18 @@ const InputField = <T,>({
           id={String(inputName)}
           placeholder={inputPlaceholder}
           className="w-full h-full border-none outline-none"
-          value={(values[inputName] || "") as string | number}
-          onChange={(e) =>
-            setFieldValue(
-              inputName,
-              inputType === "text" || inputType === "email"
-                ? e.target.value.toLowerCase()
-                : e.target.value,
-            )
-          }
+          value={(values[inputName] ?? "") as string | number}
+          onChange={(e) => {
+            const value =
+              inputType === "number" ? Number(e.target.value) : e.target.value;
+
+            setFieldValue(inputName, value);
+          }}
           onBlur={(e) => {
             handleBlur(e);
             setFocusedFieldName(null);
           }}
-          onFocus={() => setFocusedFieldName(String(inputName))}
+          onFocus={() => setFocusedFieldName(inputName)}
         />
       </div>
     </div>

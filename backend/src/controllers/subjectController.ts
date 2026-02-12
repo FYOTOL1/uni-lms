@@ -2,6 +2,8 @@ import { Request, Response } from "express";
 import SubjectSchema from "../models/SubjectSchema";
 import streamUpload from "../shared/uploadStream";
 import { UploadApiResponse } from "cloudinary";
+import LectureSchema from "../models/LectureSchema";
+import SectionSchema from "../models/SectionSchema";
 
 const getAllSubjects = async (req: Request, res: Response) => {
   try {
@@ -19,14 +21,25 @@ const getOneSubject = async (req: Request, res: Response) => {
   try {
     const subjectCode = req.params.subjectCode;
 
-    const findOneSubject = await SubjectSchema.findOne({ subjectCode });
+    const findOneSubject = await SubjectSchema.findOne({
+      subjectCode,
+    });
 
-    if (findOneSubject)
-      return res
-        .status(200)
-        .json({ message: "Successfully!", subject: findOneSubject });
+    if (findOneSubject) {
+      const lectures = await LectureSchema.find({
+        subject: findOneSubject._id,
+      });
 
-    return res.status(400).json({ message: "Failed" });
+      const sections = await SectionSchema.find({
+        subject: findOneSubject._id,
+      });
+
+      return res.status(200).json({
+        message: "Successfully!",
+        subject: { ...findOneSubject.toObject(), lectures, sections },
+      });
+    }
+    return res.status(404).json({ message: "Failed" });
   } catch (error: any) {
     res
       .status(500)
@@ -113,4 +126,26 @@ const updateSubject = async (req: Request, res: Response) => {
   }
 };
 
-export { postSubject, getAllSubjects, getOneSubject, updateSubject };
+const deleteSubject = async (req: Request, res: Response) => {
+  try {
+    const id = req.params.id;
+
+    const deleteQuery = await SubjectSchema.deleteOne({ _id: id });
+
+    if (!deleteQuery)
+      return res.status(400).json({ message: "Failed To Delete Subject!" });
+
+    return res.status(200).json({ message: "Subject Deleted Successfully!" });
+  } catch (error: any) {
+    console.log(error.message);
+    return res.status(500).json({ message: "Something Went Wrong!" });
+  }
+};
+
+export {
+  postSubject,
+  getAllSubjects,
+  getOneSubject,
+  updateSubject,
+  deleteSubject,
+};

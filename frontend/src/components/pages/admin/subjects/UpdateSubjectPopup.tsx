@@ -92,7 +92,7 @@ const UpdateSubjectPopup = ({
       <div className="w-[550px] p-4 bg-white rounded-md shadow-sm outline outline-gray-200">
         <header className="flex items-center justify-between gap-4 w-full h-6">
           <h1 className="text-lg font-semibold text-gray-800">
-            Create Subject
+            Update Subject
           </h1>
           {/* Exit Button */}
           <button

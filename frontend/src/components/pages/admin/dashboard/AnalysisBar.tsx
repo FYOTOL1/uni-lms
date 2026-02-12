@@ -2,16 +2,16 @@ import type { TMeRequest } from "../../../../types/auth/authTypes";
 import type { TAssignmentSchemaType } from "../../../../types/schema/AssignmentSchemaType";
 import type {
   TCalendarSchemaType,
-  TLectureCalendarType,
   TSectionCalendarType,
 } from "../../../../types/schema/CalendarSchemaType";
+import type { TLectureSchemaType } from "../../../../types/schema/LectureSchemaType";
 import type { TSubjectSchemaType } from "../../../../types/schema/SubjectSchemaType";
 
 type Props = {
   users: TMeRequest[];
   subjects: TSubjectSchemaType[];
   calendars: TCalendarSchemaType[];
-  lectures: TLectureCalendarType[];
+  lectures: TLectureSchemaType[];
   sections: TSectionCalendarType[];
   assignments: TAssignmentSchemaType[];
 };

@@ -19,6 +19,11 @@ const PathsBar = ({ pathsBarIsActive, setPathsBarIsActive }: Props) => {
       icon: "fa-solid fa-book-bookmark",
     },
     {
+      name: "calendars",
+      path: "/admin/calendars",
+      icon: "fa-solid fa-calendar",
+    },
+    {
       name: "lectures",
       path: "/admin/lectures",
       icon: "fa-solid fa-graduation-cap",

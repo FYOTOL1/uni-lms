@@ -5,7 +5,10 @@ import FromSelect from "../../user/shared/FormSelect";
 import type { TSubjectSchemaType } from "../../../../types/schema/SubjectSchemaType";
 import CreateSubjectValidation from "../../../../validation/CreateSubjectValidation";
 import { useAppDispatch } from "../../../../hooks/reduxHook";
-import { createSubject } from "../../../../store/slices/SubjectSlice";
+import {
+  createSubject,
+  getSubjects,
+} from "../../../../store/slices/SubjectSlice";
 
 type Props = {
   isActiveCreateSubjectPopup: boolean;
@@ -36,7 +39,6 @@ const CreateSubjectPopup = ({ setIsActiveCreateSubjectPopup }: Props) => {
       validationSchema: CreateSubjectValidation,
       onSubmit: () => {
         const formData = new FormData();
-        console.log(values);
 
         formData.append("subjectName", values.subjectName);
         formData.append("subjectCode", values.subjectCode);
@@ -49,7 +51,10 @@ const CreateSubjectPopup = ({ setIsActiveCreateSubjectPopup }: Props) => {
         formData.append("year", values.year);
         formData.append("semester", values.semester!);
 
-        dispatch(createSubject(formData));
+        dispatch(createSubject(formData)).then(() => {
+          setIsActiveCreateSubjectPopup(false);
+          dispatch(getSubjects());
+        });
       },
     });
 

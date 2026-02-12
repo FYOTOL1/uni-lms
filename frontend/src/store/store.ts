@@ -1,11 +1,13 @@
-import { configureStore } from "@reduxjs/toolkit";
 import authReducer from "./slices/AuthSlice";
-import subjectReducer from "./slices/SubjectSlice";
 import userReducer from "./slices/UserSlice";
+import subjectReducer from "./slices/SubjectSlice";
+import lectureReducer from "./slices/LectureSlice";
+import sectionReducer from "./slices/SectionSlice";
 
-import { persistReducer } from "redux-persist";
-import persistStore from "redux-persist/es/persistStore";
 import createWebStorage from "redux-persist/es/storage/createWebStorage";
+import persistStore from "redux-persist/es/persistStore";
+import { configureStore } from "@reduxjs/toolkit";
+import { persistReducer } from "redux-persist";
 
 const persistConfig = {
   key: "auth",
@@ -16,12 +18,16 @@ const persistConfig = {
 const persistAuthReducer = persistReducer(persistConfig, authReducer);
 const persistUserReducer = persistReducer(persistConfig, userReducer);
 const persistSubjectReducer = persistReducer(persistConfig, subjectReducer);
+const persistLectureReducer = persistReducer(persistConfig, lectureReducer);
+const persistSectionReducer = persistReducer(persistConfig, sectionReducer);
 
 export const store = configureStore({
   reducer: {
     auth: persistAuthReducer,
     user: persistUserReducer,
     subject: persistSubjectReducer,
+    lecture: persistLectureReducer,
+    section: persistSectionReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

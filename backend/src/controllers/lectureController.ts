@@ -25,17 +25,15 @@ const postLecture = async (req: Request, res: Response) => {
       "lectures",
     )) as UploadApiResponse;
 
-    const fileUrl = uploadFile?.secure_url;
-    const fileType = uploadFile?.format;
+    const attachmentUrl = uploadFile?.secure_url;
 
-    if (!fileUrl)
-      return res.status(400).json({ message: "Failed Upload File!" });
+    if (!attachmentUrl)
+      return res.status(400).json({ message: "Failed To Upload File!" });
 
     const createLecture = await LectureSchema.create({
       lectureName,
       lectureDesc,
-      attachmentUrl: fileUrl,
-      attachmentType: fileType,
+      attachmentUrl,
       subject,
     });
 
@@ -44,11 +42,54 @@ const postLecture = async (req: Request, res: Response) => {
 
     return res
       .status(201)
-      .json({ message: "successfully!", lecture: createLecture });
+      .json({ message: "Created Successfully!", lecture: createLecture });
   } catch (error: any) {
     console.log("LectureControllerFile: " + error.message);
     res.status(500).json({ message: "internal server error!" });
   }
 };
 
-export { getAllLectures, postLecture };
+const updateLecture = async (req: Request, res: Response) => {
+  try {
+    const id = req.params.id;
+    const body = req.body;
+    const file = req.file;
+
+    if (file) {
+      const uploadFile = (await streamUpload(
+        file.buffer,
+        "lectures",
+      )) as UploadApiResponse;
+      body.attachmentUrl = uploadFile.secure_url;
+    }
+
+    const updateLecture = await LectureSchema.findOneAndUpdate(
+      { _id: id },
+      { $set: body },
+      { new: true },
+    );
+
+    return res.status(200).json({ message: "Lecture Updated Successfully" });
+  } catch (error: any) {
+    console.log("LectureControllerFile: " + error.message);
+    res.status(500).json({ message: "internal server error!" });
+  }
+};
+
+const deleteLecture = async (req: Request, res: Response) => {
+  try {
+    const id = req.params.id;
+
+    const deleteLec = await LectureSchema.findOneAndDelete({ _id: id });
+
+    if (deleteLec)
+      return res.status(200).json({ message: "Lecture Deleted Successfully" });
+
+    return res.status(200).json({ message: "Lecture Updated Successfully" });
+  } catch (error: any) {
+    console.log("LectureControllerFile: " + error.message);
+    res.status(500).json({ message: "internal server error!" });
+  }
+};
+
+export { getAllLectures, postLecture, updateLecture, deleteLecture };

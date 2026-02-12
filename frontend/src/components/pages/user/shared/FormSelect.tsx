@@ -4,7 +4,7 @@ import { useState } from "react";
 type Props<T> = {
   setFieldValue: (key: keyof T, value: string) => void;
   values: T;
-  defaultValue: keyof T | "day" | "sort by";
+  defaultValue: keyof T | "day" | "sort by" | "subject";
   choiceList: string[];
   styleWidth?: string;
 };

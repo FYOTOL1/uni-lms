@@ -63,7 +63,20 @@ export const updateSubject = createAsyncThunk(
 
       return subject.data.subject;
     } catch (error: any) {
-      return rejectWithValue(error.message || "Failed To Create Subject!");
+      return rejectWithValue(error.message || "Failed To Update Subject!");
+    }
+  },
+);
+
+export const deleteSubject = createAsyncThunk(
+  "subject/deleteSubject",
+  async (_id: string, { rejectWithValue }) => {
+    try {
+      const subject = await api.delete(`/subjects/${_id}`);
+
+      return subject.data;
+    } catch (error: any) {
+      return rejectWithValue(error.message || "Failed To Delete Subject!");
     }
   },
 );
@@ -153,6 +166,26 @@ const subjectSlice = createSlice({
         },
       )
       .addCase(updateSubject.rejected, (state, action) => {
+        state.status = "failed";
+        state.subject = null;
+        toast.error(action.payload as string);
+        state.error = action.payload as string;
+      })
+      // Delete Subject
+      .addCase(deleteSubject.pending, (state) => {
+        state.status = "pending";
+        state.error = null;
+      })
+      .addCase(
+        deleteSubject.fulfilled,
+        (state, action: PayloadAction<TSubjectSchemaType>) => {
+          state.status = "fulfilled";
+          toast.success("Subject Deleted Successfully!");
+          state.subject = action.payload;
+          state.error = null;
+        },
+      )
+      .addCase(deleteSubject.rejected, (state, action) => {
         state.status = "failed";
         state.subject = null;
         toast.error(action.payload as string);

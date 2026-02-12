@@ -4,7 +4,13 @@ import { TSubjectSchemaType } from "../types/SubjectSchemaTypes";
 const Subject = new Schema<TSubjectSchemaType>(
   {
     subjectName: { type: String, required: true, unique: true },
-    subjectCode: { type: String, trim: true, required: true, unique: true },
+    subjectCode: {
+      type: String,
+      trim: true,
+      uppercase: true,
+      required: true,
+      unique: true,
+    },
     subjectDesc: { type: String, required: true },
     subjectHours: { type: Number, required: true },
     doctorsNames: { type: [String], required: true },
@@ -21,10 +27,7 @@ const Subject = new Schema<TSubjectSchemaType>(
     lectures: { type: [String], default: [] },
     sections: { type: [String], default: [] },
     assignments: [{ type: Types.ObjectId, ref: "Assignment", default: [] }],
-    book: {
-      url: { type: String, required: true },
-      public_id: { type: String },
-    },
+    book: { type: String, required: true },
   },
   {
     timestamps: true,

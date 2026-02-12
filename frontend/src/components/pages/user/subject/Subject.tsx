@@ -2,6 +2,8 @@ import { Link, useNavigate, useParams } from "react-router";
 import { useAppDispatch, useAppSelector } from "../../../../hooks/reduxHook";
 import { useEffect } from "react";
 import { getOneSubject } from "../../../../store/slices/SubjectSlice";
+import type { TLectureSchemaType } from "../../../../types/schema/LectureSchemaType";
+import type { TSectionSchemaType } from "../../../../types/schema/SectionSchemaType";
 
 const Subject = () => {
   const navigate = useNavigate();
@@ -97,18 +99,35 @@ const Subject = () => {
               <h1 className="text-2xl font-semibold text-gray-800">
                 Lectures:
               </h1>
-              <div className="flex items-center justify-between bg-purple-500 py-1 px-2 rounded text-white">
-                <p>Lecture-1</p>
-                <a
-                  href={""}
-                  download={
-                    "https://i.pinimg.com/236x/d9/75/70/d9757033806a5464b0baa40c81eb52da.jpg"
-                  }
-                  className="px-3 py-1 rounded text-gray-100 cursor-pointer underline underline-offset-2 transition-all hover:text-gray-200"
-                >
-                  Material
-                </a>
-              </div>
+              {subject.lectures?.map((e: TLectureSchemaType) => (
+                <div className="flex flex-col gap-4 outline outline-gray-300 shadow-sm p-2 rounded text-black">
+                  <div className="flex items-center gap-2 text-lg capitalize">
+                    <div className="flex items-center justify-center text-white bg-purple-500 size-8 rounded">
+                      <i className="fa-solid fa-graduation-cap" />
+                    </div>
+                    <p>{e.lectureName}</p>
+                  </div>
+
+                  <div className="text-wrap">
+                    <p>{e.lectureDesc} lorem100</p>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-2">
+                    <Link
+                      to={e.attachmentUrl}
+                      className="px-3 py-1 rounded text-gray-800 text-center outline outline-gray-400 cursor-pointer underline-offset-2 transition-all hover:text-gray-500"
+                    >
+                      Visit
+                    </Link>
+                    <Link
+                      to={e.attachmentUrl}
+                      className="px-3 py-1 rounded text-white text-center bg-purple-500 outline outline-gray-400 cursor-pointer underline-offset-2 transition-all hover:text-purple-300"
+                    >
+                      Download
+                    </Link>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
 
@@ -118,18 +137,35 @@ const Subject = () => {
               <h1 className="text-2xl font-semibold text-gray-800">
                 Sections:
               </h1>
-              <div className="flex items-center justify-between bg-purple-500 py-1 px-2 rounded text-white">
-                <p>Section-1</p>
-                <Link
-                  to={
-                    "https://i.pinimg.com/236x/d9/75/70/d9757033806a5464b0baa40c81eb52da.jpg"
-                  }
-                  download
-                  className="px-3 py-1 rounded text-gray-100 cursor-pointer underline underline-offset-2 transition-all hover:text-gray-200"
-                >
-                  Material
-                </Link>
-              </div>
+              {subject.sections?.map((e: TSectionSchemaType) => (
+                <div className="flex flex-col gap-4 outline outline-gray-300 shadow-sm p-2 rounded text-black">
+                  <div className="flex items-center gap-2 text-lg capitalize">
+                    <div className="flex items-center justify-center text-white bg-blue-500 size-8 rounded">
+                      <i className="fa-solid fa-graduation-cap" />
+                    </div>
+                    <p>{e.sectionName}</p>
+                  </div>
+
+                  <div className="text-wrap">
+                    <p>{e.sectionDesc} lorem100</p>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-2">
+                    <Link
+                      to={e.attachmentUrl}
+                      className="px-3 py-1 rounded text-gray-800 text-center outline outline-gray-400 cursor-pointer underline-offset-2 transition-all hover:text-gray-500"
+                    >
+                      Visit
+                    </Link>
+                    <Link
+                      to={e.attachmentUrl}
+                      className="px-3 py-1 rounded text-white text-center bg-blue-500 outline outline-gray-400 cursor-pointer underline-offset-2 transition-all hover:text-purple-300"
+                    >
+                      Download
+                    </Link>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </div>

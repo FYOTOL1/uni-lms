@@ -1,12 +1,11 @@
-import { Types } from "mongoose";
-import { TSubjectSchemaType } from "./SubjectSchemaTypes";
+import type { TSubjectSchemaType } from "./SubjectSchemaType";
 
 export type TSectionSchemaType = {
   _id: string;
   sectionName: string;
   sectionDesc: string;
   attachmentUrl: string;
-  subject: TSubjectSchemaType & Types.ObjectId;
+  subject: TSubjectSchemaType;
   createdAt: Date;
   updatedAt: Date;
 };

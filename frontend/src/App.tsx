@@ -5,6 +5,8 @@ import HomePage from "./pages/user/home/HomePage";
 import SubjectPage from "./pages/user/subject/SubjectPage";
 import DashboardPage from "./pages/admin/DashboardPage";
 import SubjectsPage from "./pages/admin/SubjectsPage";
+import LecturesPage from "./pages/admin/LecturesPage";
+import SectionsPage from "./pages/admin/SectionsPage";
 
 const App = () => {
   const router = createBrowserRouter([
@@ -20,6 +22,14 @@ const App = () => {
     {
       path: "/admin/subjects",
       element: <SubjectsPage />,
+    },
+    {
+      path: "/admin/lectures",
+      element: <LecturesPage />,
+    },
+    {
+      path: "/admin/sections",
+      element: <SectionsPage />,
     },
 
     // User

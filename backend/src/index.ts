@@ -2,10 +2,11 @@ import express from "express";
 
 import updateSchemaRoute from "./routes/updateRoute";
 import calendarRoute from "./routes/calendarRoute";
-import userRoute from "./routes/userRoute";
 import subjectRoute from "./routes/subjectRoute";
 import lectureRoute from "./routes/lectureRoute";
+import sectionRoute from "./routes/sectionRoute";
 import authRoute from "./routes/authRoute";
+import userRoute from "./routes/userRoute";
 
 import cookieParser from "cookie-parser";
 import connectdb from "./connectdb";
@@ -37,6 +38,7 @@ app.use("/auth", authRoute);
 app.use("/users", userRoute);
 app.use("/subjects", subjectRoute);
 app.use("/lectures", lectureRoute);
+app.use("/sections", sectionRoute);
 app.use("/calendars", calendarRoute);
 app.use("/update-schema", updateSchemaRoute);
 

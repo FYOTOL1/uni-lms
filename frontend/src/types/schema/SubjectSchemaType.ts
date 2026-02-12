@@ -1,4 +1,6 @@
 import type { TAssignmentSchemaType } from "./AssignmentSchemaType";
+import type { TLectureSchemaType } from "./LectureSchemaType";
+import type { TSectionSchemaType } from "./SectionSchemaType";
 
 export type TSubjectSchemaType = {
   _id?: string;
@@ -8,8 +10,8 @@ export type TSubjectSchemaType = {
   subjectHours: number;
   doctorsNames: string[];
   assignments?: TAssignmentSchemaType[];
-  lectures?: string[];
-  sections?: string[];
+  lectures?: TLectureSchemaType[];
+  sections?: TSectionSchemaType[];
   book?: string | File;
   year: "first" | "second" | "third" | "fourth" | "";
   semester: "1" | "2" | null;

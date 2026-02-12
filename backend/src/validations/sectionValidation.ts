@@ -1,8 +1,8 @@
 import * as yup from "yup";
 
-const lectureValidation = yup.object().shape({
-  lectureName: yup.string().required("Lecture Name is Required!"),
-  lectureDesc: yup.string().required("Lecture Description is Required!"),
+const sectionValidation = yup.object().shape({
+  sectionName: yup.string().required("Section Name is Required!"),
+  sectionDesc: yup.string().required("Section Description is Required!"),
   subject: yup.string().required("SubjectCode is Required!"),
   file: yup
     .mixed()
@@ -24,4 +24,4 @@ const lectureValidation = yup.object().shape({
     ),
 });
 
-export default lectureValidation;
+export default sectionValidation;

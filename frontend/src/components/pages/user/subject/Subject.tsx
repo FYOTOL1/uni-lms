@@ -109,7 +109,7 @@ const Subject = () => {
                   </div>
 
                   <div className="text-wrap">
-                    <p>{e.lectureDesc} lorem100</p>
+                    <p>{e.lectureDesc}</p>
                   </div>
 
                   <div className="grid grid-cols-2 gap-2">
@@ -147,7 +147,7 @@ const Subject = () => {
                   </div>
 
                   <div className="text-wrap">
-                    <p>{e.sectionDesc} lorem100</p>
+                    <p>{e.sectionDesc}</p>
                   </div>
 
                   <div className="grid grid-cols-2 gap-2">

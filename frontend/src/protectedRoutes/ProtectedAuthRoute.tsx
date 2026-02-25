@@ -13,7 +13,7 @@ const ProtectedAuthRoute = ({ children }: { children: React.ReactNode }) => {
     if (status === "idle") dispatch(fetchAuth());
   }, [dispatch, status]);
 
-  if (status == "loading")
+  if (status == "pending")
     return (
       <div className="relative min-h-screen h-full w-full">
         <div className="absolute h-full w-full bg-black opacity-50 z-20"></div>

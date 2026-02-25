@@ -12,9 +12,10 @@ const editUserValidation = yup.object().shape({
     .min(1, "Min Section Number is 1")
     .max(9, "Max Section Number is 9")
     .required("Student Section is Required!"),
-  email: yup.string().email().required("Email is Required!"),
-  phoneNumber: yup.number().required("Phone Number is Required!"),
+  email: yup.string().email(),
+  phoneNumber: yup.number(),
   gender: yup.string().oneOf(["male", "female"]),
+  role: yup.string().oneOf(['student', "subadmin", "admin"])
 });
 
 export default editUserValidation;

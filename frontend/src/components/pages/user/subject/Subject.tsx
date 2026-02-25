@@ -1,9 +1,10 @@
 import { Link, useNavigate, useParams } from "react-router";
 import { useAppDispatch, useAppSelector } from "../../../../hooks/reduxHook";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { getOneSubject } from "../../../../store/slices/SubjectSlice";
 import type { TLectureSchemaType } from "../../../../types/schema/LectureSchemaType";
 import type { TSectionSchemaType } from "../../../../types/schema/SectionSchemaType";
+import AssignmentCard from "./AssignmentCard";
 
 const Subject = () => {
   const navigate = useNavigate();
@@ -11,6 +12,10 @@ const Subject = () => {
   const subjectCode = useParams().subjectCode;
 
   const { subject, status } = useAppSelector((state) => state.subject);
+
+  const [selectedToRender, setSelectedToRender] = useState<
+    "lectures" | "sections"
+  >("lectures");
 
   useEffect(() => {
     if (subjectCode) dispatch(getOneSubject(subjectCode));
@@ -23,12 +28,85 @@ const Subject = () => {
     return;
   }
 
+  const selectedRender = () => {
+    if (
+      (selectedToRender == "lectures" || selectedToRender != "sections") &&
+      subject.lectures?.length
+    ) {
+      return subject.lectures?.map((e: TLectureSchemaType) => (
+        <div className="flex flex-col gap-4 outline outline-gray-300 shadow-sm p-2 rounded text-black">
+          <div className="flex items-center gap-2 text-lg capitalize">
+            <div className="flex items-center justify-center text-white bg-purple-500 size-8 rounded">
+              <i className="fa-solid fa-graduation-cap" />
+            </div>
+            <p>{e.lectureName}</p>
+          </div>
+
+          <div className="text-wrap">
+            <p>{e.lectureDesc}</p>
+          </div>
+
+          <div className="grid grid-cols-2 gap-2">
+            <Link
+              to={e.attachmentUrl}
+              className="px-3 py-1 rounded text-gray-800 text-center outline outline-gray-400 cursor-pointer underline-offset-2 transition-all hover:text-gray-500"
+            >
+              Visit
+            </Link>
+            <Link
+              to={e.attachmentUrl.replace("/upload/", "/upload/fl_attachment/")}
+              className="px-3 py-1 rounded text-white text-center bg-purple-500 outline outline-gray-400 cursor-pointer underline-offset-2 transition-all hover:text-purple-300"
+            >
+              Download
+            </Link>
+          </div>
+        </div>
+      ));
+    } else if (selectedToRender == "sections" && subject.sections?.length) {
+      return subject.sections?.map((e: TSectionSchemaType) => (
+        <div className="flex flex-col gap-4 outline outline-gray-300 shadow-sm p-2 rounded text-black">
+          <div className="flex items-center gap-2 text-lg capitalize">
+            <div className="flex items-center justify-center text-white bg-purple-500 size-8 rounded">
+              <i className="fa-solid fa-graduation-cap" />
+            </div>
+            <p>{e.sectionName}</p>
+          </div>
+
+          <div className="text-wrap">
+            <p>{e.sectionDesc}</p>
+          </div>
+
+          <div className="grid grid-cols-2 gap-2">
+            <Link
+              to={e.attachmentUrl}
+              className="px-3 py-1 rounded text-gray-800 text-center outline outline-gray-400 cursor-pointer underline-offset-2 transition-all hover:text-gray-500"
+            >
+              Visit
+            </Link>
+            <Link
+              to={e.attachmentUrl.replace("/upload/", "/upload/fl_attachment/")}
+              className="px-3 py-1 rounded text-white text-center bg-purple-500 outline outline-gray-400 cursor-pointer underline-offset-2 transition-all hover:text-purple-300"
+            >
+              Download
+            </Link>
+          </div>
+        </div>
+      ));
+    } else {
+      return (
+        <div className="mx-auto text-2xl py-4 text-gra-800 underline underline-offset-4">
+          <p>Empty</p>
+        </div>
+      );
+    }
+  };
+
   return (
     <>
       <div key={subject._id} className="flex flex-col gap-4 h-full w-full">
         {/* Subject Details */}
         <div>
-          <div className="relative flex flex-col items-center justify-center gap-2 px-2 text-gray-100 bg-purple-600 w-full h-96">
+          <div className="relative flex flex-col items-center justify-center gap-2 px-2 text-gray-100 bg-purple-600 w-full py-10">
             <Link
               className="absolute top-3 left-3 flex items-baseline transition-all gap-1 hover:gap-2"
               to={"/"}
@@ -92,100 +170,46 @@ const Subject = () => {
         </div>
 
         {/* Lectures & Sections Links*/}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-2 px-2">
-          {/* Lectures */}
-          <div className="outline-2 outline-gray-200 rounded shadow-md p-4">
+        <div className="px-2">
+          <div className="rounded shadow-sm outline outline-gray-200 p-4">
+            <header className="w-full">
+              <ul className="flex items-center gap-3">
+                <li
+                  onClick={() => setSelectedToRender("lectures")}
+                  className="font-semibold rounded px-3 py-1 bg-gray-100 outline outline-gray-200 cursor-pointer"
+                >
+                  Lectures
+                </li>
+                <li
+                  onClick={() => setSelectedToRender("sections")}
+                  className="font-semibold rounded px-3 py-1 bg-gray-100 outline outline-gray-200 cursor-pointer"
+                >
+                  Sections
+                </li>
+              </ul>
+            </header>
+            <br />
             <div className="flex flex-col gap-3 w-full">
               <h1 className="text-2xl font-semibold text-gray-800">
-                Lectures:
+                {selectedToRender == "lectures" ? "Lectures:" : "Section:"}
               </h1>
-              {subject.lectures?.map((e: TLectureSchemaType) => (
-                <div className="flex flex-col gap-4 outline outline-gray-300 shadow-sm p-2 rounded text-black">
-                  <div className="flex items-center gap-2 text-lg capitalize">
-                    <div className="flex items-center justify-center text-white bg-purple-500 size-8 rounded">
-                      <i className="fa-solid fa-graduation-cap" />
-                    </div>
-                    <p>{e.lectureName}</p>
-                  </div>
-
-                  <div className="text-wrap">
-                    <p>{e.lectureDesc}</p>
-                  </div>
-
-                  <div className="grid grid-cols-2 gap-2">
-                    <Link
-                      to={e.attachmentUrl}
-                      className="px-3 py-1 rounded text-gray-800 text-center outline outline-gray-400 cursor-pointer underline-offset-2 transition-all hover:text-gray-500"
-                    >
-                      Visit
-                    </Link>
-                    <Link
-                      to={e.attachmentUrl}
-                      className="px-3 py-1 rounded text-white text-center bg-purple-500 outline outline-gray-400 cursor-pointer underline-offset-2 transition-all hover:text-purple-300"
-                    >
-                      Download
-                    </Link>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Sections */}
-          <div className="outline-2 outline-gray-200 rounded shadow-md p-4">
-            <div className="flex flex-col gap-3 w-full">
-              <h1 className="text-2xl font-semibold text-gray-800">
-                Sections:
-              </h1>
-              {subject.sections?.map((e: TSectionSchemaType) => (
-                <div className="flex flex-col gap-4 outline outline-gray-300 shadow-sm p-2 rounded text-black">
-                  <div className="flex items-center gap-2 text-lg capitalize">
-                    <div className="flex items-center justify-center text-white bg-blue-500 size-8 rounded">
-                      <i className="fa-solid fa-graduation-cap" />
-                    </div>
-                    <p>{e.sectionName}</p>
-                  </div>
-
-                  <div className="text-wrap">
-                    <p>{e.sectionDesc}</p>
-                  </div>
-
-                  <div className="grid grid-cols-2 gap-2">
-                    <Link
-                      to={e.attachmentUrl}
-                      className="px-3 py-1 rounded text-gray-800 text-center outline outline-gray-400 cursor-pointer underline-offset-2 transition-all hover:text-gray-500"
-                    >
-                      Visit
-                    </Link>
-                    <Link
-                      to={e.attachmentUrl}
-                      className="px-3 py-1 rounded text-white text-center bg-blue-500 outline outline-gray-400 cursor-pointer underline-offset-2 transition-all hover:text-purple-300"
-                    >
-                      Download
-                    </Link>
-                  </div>
-                </div>
-              ))}
+              {selectedRender()}
             </div>
           </div>
         </div>
 
         {/* Assignments */}
         <div className="px-2 mt-8">
-          <h1 className="text-2xl font-semibold text-gray-800">Assignments:</h1>
+          <div className="flex items-center gap-2">
+            <i className="fa-solid fa-list-check text-xl text-purple-500" />
+            <h1 className="text-2xl font-semibold text-gray-800">
+              Assignments
+            </h1>
+          </div>
           <div className="grid grid-cols-2 gap-2 w-full mt-2">
-            <div className="p-3 w-full bg-white shadow-md rounded">
-              <div className="flex items-center justify-between">
-                {/* Assignment Name */}
-                <div className="flex items-center gap-1 text-lg">
-                  <i className="fa-solid fa-list-check text-purple-600" />
-                  <h1>Assignment-1</h1>
-                </div>
-
-                {/* Assignment Deadline */}
-                <div></div>
-              </div>
-            </div>
+            {subject?.assignments?.map((e) => (
+              <AssignmentCard e={e} />
+            ))}
           </div>
         </div>
       </div>

@@ -7,8 +7,9 @@ export type TAssignmentSchemaType = {
   assignmentTitle: string;
   assignmentDesc: string;
   attachmentUrl: string;
-  attachmentType: "file" | "image";
   deadline: Date;
+  sectionNumber: number;
+  group: "a" | "b" | "c" | "d";
   createdAt: Date;
   updatedAt: Date;
 };

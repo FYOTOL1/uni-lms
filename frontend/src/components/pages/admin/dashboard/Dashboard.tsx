@@ -7,11 +7,14 @@ import type { TMeRequest } from "../../../../types/auth/authTypes";
 import AnalysisBar from "./AnalysisBar";
 import UsersTable from "./UsersTable";
 import { getLectures } from "../../../../store/slices/LectureSlice";
+import { getSections } from "../../../../store/slices/SectionSlice";
+import { getSubjects } from "../../../../store/slices/SubjectSlice";
 
 const Dashboard = ({ user }: { user: TMeRequest }) => {
   const dispatch = useAppDispatch();
 
   const { lectures } = useAppSelector((state) => state.lecture);
+  const { sections } = useAppSelector((state) => state.section);
 
   const { users, refetch } = useFetchUsers();
   const { subjects } = useFetchSubjects();
@@ -19,6 +22,8 @@ const Dashboard = ({ user }: { user: TMeRequest }) => {
 
   useEffect(() => {
     dispatch(getLectures());
+    dispatch(getSubjects());
+    dispatch(getSections());
   }, [dispatch]);
 
   return (
@@ -29,7 +34,7 @@ const Dashboard = ({ user }: { user: TMeRequest }) => {
         users={users || []}
         assignments={[]}
         lectures={lectures || []}
-        sections={[]}
+        sections={sections || []}
       />
       <UsersTable user={user} users={users!} refetch={refetch} />
     </>

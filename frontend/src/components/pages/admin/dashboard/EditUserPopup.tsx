@@ -4,7 +4,7 @@ import { useFormik } from "formik";
 import InputField from "../../user/auth/InputField";
 import FromSelect from "../../user/shared/FormSelect";
 import PermissionsSelect from "./PermissionsSelect";
-import { useAppDispatch } from "../../../../hooks/reduxHook";
+import { useAppDispatch, useAppSelector } from "../../../../hooks/reduxHook";
 import { updateUser } from "../../../../store/slices/UserSlice";
 import editUserValidation from "../../../../validation/EditUserValidation";
 
@@ -18,6 +18,8 @@ type Props = {
 
 const EditUserPopup = ({ user, setSelectedUserToEdit, refetch }: Props) => {
   const dispatch = useAppDispatch();
+  const { status } = useAppSelector((state) => state.user);
+
   const [focusedFieldName, setFocusedFieldName] = useState<string | null>(null);
 
   const { values, handleSubmit, handleBlur, setFieldValue, touched, errors } =
@@ -93,7 +95,7 @@ const EditUserPopup = ({ user, setSelectedUserToEdit, refetch }: Props) => {
             iconClass="fa-solid fa-envelope"
           />
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+          <div className="grid grid-cols-1 items-baseline-last sm:grid-cols-3 gap-2">
             {/* Phone Number  */}
             <InputField
               focusAndUnfocusStyle={focusAndUnfocusStyle}
@@ -120,6 +122,14 @@ const EditUserPopup = ({ user, setSelectedUserToEdit, refetch }: Props) => {
               inputType="number"
               values={values}
               iconClass="fa-solid fa-hashtag"
+            />
+
+            {/* Role */}
+            <FromSelect
+              choiceList={["student", "subadmin", "admin"]}
+              setFieldValue={setFieldValue}
+              values={values}
+              defaultValue={"role"}
             />
           </div>
 
@@ -209,7 +219,7 @@ const EditUserPopup = ({ user, setSelectedUserToEdit, refetch }: Props) => {
             type="submit"
             className="w-full bg-blue-400 text-white rounded py-2 mt-2 cursor-pointer"
           >
-            Submit
+            {status === "pending" ? "Loading..." : "Submit"}
           </button>
         </form>
       </div>

@@ -1,38 +1,10 @@
-import type { TAssignmentSchemaType } from "../../../../types/schema/AssignmentSchemaType";
 import type { TMeRequest } from "../../../../types/auth/authTypes";
 import AssignmentsBar from "./AssignmentsBar";
 import WelcomeMessage from "./WelcomeMessage";
 import Subjects from "./Subjects";
 import Calendar from "./Calendar";
-import type { TSubjectSchemaType } from "../../../../types/schema/SubjectSchemaType";
 
 const Home = ({ user }: { user: TMeRequest }) => {
-  const assignments: TAssignmentSchemaType[] = [
-    {
-      _id: "1245",
-      subject: {
-        _id: "121",
-        subjectName: "mathematics1",
-        subjectCode: "math-1",
-        subjectDesc: "mathematics description",
-        subjectHours: 3,
-        doctorsNames: ["mahmoud", "mohammed"],
-        lectures: [],
-        assignments: [],
-        sections: [],
-        year: "first",
-        semester: "2",
-        book: "",
-      } as TSubjectSchemaType,
-      assignmentTitle: "assignment-1",
-      assignmentDesc:
-        "b cdo this and this and a b cdo this and this and a b cdo this and this and a b cdo this and this and a b cdo this and this and a b cdo this and this and a b cdo this and this and a b cdo this and this and a b cdo this and this and a b c",
-      attachmentUrl:
-        "https://i.pinimg.com/1200x/23/87/ac/2387ac839b319df509d2a9b0c75c52da.jpg",
-      deadline: new Date(),
-    },
-  ];
-
   return (
     <>
       <div className="grid md:grid-cols-1 lg:grid-cols-3 gap-5 w-full max-w-[1440px] mx-auto mt-8 px-2">
@@ -50,7 +22,7 @@ const Home = ({ user }: { user: TMeRequest }) => {
 
         {/* R Assignments Notifications Bar*/}
         <div className="lg:col-span-1">
-          <AssignmentsBar assignments={assignments} />
+          <AssignmentsBar />
         </div>
       </div>
     </>

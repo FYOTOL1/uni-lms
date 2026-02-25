@@ -3,7 +3,6 @@ import { useState } from "react";
 import InputField from "../../components/pages/user/auth/InputField";
 import signupValidationSchema from "./Validation";
 import { Link, useNavigate } from "react-router";
-import type { TInitialInputsAuthFormValues } from "../../types/form/formTypes";
 import Select from "../../components/pages/user/shared/FormSelect";
 import { useAppDispatch, useAppSelector } from "../../hooks/reduxHook";
 import { signupAuth } from "../../store/slices/AuthSlice";
@@ -16,16 +15,13 @@ const SignupForm = () => {
 
   const [focusedFieldName, setFocusedFieldName] = useState<string | null>(null);
 
-  const initialFormValues: TInitialInputsAuthFormValues = {
+  const initialFormValues = {
     userName: "",
     userCode: null,
-    userGroup: "",
-    userSection: null,
-    email: "",
+    group: "",
+    section: null,
     password: "",
     confirmPassword: "",
-    phoneNumber: null,
-    gender: null,
     year: null,
   };
 
@@ -34,10 +30,17 @@ const SignupForm = () => {
       initialValues: initialFormValues,
       validationSchema: signupValidationSchema,
       onSubmit: async () => {
-        if (status != "loading")
-          dispatch(signupAuth(values)).then(
-            () => user && !error.signup && navigate("/"),
-          );
+        if (status != "pending")
+          dispatch(
+            signupAuth({
+              userName: values.userName,
+              userCode: values.userCode,
+              userGroup: values.group,
+              userSection: values.section,
+              password: values.password,
+              year: values.year,
+            }),
+          ).then(() => user && !error.signup && navigate("/"));
       },
     });
 
@@ -56,6 +59,8 @@ const SignupForm = () => {
     }
     return "";
   };
+
+  console.log(values);
 
   return (
     <div className="flex items-center justify-center w-full min-h-screen">
@@ -85,20 +90,6 @@ const SignupForm = () => {
             values={values}
           />
 
-          {/* Email */}
-          <InputField
-            focusAndUnfocusStyle={focusAndUnfocusStyle}
-            setFocusedFieldName={setFocusedFieldName}
-            setFieldValue={setFieldValue}
-            handleBlur={handleBlur}
-            inputPlaceholder="like: ahmed@gmail.com"
-            fieldName="email"
-            inputName="email"
-            inputType="email"
-            values={values}
-            iconClass="fa-solid fa-envelope"
-          />
-
           {/* Password */}
           <InputField
             focusAndUnfocusStyle={focusAndUnfocusStyle}
@@ -113,33 +104,19 @@ const SignupForm = () => {
             iconClass="fa-solid fa-lock"
           />
 
-          {/* Confirm Password */}
-          <InputField
-            focusAndUnfocusStyle={focusAndUnfocusStyle}
-            setFocusedFieldName={setFocusedFieldName}
-            setFieldValue={setFieldValue}
-            handleBlur={handleBlur}
-            inputPlaceholder="like: ahmed_2026"
-            fieldName="confirm password"
-            inputName="confirmPassword"
-            inputType="password"
-            values={values}
-            iconClass="fa-solid fa-unlock"
-          />
-
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-            {/* Phone Number  */}
+            {/* Confirm Password */}
             <InputField
               focusAndUnfocusStyle={focusAndUnfocusStyle}
               setFocusedFieldName={setFocusedFieldName}
               setFieldValue={setFieldValue}
               handleBlur={handleBlur}
-              inputPlaceholder="like: 01012345678"
-              fieldName="phone number"
-              inputName="phoneNumber"
-              inputType="number"
+              inputPlaceholder="like: ahmed_2026"
+              fieldName="confirm password"
+              inputName="confirmPassword"
+              inputType="password"
               values={values}
-              iconClass="fa-solid fa-phone"
+              iconClass="fa-solid fa-unlock"
             />
 
             {/* Student Code*/}
@@ -158,43 +135,19 @@ const SignupForm = () => {
           </div>
 
           {/* Student Group & Section & Submit Button */}
-          <div className="grid grid-cols-1 items-end md:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-2">
-            {/* Student Group*/}
-            <InputField
-              focusAndUnfocusStyle={focusAndUnfocusStyle}
-              setFocusedFieldName={setFocusedFieldName}
-              setFieldValue={setFieldValue}
-              handleBlur={handleBlur}
-              inputPlaceholder="like: a,b,c,d"
-              fieldName="group"
-              inputName="userGroup"
-              inputType="text"
-              values={values}
-              iconClass="fa-solid fa-people-group"
-            />
-
-            {/* Student Section*/}
-            <InputField
-              focusAndUnfocusStyle={focusAndUnfocusStyle}
-              setFocusedFieldName={setFocusedFieldName}
-              setFieldValue={setFieldValue}
-              handleBlur={handleBlur}
-              inputPlaceholder="like: 4"
-              fieldName="section number"
-              inputName="userSection"
-              inputType="number"
-              values={values}
-              iconClass="fa-solid fa-user-group"
-            />
-
-            {/* Gender */}
+          <div className="grid grid-cols-1 items-end md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-2">
             <Select
-              choiceList={["male", "female"]}
+              choiceList={["a", "b", "c", "d"]}
               setFieldValue={setFieldValue}
               values={values}
-              defaultValue={"gender"}
+              defaultValue={"group"}
             />
-
+            <Select
+              choiceList={[1, 2, 3, 4, 5, 6]}
+              setFieldValue={setFieldValue}
+              values={values}
+              defaultValue={"section"}
+            />
             {/* Year */}
             <Select
               choiceList={["first", "second", "third", "fourth"]}
@@ -206,7 +159,7 @@ const SignupForm = () => {
 
           {/* Submit Button */}
           <button className="py-2 text-[16px] bg-purple-600 h-fit mt-auto rounded text-white cursor-pointer transition-all hover:bg-purple-700 focus:bg-purple-700">
-            {status == "loading" ? "Loading..." : "Signup"}
+            {status == "pending" ? "Loading..." : "Signup"}
           </button>
           <hr className="text-gray-300" />
           <div className="flex justify-center w-full gap-2 text-sm">

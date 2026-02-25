@@ -4,8 +4,8 @@ import { useState } from "react";
 type Props<T> = {
   setFieldValue: (key: keyof T, value: string) => void;
   values: T;
-  defaultValue: keyof T | "day" | "sort by" | "subject";
-  choiceList: string[];
+  defaultValue: keyof T | "day" | "sort by" | "subject" | "group" | "section" | string;
+  choiceList: string[] | number[];
   styleWidth?: string;
 };
 
@@ -45,7 +45,7 @@ const FromSelect = <T extends Record<string, any>>({
             <div
               key={e}
               onClick={() => {
-                setFieldValue(defaultValue, e);
+                setFieldValue(defaultValue, e.toString());
                 setIsActiveGenderPopup(false);
               }}
               className="w-full py-1.5 z-30 px-3 capitalize transition-all bg-zinc-50 hover:bg-zinc-200 cursor-pointer "

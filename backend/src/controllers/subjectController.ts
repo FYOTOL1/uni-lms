@@ -4,10 +4,14 @@ import streamUpload from "../shared/uploadStream";
 import { UploadApiResponse } from "cloudinary";
 import LectureSchema from "../models/LectureSchema";
 import SectionSchema from "../models/SectionSchema";
+import AssignmentSchema from "../models/AssignmentSchema";
+import { TSubjectSchemaType } from "../types/SubjectSchemaTypes";
 
 const getAllSubjects = async (req: Request, res: Response) => {
   try {
-    const findSubjects = await SubjectSchema.find();
+    const findSubjects = (await SubjectSchema.find().populate(
+      "assignments",
+    )) as TSubjectSchemaType[];
 
     res.status(200).json({ message: "successfully!", subjects: findSubjects });
   } catch (error: any) {
@@ -34,9 +38,18 @@ const getOneSubject = async (req: Request, res: Response) => {
         subject: findOneSubject._id,
       });
 
+      const assignments = await AssignmentSchema.find({
+        subject: findOneSubject._id,
+      }).populate("subject");
+
       return res.status(200).json({
         message: "Successfully!",
-        subject: { ...findOneSubject.toObject(), lectures, sections },
+        subject: {
+          ...findOneSubject.toObject(),
+          lectures,
+          sections,
+          assignments,
+        },
       });
     }
     return res.status(404).json({ message: "Failed" });

@@ -1,10 +1,8 @@
 import type { TMeRequest } from "../../../../types/auth/authTypes";
 import type { TAssignmentSchemaType } from "../../../../types/schema/AssignmentSchemaType";
-import type {
-  TCalendarSchemaType,
-  TSectionCalendarType,
-} from "../../../../types/schema/CalendarSchemaType";
+import type { TCalendarSchemaType } from "../../../../types/schema/CalendarSchemaType";
 import type { TLectureSchemaType } from "../../../../types/schema/LectureSchemaType";
+import type { TSectionSchemaType } from "../../../../types/schema/SectionSchemaType";
 import type { TSubjectSchemaType } from "../../../../types/schema/SubjectSchemaType";
 
 type Props = {
@@ -12,7 +10,7 @@ type Props = {
   subjects: TSubjectSchemaType[];
   calendars: TCalendarSchemaType[];
   lectures: TLectureSchemaType[];
-  sections: TSectionCalendarType[];
+  sections: TSectionSchemaType[];
   assignments: TAssignmentSchemaType[];
 };
 

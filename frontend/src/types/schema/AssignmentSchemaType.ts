@@ -2,13 +2,15 @@ import type { TSubjectSchemaType } from "./SubjectSchemaType";
 
 type TAssignmentSchemaType = {
   _id: string;
-  subject: TSubjectSchemaType;
   assignmentTitle: string;
   assignmentDesc: string;
-  attachmentUrl?: string;
+  attachmentUrl: string;
+  subject: TSubjectSchemaType;
   deadline: Date;
-  createdAt?: Date;
-  updatedAt?: Date;
+  sectionNumber: 1 | 2 | 3 | 4 | 5 | 6;
+  group: "a" | "b" | "c" | "d";
+  createdAt: Date;
+  updatedAt: Date;
 };
 
 export type { TAssignmentSchemaType };

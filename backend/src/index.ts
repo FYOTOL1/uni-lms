@@ -1,5 +1,6 @@
 import express from "express";
 
+import assignmentRoute from "./routes/assignmentRoute";
 import updateSchemaRoute from "./routes/updateRoute";
 import calendarRoute from "./routes/calendarRoute";
 import subjectRoute from "./routes/subjectRoute";
@@ -40,6 +41,7 @@ app.use("/subjects", subjectRoute);
 app.use("/lectures", lectureRoute);
 app.use("/sections", sectionRoute);
 app.use("/calendars", calendarRoute);
+app.use("/assignments", assignmentRoute);
 app.use("/update-schema", updateSchemaRoute);
 
 app.listen(3000, () => {

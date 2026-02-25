@@ -20,14 +20,13 @@ const User = new Schema<IUserSchema>(
     userSection: { type: Number, required: true },
     email: {
       type: String,
-      required: true,
       lowercase: true,
       trim: true,
       unique: true,
     },
     password: { type: String, required: true },
-    phoneNumber: { type: Number, required: true },
-    gender: { type: String, required: true, enum: ["male", "female"] },
+    phoneNumber: { type: Number },
+    gender: { type: String, enum: ["male", "female"], default: "male" },
     year: {
       type: String,
       enum: ["first", "second", "third", "fourth"],

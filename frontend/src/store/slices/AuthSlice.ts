@@ -8,13 +8,13 @@ import type { TMeRequest } from "../../types/auth/authTypes";
 import axios from "axios";
 import { api } from "../../main";
 import toast from "react-hot-toast";
-import type { TInitialInputsAuthFormValues } from "../../types/form/formTypes";
 import { persistor } from "../store";
 import type { TUserSchemaType } from "../../types/schema/UserSchemaType";
+import type { TInitialInputsAuthFormValues } from "../../types/form/formTypes";
 
 type TAuthState = {
   user: TMeRequest | null;
-  status: "idle" | "loading" | "succeeded" | "failed";
+  status: "idle" | "pending" | "succeeded" | "failed";
   error: {
     login: string | null;
     me: string | null;
@@ -33,7 +33,7 @@ export const loginAuth = createAsyncThunk(
       const loginReq = await api.post("/auth/login", formData);
       return loginReq.data;
     } catch (error: any) {
-      return rejectWithValue(error.message);
+      return rejectWithValue(error.message || "Something Went Wrong!");
     }
   },
 );
@@ -98,7 +98,7 @@ const authSlice = createSlice({
     // Me Route
     builder
       .addCase(fetchAuth.pending, (state) => {
-        state.status = "loading";
+        state.status = "pending";
         state.error.me = null;
       })
       .addCase(
@@ -114,7 +114,7 @@ const authSlice = createSlice({
       })
       // Signup Route
       .addCase(signupAuth.pending, (state) => {
-        state.status = "loading";
+        state.status = "pending";
         state.error.signup = null;
       })
       .addCase(signupAuth.fulfilled, (state, { payload }) => {
@@ -129,7 +129,7 @@ const authSlice = createSlice({
       })
       // Login Route
       .addCase(loginAuth.pending, (state) => {
-        state.status = "loading";
+        state.status = "pending";
         state.error.me = null;
       })
       .addCase(
@@ -150,7 +150,7 @@ const authSlice = createSlice({
       })
       // Logout Route
       .addCase(logoutAuth.pending, (state) => {
-        state.status = "loading";
+        state.status = "pending";
         state.error.logout = null;
       })
       .addCase(logoutAuth.fulfilled, (state) => {

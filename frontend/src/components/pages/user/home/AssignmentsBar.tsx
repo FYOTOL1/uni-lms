@@ -1,11 +1,16 @@
-import type { TAssignmentSchemaType } from "../../../../types/schema/AssignmentSchemaType";
-import AssignmentCard from "./AssignmentCard";
+import { useEffect } from "react";
+import { useAppDispatch, useAppSelector } from "../../../../hooks/reduxHook";
+import HomeAssignmentCard from "./HomeAssignmentCard";
+import { getAssignments } from "../../../../store/slices/AssignmentSlice";
 
-const AssignmentsBar = ({
-  assignments,
-}: {
-  assignments: TAssignmentSchemaType[];
-}) => {
+const AssignmentsBar = () => {
+  const { assignments } = useAppSelector((state) => state.assignment);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(getAssignments());
+  }, [dispatch]);
+
   return (
     <>
       <div className="bg-white outline outline-purple-100 p-3 py-3 rounded">
@@ -19,9 +24,8 @@ const AssignmentsBar = ({
         <hr className="my-3 text-gray-300" />
 
         <div className="flex flex-col gap-3">
-          {assignments.slice(0, 6).map((e) => (
-            <AssignmentCard key={e._id} assignment={e} />
-          ))}
+          {assignments &&
+            assignments.map((e) => <HomeAssignmentCard key={e._id} e={e} />)}
         </div>
       </div>
     </>

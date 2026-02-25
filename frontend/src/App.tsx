@@ -7,6 +7,7 @@ import DashboardPage from "./pages/admin/DashboardPage";
 import SubjectsPage from "./pages/admin/SubjectsPage";
 import LecturesPage from "./pages/admin/LecturesPage";
 import SectionsPage from "./pages/admin/SectionsPage";
+import AssignmentsPage from "./pages/admin/AssignmentsPage";
 
 const App = () => {
   const router = createBrowserRouter([
@@ -30,6 +31,10 @@ const App = () => {
     {
       path: "/admin/sections",
       element: <SectionsPage />,
+    },
+    {
+      path: "/admin/assignments",
+      element: <AssignmentsPage />,
     },
 
     // User

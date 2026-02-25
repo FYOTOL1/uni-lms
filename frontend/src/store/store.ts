@@ -3,6 +3,7 @@ import userReducer from "./slices/UserSlice";
 import subjectReducer from "./slices/SubjectSlice";
 import lectureReducer from "./slices/LectureSlice";
 import sectionReducer from "./slices/SectionSlice";
+import assignmentReducer from "./slices/AssignmentSlice";
 
 import createWebStorage from "redux-persist/es/storage/createWebStorage";
 import persistStore from "redux-persist/es/persistStore";
@@ -20,6 +21,10 @@ const persistUserReducer = persistReducer(persistConfig, userReducer);
 const persistSubjectReducer = persistReducer(persistConfig, subjectReducer);
 const persistLectureReducer = persistReducer(persistConfig, lectureReducer);
 const persistSectionReducer = persistReducer(persistConfig, sectionReducer);
+const persistAssignmentReducer = persistReducer(
+  persistConfig,
+  assignmentReducer,
+);
 
 export const store = configureStore({
   reducer: {
@@ -28,6 +33,7 @@ export const store = configureStore({
     subject: persistSubjectReducer,
     lecture: persistLectureReducer,
     section: persistSectionReducer,
+    assignment: persistAssignmentReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

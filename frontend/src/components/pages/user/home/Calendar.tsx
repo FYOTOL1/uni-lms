@@ -232,7 +232,7 @@ const Calendar = ({ user }: { user: TMeRequest }) => {
           ))
         ) : (
           <div className="py-2 mt-8 text-center font-semibold text-gray-800 ">
-            No Calendars Founded!
+            Not Ready Yet!
           </div>
         )}
       </div>

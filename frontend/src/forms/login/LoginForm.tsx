@@ -92,7 +92,7 @@ const LoginForm = () => {
 
           {/* Submit Button */}
           <button className="py-2 text-[16px] bg-purple-600 h-fit mt-auto rounded text-white cursor-pointer transition-all hover:bg-purple-700 focus:bg-purple-700">
-            {status == "loading" ? "Loading..." : "Login"}
+            {status == "pending" ? "Loading..." : "Login"}
           </button>
           <hr className="text-gray-300" />
           <div className="flex justify-center w-full gap-2 text-sm">

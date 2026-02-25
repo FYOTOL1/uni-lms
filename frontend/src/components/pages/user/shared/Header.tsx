@@ -46,12 +46,6 @@ const Header = ({ user }: { user: TMeRequest }) => {
           <AvatarBar
             avatarDropList={[
               {
-                name: "profile",
-                path: "/profile",
-                icon: "fa-regular fa-user",
-                blackList: [""],
-              },
-              {
                 name: "dashboard",
                 path: "/admin/dashboard",
                 icon: "fa-solid fa-user-tie",

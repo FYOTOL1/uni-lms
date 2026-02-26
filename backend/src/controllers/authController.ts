@@ -97,6 +97,7 @@ const loginUser = async (
         findUser.year,
         findUser.permissions,
       );
+
       const accessToken = accessTokenGenerator(
         findUser._id,
         findUser.userName,
@@ -116,10 +117,11 @@ const loginUser = async (
     }
 
     return res.status(404).json({ message: "User code incorrect!" });
-  } catch (error) {
-    console.log("authControllerFile: " + error);
-
-    return res.status(500).json({ message: "internal server error" });
+  } catch (error: any) {
+    console.log("authControllerFile: " + error.message);
+    return res
+      .status(500)
+      .json({ message: "internal server error", error: error.message });
   }
 };
 

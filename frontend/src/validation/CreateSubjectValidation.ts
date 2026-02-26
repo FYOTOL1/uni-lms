@@ -2,13 +2,19 @@
 import * as yup from "yup";
 
 const CreateSubjectValidation = yup.object().shape({
-  subjectName: yup.string(),
-  subjectCode: yup.string(),
-  subjectDesc: yup.string(),
-  subjectHours: yup.number(),
-  doctorsNames: yup.array().of(yup.string()),
-  year: yup.string().oneOf(["first", "second", "third", "fourth"]),
-  semester: yup.string().oneOf(["1", "2"]),
+  subjectName: yup.string().required("Subject Name is Required!"),
+  subjectCode: yup.string().required("Subject Code is Required!"),
+  subjectDesc: yup.string().required("Subject Description is Required!"),
+  subjectHours: yup.number().required("Subject Hours is Required!"),
+  doctorsNames: yup
+    .array()
+    .of(yup.string())
+    .required("Doctors Names is Required!"),
+  year: yup
+    .string()
+    .oneOf(["first", "second", "third", "fourth"])
+    .required("Year is Required!"),
+  semester: yup.string().oneOf(["1", "2"]).required("Semester is Required!"),
   book: yup
     .mixed()
     .required("Book is Required!")

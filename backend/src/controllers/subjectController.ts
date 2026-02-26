@@ -5,13 +5,14 @@ import { UploadApiResponse } from "cloudinary";
 import LectureSchema from "../models/LectureSchema";
 import SectionSchema from "../models/SectionSchema";
 import AssignmentSchema from "../models/AssignmentSchema";
-import { TSubjectSchemaType } from "../types/SubjectSchemaTypes";
 
 const getAllSubjects = async (req: Request, res: Response) => {
   try {
-    const findSubjects = (await SubjectSchema.find().populate(
-      "assignments",
-    )) as TSubjectSchemaType[];
+    const user = req.user;
+
+    const findSubjects = await SubjectSchema.find(
+      user?.role !== "admin" ? { year: user?.year } : {},
+    ).populate("assignments");
 
     res.status(200).json({ message: "successfully!", subjects: findSubjects });
   } catch (error: any) {

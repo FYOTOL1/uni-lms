@@ -1,15 +1,8 @@
-import { useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "../../../../hooks/reduxHook";
+import { useAppSelector } from "../../../../hooks/reduxHook";
 import HomeAssignmentCard from "./HomeAssignmentCard";
-import { getAssignments } from "../../../../store/slices/AssignmentSlice";
 
 const AssignmentsBar = () => {
-  const { assignments } = useAppSelector((state) => state.assignment);
-  const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    dispatch(getAssignments());
-  }, [dispatch]);
+  const { subjects } = useAppSelector((state) => state.subject);
 
   return (
     <>
@@ -24,8 +17,14 @@ const AssignmentsBar = () => {
         <hr className="my-3 text-gray-300" />
 
         <div className="flex flex-col gap-3">
-          {assignments &&
-            assignments.map((e) => <HomeAssignmentCard key={e._id} e={e} />)}
+          {subjects &&
+            subjects.map(
+              (e) =>
+                e.assignments &&
+                e.assignments.map((a) => (
+                  <HomeAssignmentCard key={a._id} subject={e} assignment={a} />
+                )),
+            )}
         </div>
       </div>
     </>

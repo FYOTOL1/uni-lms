@@ -20,16 +20,15 @@ const CreateSubjectPopup = ({ setIsActiveCreateSubjectPopup }: Props) => {
 
   const [focusedFieldName, setFocusedFieldName] = useState<string | null>(null);
   const [doctorName, setDoctorName] = useState<string>("");
-  // const [bookFileName, setBookFileName] = useState<string>("");
 
   const initialValues: TSubjectSchemaType = {
     subjectName: "",
     subjectCode: "",
     subjectDesc: "",
-    subjectHours: 0,
+    subjectHours: null,
     doctorsNames: [],
     book: "",
-    year: "",
+    year: null,
     semester: null,
   };
 
@@ -48,7 +47,7 @@ const CreateSubjectPopup = ({ setIsActiveCreateSubjectPopup }: Props) => {
           formData.append("doctorsNames[]", name);
         });
         formData.append("book", values.book!);
-        formData.append("year", values.year);
+        formData.append("year", values.year!);
         formData.append("semester", values.semester!);
 
         dispatch(createSubject(formData)).then(() => {
@@ -193,9 +192,9 @@ const CreateSubjectPopup = ({ setIsActiveCreateSubjectPopup }: Props) => {
                     className={`absolute left-2 top-1/2 translate-y-[-45%] text-purple-500 text-sm fa-solid fa-chalkboard-user`}
                   />
                   <input
-                    onChange={(e) =>
-                      setDoctorName(String(e.target.value).toLowerCase())
-                    }
+                    onChange={(e) => {
+                      setDoctorName(String(e.target.value).toLowerCase());
+                    }}
                     id="doctorName"
                     type="text"
                     value={doctorName}
@@ -212,6 +211,7 @@ const CreateSubjectPopup = ({ setIsActiveCreateSubjectPopup }: Props) => {
                       ...values.doctorsNames,
                       doctorName,
                     ]);
+                    setDoctorName("");
                   }
                 }}
                 className="px-4 py-1.5 outline outline-gray-300 rounded-md transition-all cursor-pointer hover:bg-gray-100"

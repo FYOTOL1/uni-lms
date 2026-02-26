@@ -134,7 +134,7 @@ const Subject = () => {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 place-items-center gap-3 px-2 py-2 bg-purple-500 text-white shadow-sm outline-gray-300 w-full">
               <div className="flex items-baseline gap-1">
                 <i className="fa-regular fa-clock" />
-                <p>Doctors Count: {subject?.doctorsNames?.length}</p>
+                <p>Doctors: {subject?.doctorsNames?.length}</p>
               </div>
               <div className="flex items-baseline gap-1">
                 <i className="fa-regular fa-clock" />
@@ -191,7 +191,7 @@ const Subject = () => {
             <br />
             <div className="flex flex-col gap-3 w-full">
               <h1 className="text-2xl font-semibold text-gray-800">
-                {selectedToRender == "lectures" ? "Lectures:" : "Section:"}
+                {selectedToRender == "lectures" ? "Lectures:" : "Sections:"}
               </h1>
               {selectedRender()}
             </div>

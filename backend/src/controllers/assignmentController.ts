@@ -2,10 +2,27 @@ import { Request, Response } from "express";
 import streamUpload from "../shared/uploadStream";
 import { UploadApiResponse } from "cloudinary";
 import AssignmentSchema from "../models/AssignmentSchema";
+import { TAssignmentSchemaType } from "../types/AssignmentSchemaTypes";
+import SubjectSchema from "../models/SubjectSchema";
+import { TSubjectSchemaType } from "../types/SubjectSchemaTypes";
 
 const getAllAssignments = async (req: Request, res: Response) => {
   try {
-    const getAssignments = await AssignmentSchema.find().populate("subject");
+    const user = req.user;
+
+    let getAssignments: TAssignmentSchemaType[];
+
+    if (user?.role !== "admin") {
+      getAssignments = (await AssignmentSchema.find().populate(
+        "subject",
+      )) as TAssignmentSchemaType[];
+      getAssignments = getAssignments?.filter(
+        (f) => f.subject.year == user?.year,
+      );
+    } else {
+      getAssignments = await AssignmentSchema.find().populate("subject");
+    }
+
     return res
       .status(200)
       .json({ message: "successfully!", assignments: getAssignments });
@@ -36,7 +53,18 @@ const postAssignment = async (req: Request, res: Response) => {
     });
 
     if (!createAssignment)
-      return res.status(400).json({ message: "something went wrong!" });
+      return res.status(400).json({ message: "Failed Create Assignment!" });
+
+    const addAssignmentIdToSubject = await SubjectSchema.findOneAndUpdate(
+      { _id: body.subject },
+      {
+        $push: { assignments: createAssignment._id },
+      },
+      { new: true },
+    );
+
+    if (!addAssignmentIdToSubject)
+      return res.status(400).json({ message: "Failed Update Subject!" });
 
     return res.status(201).json({
       message: "Assignment Created Successfully!",

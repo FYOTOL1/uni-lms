@@ -8,8 +8,8 @@ const Subjects = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (status == "idle") dispatch(getSubjects());
-  }, [dispatch, status]);
+    dispatch(getSubjects());
+  }, [dispatch]);
 
   return (
     <>

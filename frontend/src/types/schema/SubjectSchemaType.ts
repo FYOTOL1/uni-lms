@@ -7,13 +7,13 @@ export type TSubjectSchemaType = {
   subjectName: string;
   subjectCode: string;
   subjectDesc: string;
-  subjectHours: number;
+  subjectHours: number | null;
   doctorsNames: string[];
   assignments?: TAssignmentSchemaType[];
   lectures?: TLectureSchemaType[];
   sections?: TSectionSchemaType[];
   book?: string | File;
-  year: "first" | "second" | "third" | "fourth" | "";
+  year: "first" | "second" | "third" | "fourth" | null;
   semester: "1" | "2" | null;
   createdAt?: Date;
   updatedAt?: Date;

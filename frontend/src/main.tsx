@@ -36,11 +36,11 @@ createRoot(document.getElementById("root")!).render(
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
           <Toaster
-            position="top-right" // مكان ظهور الـ toast
+            position="top-left" // مكان ظهور الـ toast
             reverseOrder={false} // false: الأحدث يظهر في الأسفل
             gutter={8} // المسافة بين كل toast
             toastOptions={{
-              duration: 3000, // مدة ظهور الرسالة بالمللي ثانية
+              duration: 2000, // مدة ظهور الرسالة بالمللي ثانية
             }}
           />
           <App />

@@ -29,69 +29,90 @@ const Subject = () => {
   }
 
   const selectedRender = () => {
-    if (
-      (selectedToRender == "lectures" || selectedToRender != "sections") &&
-      subject.lectures?.length
-    ) {
-      return subject.lectures?.map((e: TLectureSchemaType) => (
-        <div className="flex flex-col gap-4 outline outline-gray-300 shadow-sm p-2 rounded text-black">
-          <div className="flex items-center gap-2 text-lg capitalize">
-            <div className="flex items-center justify-center text-white bg-purple-500 size-8 rounded">
-              <i className="fa-solid fa-graduation-cap" />
+    if (selectedToRender != "sections" && subject.lectures?.length) {
+      return (
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {subject.lectures?.map((e: TLectureSchemaType) => (
+            <div className="flex flex-col gap-4 outline outline-gray-300 shadow-sm p-2 rounded text-black">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2 text-lg capitalize">
+                  <div className="flex items-center justify-center text-white bg-purple-500 size-8 rounded">
+                    <i className="fa-solid fa-graduation-cap" />
+                  </div>
+                  <p>{e.lectureName}</p>
+                </div>
+                <div className="flex items-center gap-1.5 px-2 py-1 bg-gray-200 rounded-full text-sm">
+                  <p>{new Date(e.createdAt).toLocaleDateString()}</p>
+                </div>
+              </div>
+
+              <div className="text-wrap">
+                <p>{e.lectureDesc}</p>
+              </div>
+
+              <div className="grid grid-cols-2 gap-2">
+                <Link
+                  to={e.attachmentUrl}
+                  className="px-3 py-1 rounded text-gray-800 text-center outline outline-gray-400 cursor-pointer underline-offset-2 transition-all hover:text-gray-500"
+                >
+                  Visit
+                </Link>
+                <Link
+                  to={e.attachmentUrl.replace(
+                    "/upload/",
+                    "/upload/fl_attachment/",
+                  )}
+                  className="px-3 py-1 rounded text-white text-center bg-purple-500 outline outline-gray-400 cursor-pointer underline-offset-2 transition-all hover:text-purple-300"
+                >
+                  Download
+                </Link>
+              </div>
             </div>
-            <p>{e.lectureName}</p>
-          </div>
-
-          <div className="text-wrap">
-            <p>{e.lectureDesc}</p>
-          </div>
-
-          <div className="grid grid-cols-2 gap-2">
-            <Link
-              to={e.attachmentUrl}
-              className="px-3 py-1 rounded text-gray-800 text-center outline outline-gray-400 cursor-pointer underline-offset-2 transition-all hover:text-gray-500"
-            >
-              Visit
-            </Link>
-            <Link
-              to={e.attachmentUrl.replace("/upload/", "/upload/fl_attachment/")}
-              className="px-3 py-1 rounded text-white text-center bg-purple-500 outline outline-gray-400 cursor-pointer underline-offset-2 transition-all hover:text-purple-300"
-            >
-              Download
-            </Link>
-          </div>
+          ))}
         </div>
-      ));
+      );
     } else if (selectedToRender == "sections" && subject.sections?.length) {
-      return subject.sections?.map((e: TSectionSchemaType) => (
-        <div className="flex flex-col gap-4 outline outline-gray-300 shadow-sm p-2 rounded text-black">
-          <div className="flex items-center gap-2 text-lg capitalize">
-            <div className="flex items-center justify-center text-white bg-purple-500 size-8 rounded">
-              <i className="fa-solid fa-graduation-cap" />
+      return (
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {subject.sections?.map((e: TSectionSchemaType) => (
+            <div className="flex flex-col gap-4 outline outline-gray-300 shadow-sm p-2 rounded text-black">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2 text-lg capitalize">
+                  <div className="flex items-center justify-center text-white bg-blue-500 size-8 rounded">
+                    <i className="fa-solid fa-file-zipper" />
+                  </div>
+                  <p>{e.sectionName}</p>
+                </div>
+                <div className="flex items-center gap-1.5 px-2 py-1 bg-gray-200 rounded-full text-sm">
+                  <p>{new Date(e.createdAt).toLocaleDateString()}</p>
+                </div>
+              </div>
+
+              <div className="text-wrap">
+                <p>{e.sectionDesc}</p>
+              </div>
+
+              <div className="grid grid-cols-2 gap-2">
+                <Link
+                  to={e.attachmentUrl}
+                  className="px-3 py-1 rounded text-gray-800 text-center outline outline-gray-400 cursor-pointer underline-offset-2 transition-all hover:text-gray-400"
+                >
+                  Visit
+                </Link>
+                <Link
+                  to={e.attachmentUrl.replace(
+                    "/upload/",
+                    "/upload/fl_attachment/",
+                  )}
+                  className="px-3 py-1 rounded text-white text-center bg-blue-500 outline outline-gray-400 cursor-pointer underline-offset-2 transition-all hover:text-blue-200"
+                >
+                  Download
+                </Link>
+              </div>
             </div>
-            <p>{e.sectionName}</p>
-          </div>
-
-          <div className="text-wrap">
-            <p>{e.sectionDesc}</p>
-          </div>
-
-          <div className="grid grid-cols-2 gap-2">
-            <Link
-              to={e.attachmentUrl}
-              className="px-3 py-1 rounded text-gray-800 text-center outline outline-gray-400 cursor-pointer underline-offset-2 transition-all hover:text-gray-500"
-            >
-              Visit
-            </Link>
-            <Link
-              to={e.attachmentUrl.replace("/upload/", "/upload/fl_attachment/")}
-              className="px-3 py-1 rounded text-white text-center bg-purple-500 outline outline-gray-400 cursor-pointer underline-offset-2 transition-all hover:text-purple-300"
-            >
-              Download
-            </Link>
-          </div>
+          ))}
         </div>
-      ));
+      );
     } else {
       return (
         <div className="mx-auto text-2xl py-4 text-gra-800 underline underline-offset-4">
@@ -152,13 +173,16 @@ const Subject = () => {
                 <i className="fa-solid fa-list-check" />
                 <p>Assignments: {subject?.assignments?.length}</p>
               </div>
-              <a
-                href={subject?.book as string}
+              <Link
+                to={(subject.book as string).replace(
+                  "/upload/",
+                  "/upload/fl_attachment/",
+                )}
                 className="flex items-baseline gap-1 underline"
               >
                 <i className="fa-solid fa-download" />
                 <p>Book</p>
-              </a>
+              </Link>
             </div>
 
             <hr className="text-purple-400" />
@@ -206,7 +230,7 @@ const Subject = () => {
               Assignments
             </h1>
           </div>
-          <div className="grid grid-cols-2 gap-2 w-full mt-2">
+          <div className="grid md:grid-cols-2 gap-2 w-full mt-2">
             {subject?.assignments?.map((e) => (
               <AssignmentCard e={e} />
             ))}

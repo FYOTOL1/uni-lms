@@ -81,12 +81,12 @@ const deleteSection = async (req: Request, res: Response) => {
   try {
     const id = req.params.id;
 
-    const deleteLec = await SectionSchema.findOneAndDelete({ _id: id });
+    const deleteLec = await SectionSchema.deleteOne({ _id: id });
 
-    if (deleteLec)
-      return res.status(200).json({ message: "Section Deleted Successfully" });
+    if (!deleteLec)
+      return res.status(400).json({ message: "Failed To Delete Section!" });
 
-    return res.status(200).json({ message: "Section Updated Successfully" });
+    return res.status(200).json({ message: "Section Deleted Successfully" });
   } catch (error: any) {
     console.log("SectionControllerFile: " + error.message);
     res.status(500).json({ message: "internal server error!" });

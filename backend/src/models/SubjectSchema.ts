@@ -34,4 +34,13 @@ const Subject = new Schema<TSubjectSchemaType>(
   },
 );
 
+Subject.pre("deleteOne", { document: true, query: false }, async function () {
+  await mongoose.model("Lecture").deleteMany({
+    subject: this._id,
+  });
+  await mongoose.model("Section").deleteMany({
+    subject: this._id,
+  });
+});
+
 export default mongoose.models.Subject || mongoose.model("Subject", Subject);

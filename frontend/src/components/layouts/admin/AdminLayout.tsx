@@ -10,20 +10,18 @@ const AdminLayout = ({
   user: TMeRequest;
   children: ReactNode;
 }) => {
-  const [pathsBarIsActive, setPathsBarIsActive] = useState<boolean>(true);
+  const [pathsBarIsActive, setPathsBarIsActive] = useState<boolean>(false);
 
   return (
-    <div className="relative grid grid-cols-12 gap-4 bg-blue-50 max-w-[1440px] mx-auto  min-h-screen">
+    <div className="relative flex gap-4 bg-blue-50 max-w-[1440px] mx-auto  min-h-screen">
       {/* Left Side Navigation */}
-      <div className={pathsBarIsActive ? "col-span-3" : "col-span-1"}>
-        <PathsBar
-          pathsBarIsActive={pathsBarIsActive}
-          setPathsBarIsActive={setPathsBarIsActive}
-        />
-      </div>
+      <PathsBar
+        pathsBarIsActive={pathsBarIsActive}
+        setPathsBarIsActive={setPathsBarIsActive}
+      />
 
       {/* Right Side Dashboard */}
-      <div className={pathsBarIsActive ? "col-span-9" : "col-span-11"}>
+      <div className={"w-full"}>
         <Header user={user} />
         <div className="mt-6 pe-4">{children}</div>
       </div>

@@ -25,6 +25,7 @@ app.use(
   cors({
     origin: [
       process.env.CLIENT_URI!,
+      "https://sgustudents.vercel.app",
       "http://localhost:5176",
       "http://localhost:5175",
       "http://localhost:5174",

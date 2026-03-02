@@ -26,6 +26,7 @@ const CreateSectionPopup = ({ setIsActiveCreateSectionPopup }: Props) => {
   const dispatch = useAppDispatch();
 
   const { subjects, status } = useAppSelector((state) => state.subject);
+  const sectionSlice = useAppSelector((state) => state.section);
 
   const [focusedFieldName, setFocusedFieldName] = useState<string | null>(null);
 
@@ -50,6 +51,7 @@ const CreateSectionPopup = ({ setIsActiveCreateSectionPopup }: Props) => {
             "subject",
             subjects.filter((f) => f.subjectCode == values.subject)[0]._id!,
           );
+
         formData.append("file", values.file!);
 
         if (status !== "pending")
@@ -155,10 +157,11 @@ const CreateSectionPopup = ({ setIsActiveCreateSectionPopup }: Props) => {
           </div>
 
           <button
+            disabled={sectionSlice.status == "pending"}
             type="submit"
             className="w-full bg-blue-400 text-white rounded py-2 mt-2 cursor-pointer"
           >
-            {status == "pending" ? "Loading..." : "Submit"}
+            {sectionSlice.status == "pending" ? "Loading..." : "Submit"}
           </button>
         </form>
       </div>

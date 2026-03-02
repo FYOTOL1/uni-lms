@@ -4,7 +4,7 @@ import InputField from "../../user/auth/InputField";
 import FromSelect from "../../user/shared/FormSelect";
 import type { TSubjectSchemaType } from "../../../../types/schema/SubjectSchemaType";
 import CreateSubjectValidation from "../../../../validation/CreateSubjectValidation";
-import { useAppDispatch } from "../../../../hooks/reduxHook";
+import { useAppDispatch, useAppSelector } from "../../../../hooks/reduxHook";
 import {
   createSubject,
   getSubjects,
@@ -17,6 +17,8 @@ type Props = {
 
 const CreateSubjectPopup = ({ setIsActiveCreateSubjectPopup }: Props) => {
   const dispatch = useAppDispatch();
+
+  const { status } = useAppSelector((state) => state.subject);
 
   const [focusedFieldName, setFocusedFieldName] = useState<string | null>(null);
   const [doctorName, setDoctorName] = useState<string>("");
@@ -260,10 +262,11 @@ const CreateSubjectPopup = ({ setIsActiveCreateSubjectPopup }: Props) => {
           </div>
 
           <button
+            disabled={status == "pending"}
             type="submit"
             className="w-full bg-blue-400 text-white rounded py-2 mt-2 cursor-pointer"
           >
-            Submit
+            {status == "pending" ? "Loading..." : "Submit"}
           </button>
         </form>
       </div>

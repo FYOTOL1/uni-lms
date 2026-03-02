@@ -43,7 +43,7 @@ const PathsBar = ({ pathsBarIsActive, setPathsBarIsActive }: Props) => {
   return (
     <>
       <div
-        className={`h-screen ${pathsBarIsActive && "px-4"} bg-gray-50 shadow-sm outline-2 outline-zinc-100`}
+        className={`h-screen ${pathsBarIsActive && "absolute left-0 bottom-0 top-0 w-full md:w-1/3 z-30 px-4" } bg-gray-50 shadow-sm outline-2 outline-zinc-100`}
       >
         <header
           className={`flex items-center ${pathsBarIsActive ? "justify-between" : "justify-center"} h-16 w-full`}
@@ -69,7 +69,7 @@ const PathsBar = ({ pathsBarIsActive, setPathsBarIsActive }: Props) => {
 
         {/* Paths */}
         <div
-          className={`flex flex-col mx-auto gap-3 ${pathsBarIsActive ? "w-full" : "w-fit"} mt-8`}
+          className={`flex flex-col mx-auto gap-3 ${pathsBarIsActive ? "w-full" : "w-fit px-1"} mt-8`}
         >
           {pathsList.map((e) => (
             <>

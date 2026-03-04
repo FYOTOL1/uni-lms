@@ -25,7 +25,7 @@ type TCreateLectureTypes = {
 const CreateLecturePopup = ({ setIsActiveCreateLecturePopup }: Props) => {
   const dispatch = useAppDispatch();
 
-  const { subjects } = useAppSelector((state) => state.subject);
+  const { subjects, status } = useAppSelector((state) => state.subject);
 
   const [focusedFieldName, setFocusedFieldName] = useState<string | null>(null);
 
@@ -52,10 +52,11 @@ const CreateLecturePopup = ({ setIsActiveCreateLecturePopup }: Props) => {
           );
         formData.append("file", values.file!);
 
-        dispatch(createLecture(formData)).then(() => {
-          setIsActiveCreateLecturePopup(false);
-          dispatch(getLectures());
-        });
+        if (status !== "pending")
+          dispatch(createLecture(formData)).then(() => {
+            setIsActiveCreateLecturePopup(false);
+            dispatch(getLectures());
+          });
       },
     });
 
@@ -154,10 +155,11 @@ const CreateLecturePopup = ({ setIsActiveCreateLecturePopup }: Props) => {
           </div>
 
           <button
+            disabled={status == "pending"}
             type="submit"
             className="w-full bg-blue-400 text-white rounded py-2 mt-2 cursor-pointer"
           >
-            Submit
+            {status == "pending" ? "Loading..." : "Submit"}
           </button>
         </form>
       </div>

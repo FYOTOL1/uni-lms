@@ -195,18 +195,18 @@ const Subject = () => {
 
         {/* Lectures & Sections Links*/}
         <div className="px-2">
-          <div className="rounded shadow-sm outline outline-gray-200 p-4">
+          <div className="rounded-md shadow-sm bg-white outline outline-gray-200 p-4">
             <header className="w-full">
               <ul className="flex items-center gap-3">
                 <li
                   onClick={() => setSelectedToRender("lectures")}
-                  className="font-semibold rounded px-3 py-1 bg-gray-100 outline outline-gray-200 cursor-pointer"
+                  className={`font-semibold rounded px-3 py-1  ${selectedToRender != "lectures" ? "bg-white" : "bg-purple-200"} outline outline-gray-200 cursor-pointer`}
                 >
                   Lectures
                 </li>
                 <li
                   onClick={() => setSelectedToRender("sections")}
-                  className="font-semibold rounded px-3 py-1 bg-gray-100 outline outline-gray-200 cursor-pointer"
+                  className={`font-semibold rounded px-3 py-1  ${selectedToRender != "sections" ? "bg-white" : "bg-blue-200"} outline outline-gray-200 cursor-pointer`}
                 >
                   Sections
                 </li>
@@ -215,7 +215,17 @@ const Subject = () => {
             <br />
             <div className="flex flex-col gap-3 w-full">
               <h1 className="text-2xl font-semibold text-gray-800">
-                {selectedToRender == "lectures" ? "Lectures:" : "Sections:"}
+                {selectedToRender == "lectures" ? (
+                  <div className="flex items-center gap-1 text-purple-700">
+                    <i className="fa-solid fa-graduation-cap text-xl" />
+                    <h1>Lectures:</h1>
+                  </div>
+                ) : (
+                  <div className="flex items-center gap-1 text-blue-700">
+                    <i className="fa-solid fa-file-zipper text-xl" />
+                    <h1>Sections:</h1>
+                  </div>
+                )}
               </h1>
               {selectedRender()}
             </div>
@@ -223,18 +233,24 @@ const Subject = () => {
         </div>
 
         {/* Assignments */}
-        <div className="px-2 mt-8">
+        <div className="mx-2 p-4 rounded-md shadow-sm bg-white outline outline-gray-200">
           <div className="flex items-center gap-2">
             <i className="fa-solid fa-list-check text-xl text-purple-500" />
             <h1 className="text-2xl font-semibold text-gray-800">
               Assignments
             </h1>
           </div>
-          <div className="grid md:grid-cols-2 gap-2 w-full mt-2">
-            {subject?.assignments?.map((e) => (
-              <AssignmentCard e={e} />
-            ))}
-          </div>
+          {subject?.assignments?.length ? (
+            <div className="grid md:grid-cols-2 gap-2 w-full mt-2">
+              {subject.assignments?.map((e) => (
+                <AssignmentCard e={e} />
+              ))}
+            </div>
+          ) : (
+            <div className="text-center text-xl py-6 text-gray-600 underline underline-offset-4">
+              <p>No Assignments Yet!</p>
+            </div>
+          )}
         </div>
       </div>
     </>

@@ -18,12 +18,14 @@ const AssignmentsBar = () => {
 
         <div className="flex flex-col gap-3">
           {subjects &&
-            subjects.map(
-              (e) =>
-                e.assignments &&
+            subjects.map((e) =>
+              e.assignments?.length ? (
                 e.assignments.map((a) => (
                   <HomeAssignmentCard key={a._id} subject={e} assignment={a} />
-                )),
+                ))
+              ) : (
+                <h1 className="text-center py-2 underline text-gray-500">No Assignments Yet!</h1>
+              ),
             )}
         </div>
       </div>

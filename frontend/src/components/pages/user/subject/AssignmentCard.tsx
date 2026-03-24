@@ -49,7 +49,7 @@ const AssignmentCard = ({ e }: { e: TAssignmentSchemaType }) => {
         <div className="flex flex-col gap-2">
           <div className="flex items-center gap-1">
             <p className="px-3 py-1 rounded-full bg-gray-200 text-xs text-gary-700 font-semibold shadow-sm">
-              {e?.subject.subjectCode}
+              {e?.subject?.subjectCode}
             </p>
             <p className="px-3 py-1 rounded-full bg-purple-200 text-purple-600 text-xs  font-semibold uppercase shadow-sm">
               {e?.group}

@@ -11,7 +11,7 @@ const Subject = () => {
   const dispatch = useAppDispatch();
   const subjectCode = useParams().subjectCode;
 
-  const { subject, status } = useAppSelector((state) => state.subject);
+  const { subject, status } = useAppSelector((state) => state?.subject);
 
   const [selectedToRender, setSelectedToRender] = useState<
     "lectures" | "sections"
@@ -29,36 +29,36 @@ const Subject = () => {
   }
 
   const selectedRender = () => {
-    if (selectedToRender != "sections" && subject.lectures?.length) {
+    if (selectedToRender != "sections" && subject?.lectures?.length) {
       return (
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {subject.lectures?.map((e: TLectureSchemaType) => (
+          {subject?.lectures?.map((e: TLectureSchemaType) => (
             <div className="flex flex-col gap-4 outline outline-gray-300 shadow-sm p-2 rounded text-black">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2 text-lg capitalize">
                   <div className="flex items-center justify-center text-white bg-purple-500 size-8 rounded">
                     <i className="fa-solid fa-graduation-cap" />
                   </div>
-                  <p>{e.lectureName}</p>
+                  <p>{e?.lectureName}</p>
                 </div>
                 <div className="flex items-center gap-1.5 px-2 py-1 bg-gray-200 rounded-full text-sm">
-                  <p>{new Date(e.createdAt).toLocaleDateString()}</p>
+                  <p>{new Date(e?.createdAt)?.toLocaleDateString()}</p>
                 </div>
               </div>
 
               <div className="text-wrap">
-                <p>{e.lectureDesc}</p>
+                <p>{e?.lectureDesc}</p>
               </div>
 
               <div className="grid grid-cols-2 gap-2">
                 <Link
-                  to={e.attachmentUrl}
+                  to={e?.attachmentUrl}
                   className="px-3 py-1 rounded text-gray-800 text-center outline outline-gray-400 cursor-pointer underline-offset-2 transition-all hover:text-gray-500"
                 >
                   Visit
                 </Link>
                 <Link
-                  to={e.attachmentUrl.replace(
+                  to={e?.attachmentUrl.replace(
                     "/upload/",
                     "/upload/fl_attachment/",
                   )}
@@ -71,36 +71,36 @@ const Subject = () => {
           ))}
         </div>
       );
-    } else if (selectedToRender == "sections" && subject.sections?.length) {
+    } else if (selectedToRender == "sections" && subject?.sections?.length) {
       return (
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {subject.sections?.map((e: TSectionSchemaType) => (
+          {subject?.sections?.map((e: TSectionSchemaType) => (
             <div className="flex flex-col gap-4 outline outline-gray-300 shadow-sm p-2 rounded text-black">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2 text-lg capitalize">
                   <div className="flex items-center justify-center text-white bg-blue-500 size-8 rounded">
                     <i className="fa-solid fa-file-zipper" />
                   </div>
-                  <p>{e.sectionName}</p>
+                  <p>{e?.sectionName}</p>
                 </div>
                 <div className="flex items-center gap-1.5 px-2 py-1 bg-gray-200 rounded-full text-sm">
-                  <p>{new Date(e.createdAt).toLocaleDateString()}</p>
+                  <p>{new Date(e?.createdAt).toLocaleDateString()}</p>
                 </div>
               </div>
 
               <div className="text-wrap">
-                <p>{e.sectionDesc}</p>
+                <p>{e?.sectionDesc}</p>
               </div>
 
               <div className="grid grid-cols-2 gap-2">
                 <Link
-                  to={e.attachmentUrl}
+                  to={e?.attachmentUrl}
                   className="px-3 py-1 rounded text-gray-800 text-center outline outline-gray-400 cursor-pointer underline-offset-2 transition-all hover:text-gray-400"
                 >
                   Visit
                 </Link>
                 <Link
-                  to={e.attachmentUrl.replace(
+                  to={e?.attachmentUrl.replace(
                     "/upload/",
                     "/upload/fl_attachment/",
                   )}
@@ -124,7 +124,7 @@ const Subject = () => {
 
   return (
     <>
-      <div key={subject._id} className="flex flex-col gap-4 h-full w-full">
+      <div key={subject?._id} className="flex flex-col gap-4 h-full w-full">
         {/* Subject Details */}
         <div>
           <div className="relative flex flex-col items-center justify-center gap-2 px-2 text-gray-100 bg-purple-600 w-full py-10">
@@ -174,7 +174,7 @@ const Subject = () => {
                 <p>Assignments: {subject?.assignments?.length}</p>
               </div>
               <Link
-                to={(subject.book as string).replace(
+                to={(subject?.book as string).replace(
                   "/upload/",
                   "/upload/fl_attachment/",
                 )}
@@ -242,7 +242,7 @@ const Subject = () => {
           </div>
           {subject?.assignments?.length ? (
             <div className="grid md:grid-cols-2 gap-2 w-full mt-2">
-              {subject.assignments?.map((e) => (
+              {subject?.assignments?.map((e) => (
                 <AssignmentCard e={e} />
               ))}
             </div>

@@ -73,7 +73,7 @@ const HomeAssignmentCard = ({
 
       {/* Description */}
       <p className="text-sm text-gray-800 text-wrap my-2">
-        {assignment.assignmentDesc.slice(0, 64)}
+        {assignment.assignmentDesc?.slice(0, 64)}
       </p>
 
       {/* Dates */}

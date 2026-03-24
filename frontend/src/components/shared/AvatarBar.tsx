@@ -28,7 +28,7 @@ const AvatarBar = ({ user, avatarDropList }: TProps) => {
     if (user?.userName) {
       if (user?.userName?.split(" ").length >= 2) {
         setShortAvatarName(
-          user?.userName?.split(" ")[0] + user?.userName.split(" ")[1],
+          user?.userName?.split(" ")[0] + user?.userName?.split(" ")[1],
         );
       }
 

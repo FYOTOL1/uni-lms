@@ -242,9 +242,10 @@ const Subject = () => {
           </div>
           {subject?.assignments?.length ? (
             <div className="grid md:grid-cols-2 gap-2 w-full mt-2">
-              {subject?.assignments?.map((e) => (
-                <AssignmentCard e={e} />
-              ))}
+              {subject?.assignments?.map((e) => {
+                console.log(e);
+                return <AssignmentCard e={e} />;
+              })}
             </div>
           ) : (
             <div className="text-center text-xl py-6 text-gray-600 underline underline-offset-4">
